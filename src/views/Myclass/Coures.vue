@@ -1,6 +1,10 @@
 <template>
     <div>
-        123
+        <van-nav-bar title="特色课">
+        <template #right>
+                <van-icon name="search" size="18" />
+        </template>
+        </van-nav-bar>
     </div>
 </template>
 
@@ -18,7 +22,9 @@ export default {
 
     },
     methods: {
+        onClickRight(){
 
+        }
     }
 };
 </script>
