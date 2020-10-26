@@ -1,17 +1,20 @@
 <template>
 <div>
-  <router-view></router-view>
+    <Db></Db>
 </div>
 </template>
 
 <script>
+import Db from '@/components/Db';
 export default {
  // 组件名称
  name: '',
  // 组件参数 接收来自父组件的数据
  props: [],
  // 局部注册的组件
- components: {},
+ components: {
+     Db,
+ },
  // 组件状态值
  data () {
  return {}
@@ -58,5 +61,6 @@ export default {
 <!--然而子组件的根节点元素会同时被设置了scoped的父css样式和设置了scoped的子css样式影响，-->
 <!--这么设计的目的是父组件可以对子组件根元素进行布局。-->
 <style scoped>
+
 
 </style>
