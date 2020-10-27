@@ -9,11 +9,7 @@ const routes = [
   {
     path: '/',
     name: 'Login',
-<<<<<<< HEAD
-    component: Login
-=======
     component: Login,
->>>>>>> c96b8dc71a0af11f732b88df74874bec0b868ad2
   },
   {
     path: '/cod',
@@ -22,8 +18,6 @@ const routes = [
       return import('../views/Myclass/Cod.vue')
     }
   },
-<<<<<<< HEAD
-=======
     {path: '/gopass',
       name: 'Gopass',
       component: function () {
@@ -37,7 +31,6 @@ const routes = [
         return import('../views/Pass/Topass.vue')
       }
   },
->>>>>>> c96b8dc71a0af11f732b88df74874bec0b868ad2
   {
     path: '/footer',
     name: 'Footer',

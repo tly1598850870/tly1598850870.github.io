@@ -1,7 +1,3 @@
-<template>
-    <div>
-        123
-    </div>
 <template>   
   <div id="zhx_shopping">
     <div class="zhx_content">
@@ -52,21 +48,6 @@
 </template>
 
 <script>
-export default {
-    data() {
-        return {
-
-        };
-    },
-    created() {
-
-    },
-    mounted() {
-
-    },
-    methods: {
-
-    }
 export default {
   data() {
     return {};
