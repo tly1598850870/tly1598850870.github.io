@@ -143,7 +143,6 @@ export default {
 <!--这么设计的目的是父组件可以对子组件根元素进行布局。-->
 <style scoped lang="scss">
 .xmc_t {
-  width: 3.5rem;
   height: 0.5rem;
   padding: 0.5rem 0.7rem;
 }
