@@ -1,15 +1,10 @@
 <template>
 <div>
-  <div class="envelope">
-    <van-icon name="envelop-o" />
-  </div>
   <router-view></router-view>
-  <Db></Db>
 </div>
 </template>
 
 <script>
-import Db from '@/components/Db';
 export default {
  // 组件名称
  name: '',
@@ -17,7 +12,7 @@ export default {
  props: [],
  // 局部注册的组件
  components: {
-    Db,
+   
  },
  // 组件状态值
  data () {
@@ -65,17 +60,9 @@ export default {
 <!--然而子组件的根节点元素会同时被设置了scoped的父css样式和设置了scoped的子css样式影响，-->
 <!--这么设计的目的是父组件可以对子组件根元素进行布局。-->
 <style scoped lang='scss'>
-.envelope{
-  width: 0.6rem;
-  height: 0.6rem;
-  background: #007AFF;
-  border-radius: 50px;
-  text-align: center;
-  line-height: 0.67rem;
-  color: white;
-  font-size: 0.25rem;
-  position: fixed;
-  right: 20px;
-  bottom: 70px;
+html,body,#app{
+  width: 3.75rem;
+  height: 100%;
 }
+
 </style>

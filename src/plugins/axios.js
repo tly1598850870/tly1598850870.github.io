@@ -14,7 +14,10 @@ let config = {
   // withCredentials: true, // Check cross-site Access-Control
 };
 
-const _axios = axios.create(config);
+const _axios = axios.create({
+  baseURL:'http://120.53.31.103:84',
+  timeout:'5000'
+});
 
 _axios.interceptors.request.use(
   function(config) {

@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '@/views/Login'
+import Footer from '@/views/Footer'
 
 Vue.use(VueRouter)
 
@@ -9,6 +10,7 @@ const routes = [
     path: '/',
     name: 'Login',
     component: Login
+    component: Login,
   },
   {
     path: '/myhome',
@@ -16,6 +18,11 @@ const routes = [
     component: function () {
       return import('../views/Home/Myhome.vue')
     }
+    path: '/gopass',
+      name: 'Gopass',
+      component: function () {
+        return import('../views/Pass/Gopass.vue')
+      }
   },
   {
     path: '/coures',
@@ -23,8 +30,14 @@ const routes = [
     component: function () {
       return import('../views/Myclass/Coures.vue')
     }
+    path: '/topass',
+      name: 'Topass',
+      component: function () {
+        return import('../views/Pass/Topass.vue')
+      }
   },
   {
+<<<<<<< HEAD
     path: '/myask',
     name: 'Myask',
     component: function () {
@@ -102,6 +115,48 @@ const routes = [
     component: function () {
       return import('../views/My/Mywd.vue')
     }
+=======
+    path: '/footer',
+    name: 'Footer',
+    component: Footer,
+    children:[
+      {
+        path: 'myhome',
+        name: 'Myhome',
+        component: function () {
+          return import('../views/Home/Myhome.vue')
+        }
+      },
+      {
+        path: 'coures',
+        name: 'Coures',
+        component: function () {
+          return import('../views/Myclass/Coures.vue')
+        }
+      },
+      {
+        path: 'myask',
+        name: 'Myask',
+        component: function () {
+          return import('../views/Ask/Myask.vue')
+        }
+      },
+      {
+        path: 'Myexercise',
+        name: 'Myexercise',
+        component: function () {
+          return import('../views/Exercise/Myexercise.vue')
+        }
+      },
+      {
+        path: 'mywd',
+        name: 'Mywd',
+        component: function () {
+          return import('../views/My/Mywd.vue')
+        }
+      },
+    ]
+>>>>>>> a49477702fb5a4a6cd9185be23a872a894eb9ccf
   },
 ]
 
