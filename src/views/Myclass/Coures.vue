@@ -163,7 +163,6 @@ export default {
   },
   methods: {
     onConfirm() {
-      this.$refs.item.toggle();
       this.$refs.item1.toggle();
       this.$refs.item2.toggle();
       this.$refs.item3.toggle();
@@ -274,7 +273,6 @@ dl {
   }
 }
 .jbr_topsx {
-  width: 3.75rem;
   width: 3.75rem;
   height: 1rem;
   display: flex;
