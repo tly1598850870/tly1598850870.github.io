@@ -9,7 +9,21 @@ const routes = [
   {
     path: '/',
     name: 'Login',
-    component: Login
+    component: Login,
+  },
+  {
+    path: '/gopass',
+      name: 'Gopass',
+      component: function () {
+        return import('../views/Pass/Gopass.vue')
+      }
+  },
+  {
+    path: '/topass',
+      name: 'Topass',
+      component: function () {
+        return import('../views/Pass/Topass.vue')
+      }
   },
   {
     path: '/footer',
