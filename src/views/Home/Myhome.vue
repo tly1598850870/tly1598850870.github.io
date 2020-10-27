@@ -400,13 +400,11 @@
     </div>
 
     <div class="mat"></div>
-    <Db></Db>
 </div>
   </div>
 </template>
 
 <script>
-import Db from '@/components/Db';
 import axios from "axios";
 export default {
  // 组件名称
@@ -414,9 +412,9 @@ export default {
  // 组件参数 接收来自父组件的数据
  props: [],
  // 局部注册的组件
- components: {
-     Db,
- },
+//  components: {
+//      Db,
+//  },
  // 组件状态值
  data () {
  return {}
@@ -426,13 +424,13 @@ export default {
  // 侦听器
  watch: {},
  // 组件方法
- methods: {},
+ methods: {
+   int(){
+     
+   }
+ },
 }
 </script>
-<style scoped>
-
-
-</style>
 <style lang="scss" scoped>
 .zhx_img_lunbo {
   height: 1.6rem;

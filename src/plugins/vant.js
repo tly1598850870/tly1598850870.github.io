@@ -18,6 +18,8 @@ import {
     Search,
     Tab,
     Tabs,
+    Swipe,
+    SwipeItem,
 } from 'vant';
 import { Field } from 'vant';
 import { Button } from 'vant';
@@ -44,3 +46,5 @@ Vue.use(Sidebar);
 Vue.use(SidebarItem);
 Vue.use(Tab);
 Vue.use(Tabs);
+Vue.use(Swipe);
+Vue.use(SwipeItem);

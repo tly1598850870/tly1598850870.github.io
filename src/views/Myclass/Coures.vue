@@ -226,9 +226,8 @@ header {
   margin-bottom: 52px;
 }
 dl {
-  width: 3.3rem;
   width: 3.45rem;
-  height: 190px;
+  height: 1.9rem;
   border-radius: 5px;
   background: white;
   margin: 15px auto;
