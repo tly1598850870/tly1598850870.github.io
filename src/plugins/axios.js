@@ -21,7 +21,10 @@ const _axios = axios.create({
 
 _axios.interceptors.request.use(
   function(config) {
-    // Do something before request is sent
+    const token = sessionStorage.getItem('token')
+    if(token){
+        config.headers.authorization = token
+    }
     return config;
   },
   function(error) {
