@@ -16,6 +16,8 @@ import {
     Sidebar, 
     SidebarItem,
     Search,
+    Tab,
+    Tabs,
 } from 'vant';
 import { Field } from 'vant';
 import { Button } from 'vant';
@@ -40,3 +42,5 @@ Vue.use(Toast);
 Vue.use(Search);
 Vue.use(Sidebar);
 Vue.use(SidebarItem);
+Vue.use(Tab);
+Vue.use(Tabs);

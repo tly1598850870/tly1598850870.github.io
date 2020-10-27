@@ -26,15 +26,15 @@
           :class="show == true ? 'tly_red' : 'tly_gray'"
           >时间<span v-show="show">
             <span>
-              <img src="http://localhost:8080/down.png" v-show="shows"
+              <img src="@/assets/down.png" v-show="shows"
             /></span>
             <span>
-              <img src="http://localhost:8080/up.png" v-show="showse" /></span
+              <img src="@/assets/up.png" v-show="showse" /></span
           ></span>
         </span>
       </p>
       <div class="tly_imgbox">
-        <img src="http://localhost:8080/back.png" alt="" />
+        <img src="@/assets/back.png" alt="" />
       </div>
     </div>
   </div>
