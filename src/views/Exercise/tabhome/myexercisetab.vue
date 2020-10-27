@@ -50,33 +50,33 @@ export default {
         {
           img: "",
           name: "考点练习",
-          path: "/Myexercise/question",
+          path: "/footer/Myexercise/question",
         },
         {
           img: "",
           name: "套卷练习",
-          path: "/Myexercise/practice",
+          path: "/footer/Myexercise/practice",
         },
         {
           img: "",
           name: "仿真模考",
-          path: "/Myexercise/examination",
+          path: "/footer/Myexercise/examination",
 
         },
         {
           img: "",
           name: "错题练习",
-          path: "/Myexercise/mistakes",
+          path: "/footer/Myexercise/mistakes",
         },
         {
           img: "",
           name: "评测记录",
-          path: "/Myexercise/evaluating",
+          path: "/footer/Myexercise/evaluating",
         },
         {
           img: "",
           name: "习题收藏",
-          path: "/Myexercise/exercises",
+          path: "/footer/Myexercise/exercises",
         },
       ],
     };

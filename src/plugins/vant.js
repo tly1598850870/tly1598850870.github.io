@@ -9,10 +9,10 @@ import {
     Cell,
     CellGroup,
     Switch,
-    Button,
+    // Button,
     Overlay,
-    Field,
-    Toast,
+    // Field,
+    // Toast,
     Sidebar, 
     SidebarItem,
     Search,
@@ -21,7 +21,7 @@ import { Field } from 'vant';
 import { Button } from 'vant';
 import { Toast } from 'vant';
 
-Vue.use(Toast);
+// Vue.use(Toast);
 Vue.use(Button);
 Vue.use(Field);
 Vue.use(Tabbar);
@@ -33,9 +33,9 @@ Vue.use(DropdownItem);
 Vue.use(Cell);
 Vue.use(CellGroup);
 Vue.use(Switch);
-Vue.use(Button);
+// Vue.use(Button);
 Vue.use(Overlay);
-Vue.use(Field);
+// Vue.use(Field);
 Vue.use(Toast);
 Vue.use(Search);
 Vue.use(Sidebar);
