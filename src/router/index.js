@@ -36,7 +36,65 @@ const routes = [
     name: 'Myexercise',
     component: function () {
       return import('../views/Exercise/Myexercise.vue')
-    }
+    },
+    children: [
+      {
+        path: '/Myexercise',
+        name: 'Myexercises',
+        component: function () {
+          return import('../views/Exercise/tabhome/myexercisetab.vue')
+        },
+      },
+      {
+        path: 'testing',
+        name: 'testing',
+        component: function () {
+          return import('../views/Exercise/tablist/testing.vue')
+        },
+      },
+      {
+        path: 'practice',
+        name: 'practice',
+        component: function () {
+          return import('../views/Exercise/tablist/practice.vue')
+        },
+      },
+      {
+        path: 'examination',
+        name: 'examination',
+        component: function () {
+          return import('../views/Exercise/tablist/examination.vue')
+        },
+      },
+      {
+        path: 'mistakes',
+        name: 'mistakes',
+        component: function () {
+          return import('../views/Exercise/tablist/mistakes.vue')
+        },
+      },
+      {
+        path: 'evaluating',
+        name: 'evaluating',
+        component: function () {
+          return import('../views/Exercise/tablist/evaluating.vue')
+        },
+      },
+      {
+        path: 'exercises',
+        name: 'exercises',
+        component: function () {
+          return import('../views/Exercise/tablist/exercises.vue')
+        },
+      },
+      {
+        path: 'question',
+        name: 'question',
+        component: function () {
+          return import('../views/Exercise/tablist/question.vue')
+        },
+      },
+    ]
   },
   {
     path: '/mywd',

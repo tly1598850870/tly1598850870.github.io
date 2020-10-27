@@ -5,8 +5,12 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    thisshowheader:""
   },
   mutations: {
+    changeshow(state,name){
+      state.thisshowheader=name
+    }
   },
   actions: {
   },
