@@ -2,6 +2,7 @@
   <div>
     <div class="envelope">
         <van-icon name="envelop-o" />
+      <van-icon name="envelop-o" />
     </div>
     <router-view></router-view>
     <van-tabbar v-model="active">

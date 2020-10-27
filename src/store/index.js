@@ -12,10 +12,15 @@ export default new vuex.Store({
   // 用来存储变量 所有组件都可以使用
   state: {
     
+    jbrFlag:true,
+    thisshowheader:"",
   },
   // 同步方法
   mutations: {
 
+    changeshow(state,name){
+      state.thisshowheader=name
+    }
   },
   // 异步方法
   actions: {

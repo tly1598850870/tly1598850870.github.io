@@ -9,6 +9,13 @@ import {
     Cell,
     CellGroup,
     Switch,
+    Button,
+    Overlay,
+    Field,
+    Toast,
+    Sidebar, 
+    SidebarItem,
+    Search,
 } from 'vant';
 
 Vue.use(Tabbar);
@@ -20,3 +27,10 @@ Vue.use(DropdownItem);
 Vue.use(Cell);
 Vue.use(CellGroup);
 Vue.use(Switch);
+Vue.use(Button);
+Vue.use(Overlay);
+Vue.use(Field);
+Vue.use(Toast);
+Vue.use(Search);
+Vue.use(Sidebar);
+Vue.use(SidebarItem);
