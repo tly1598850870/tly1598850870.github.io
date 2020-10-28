@@ -23,31 +23,39 @@ const routes = [
     name: 'Gopass',
     component: function () {
       return import('../views/Pass/Gopass.vue')
-    }},{
-    path: '/xinfen',
-    name: 'Xinfen',
-    component: function () {
-      return import('../views/Xinfen.vue')
-    }
-  },
-    {path: '/gopass',
-      name: 'Gopass',
+    }},
+    {
+      path: '/xinfen',
+      name: 'Xinfen',
       component: function () {
-        return import('../views/Pass/Gopass.vue')
+        return import('../views/Xinfen.vue')
       }
-  },
-  {
-    path: '/topass',
-    name: 'Topass',
-    component: function () {
-      return import('../views/Pass/Topass.vue')
-    }
-  },
-  {
-    path: '/footer',
-    name: 'Footer',
-    component: Footer,
-    children: [
+    },
+    {
+      path: '/search',
+      name: 'Search',
+      component: function () {
+        return import('../views/Search.vue')
+      }
+    },
+    {path: '/gopass',
+        name: 'Gopass',
+        component: function () {
+          return import('../views/Pass/Gopass.vue')
+        }
+    },
+    {
+      path: '/topass',
+      name: 'Topass',
+      component: function () {
+        return import('../views/Pass/Topass.vue')
+      }
+    },
+    {
+      path: '/footer',
+      name: 'Footer',
+      component: Footer,
+      children: [
       {
         path: 'myhome',
         name: 'Myhome',
