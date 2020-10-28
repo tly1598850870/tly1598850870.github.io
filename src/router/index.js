@@ -18,6 +18,13 @@ const routes = [
       return import('../views/Myclass/Cod.vue')
     }
   },
+  {
+    path: '/xinfen',
+    name: 'Xinfen',
+    component: function () {
+      return import('../views/Xinfen.vue')
+    }
+  },
     {path: '/gopass',
       name: 'Gopass',
       component: function () {
