@@ -94,7 +94,14 @@ export default {
         type:2
       }).then((res)=>{
         console.log(res)
+        sessionStorage.setItem("token",res.data.data.remember_token)
+        if(res.data.data.isnew==1){
+          this.$router.push("/goPass")
+        }else{
+          this.$router.push("/footer/mywd")
+        }
       })
+
     },
     sendCode() {
     let timer_num = 60;
