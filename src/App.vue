@@ -2,7 +2,8 @@
 <div>
   <router-view></router-view>
   <div class="envelope" @click="jbrShow()">
-    <van-icon name="envelop-o" />
+    <!-- <van-icon name="envelop-o" /> -->
+    <span class="iconfont">&#xe606;</span>
   </div>
 </div>
 </template>
@@ -48,13 +49,16 @@ html,body,#app{
   background: #007AFF;
   border-radius: 50px;
   text-align: center;
-  line-height: 0.67rem;
+  line-height: 0.6rem;
   color: white;
-  font-size: 0.25rem;
   position: fixed;
   right: 20px;
   bottom: 70px;
   z-index: 1000;
+  .iconfont{
+    font-size: 0.23rem;
+    padding-left: 0.02rem;
+  }
 }
 .xx{
   width: 3.75rem;

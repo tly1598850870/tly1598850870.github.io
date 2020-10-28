@@ -3,12 +3,10 @@
     <p id="topls">
       <van-search
         v-model="value"
-        show-action
+        shape="round"
+        background="white"
         placeholder="请输入搜索关键词"
       >
-        <template #action>
-          <div @click="onSearch">搜索</div>
-        </template>
       </van-search>
     </p>
     <div id="tly_bigbox">
@@ -26,7 +24,9 @@
         <div v-for="(item, index) in showlist" :key="index">
           <p class="tly_title">{{ item.name }}</p>
           <div class="tly_titlebox">
-            <span v-show="item.title != ''">{{ item.title }}</span>
+            <span v-show="item.title != ''" @click="tothis(item.title)">{{
+              item.title
+            }}</span>
           </div>
         </div>
       </div>
@@ -36,7 +36,7 @@
 <script>
 import Vue from "vue";
 import { Sidebar, SidebarItem } from "vant";
-import { Search } from 'vant';
+import { Search } from "vant";
 
 Vue.use(Search);
 Vue.use(Sidebar);
@@ -46,7 +46,7 @@ export default {
     return {
       activeKey: -1,
       showlist: [],
-      value:'',
+      value: "",
       alllist: [
         {
           name: "求导题库",
@@ -150,6 +150,9 @@ export default {
       ],
     };
   },
+  mounted() {
+    this.$store.commit("changeleftarrows", true);
+  },
   methods: {
     change(name) {
       this.showlist = [];
@@ -161,9 +164,16 @@ export default {
         }
       });
     },
-    onSearch(){
-        console.log(1111);
-    }
+    onSearch() {
+      console.log(1111);
+    },
+    tothis(title) {
+      window.localStorage.setItem("thisname", title);
+      this.$router.push({
+        path: "/footer/Myexercise/showclass",
+        query: { name: title },
+      });
+    },
   },
 };
 </script>
@@ -173,8 +183,13 @@ export default {
   padding: 0;
 }
 #topls {
-  height: 10vh;
-  
+  height: 8vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .van-search{
+    width: 80%;
+  }
 }
 #tly_bigbox {
   width: 100%;

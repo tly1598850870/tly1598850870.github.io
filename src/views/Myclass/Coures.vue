@@ -66,7 +66,24 @@
     </div>
 
     <div class="cont">
-      <dl @click="jbrXq()">
+      <dl @click="jbrXq()" v-for='(item,key) in newList' :key='key'>
+        <dt>
+          <p>{{item.title}}</p>
+          <van-icon name="clock-o" class="jbr_icon" />
+          <span>03月16日 18:30 ~ 03月22日 15:00 | 共8课时</span>
+          <p class="jbr_lq">
+            <img :src="item.cover_img" alt="" />
+            <span>{{ item.teachers_list[0].teacher_name }}</span>
+          </p>
+        </dt>
+        <dd>
+          <p>
+            <span>{{ item.brows_num }}人已报名</span>
+            <span class="jbr_mf">免费</span>
+          </p>
+        </dd>
+      </dl>
+      <!-- <dl @click="jbrXq()">
         <dt>
           <p>李老师16号到22号地理大课堂开课啦</p>
           <van-icon name="clock-o" class="jbr_icon" />
@@ -133,24 +150,7 @@
             <span class="jbr_mf">免费</span>
           </p>
         </dd>
-      </dl>
-      <dl @click="jbrXq()">
-        <dt>
-          <p>李老师16号到22号地理大课堂开课啦</p>
-          <van-icon name="clock-o" class="jbr_icon" />
-          <span>03月16日 18:30 ~ 03月22日 15:00 | 共8课时</span>
-          <p class="jbr_lq">
-            <img src="@/assets/155.jpg" alt="" />
-            李青
-          </p>
-        </dt>
-        <dd>
-          <p>
-            <span>134人已报名</span>
-            <span class="jbr_mf">免费</span>
-          </p>
-        </dd>
-      </dl>
+      </dl> -->
     </div>
   </div>
 </template>
@@ -179,6 +179,7 @@ export default {
       jbrarr: ["综合排序", "最新", "最热", "价格从低到高", "价格从高到低"],
       jbrnewarr1: ["初一", "初二", "初三", "高一", "高二"],
       jbrnewarr2: ["语文", "数学", "英语", "物理", "化学"],
+      newList:[],
     };
   },
   components: {
@@ -206,9 +207,10 @@ export default {
       this.$refs.item2.toggle();
     },
     async newlist(){
-      let { data } = await this.$Axios.get('/api/app/teacher/mainCourse')
+      let { data } = await this.$Axios.get('/api/app/courseBasis?page=1&limit=10&')
       console.log(data)
-      console.log(data.data)
+      this.newList=data.data.list
+      console.log(this.newList)
     },
     async list() {
       let { data } = await this.$Axios.get("/api/app/myStudy/2");
@@ -216,7 +218,7 @@ export default {
     },
     async fl() {
       let { data } = await this.$Axios.get("/api/app/courseClassify");
-      console.log(data);
+      // console.log(data);
       this.jbrFl = data.data.appCourseType;
       // console.log(this.jbrFl);
     },
