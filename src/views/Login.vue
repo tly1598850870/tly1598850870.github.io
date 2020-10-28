@@ -43,7 +43,6 @@ export default {
   // 计算属性
   computed: {},
   // 侦听器
-  watch: {},
   watch: {
     act(val){
       sessionStorage.setItem('act',JSON.stringify(val))

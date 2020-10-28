@@ -140,8 +140,8 @@ export default {
       jsq:"",
     }
   }, // 计算属性
-  computed: {}, // 侦听器
-  watch: {}, // 组件方法
+  computed: {},
+   // 组件方法
   methods: {
     xxb(){
       this.$router.push("/mycurrency")
