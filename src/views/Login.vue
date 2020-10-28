@@ -73,6 +73,8 @@ export default {
         }).then((res)=>{
           console.log(res)
           sessionStorage.setItem("token",res.data.data.remember_token)
+          sessionStorage.setItem("user",JSON.stringify(res.data.data))
+          this.act=4
           this.$router.push("/footer/mywd")
         })
         
