@@ -141,12 +141,13 @@ router.beforeEach((to, from, next) => {
   console.log(sessionStorage.getItem("token"))
   if (sessionStorage.getItem("token") != null) {
     next()
-  } else {
-    if (from.path == to.path) {
-      next()
-    } else {
-      next('/')
-    }
-  }
+  } 
+  // else {
+  //   if (from.path == to.path) {
+  //     next()
+  //   } else {
+  //     next('/')
+  //   }
+  // }
 })
 export default router
