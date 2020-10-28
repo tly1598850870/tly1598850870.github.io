@@ -38,9 +38,9 @@
             </div>
             <div class="jbrJxtd">
                 <p>教学团队</p>
-                <p class="jbr_lq">
-                <img src="@/assets/155.jpg" alt="" /><br>
-                李青
+                <p class="jbr_lq" @click="lqxq">
+                    <img src="@/assets/155.jpg" alt="" /><br>
+                    李青
                 </p>
             </div>
             <div class="kcjs">
@@ -186,7 +186,7 @@ export default {
             txt2:'课程大纲 ',
             txt3:'课程评论 ',
             isShow:false,
-            scShow:false,
+            scShow:JSON.parse(localStorage.getItem('sc'))||false,
         };
     },
     created() {
@@ -198,8 +198,8 @@ export default {
     },
     methods: {
         async pl(){
-            // let { data } = await this.$Axios.post('/api/app/teacher/comment')
-            // console.log(data)
+            let { data } = await this.$Axios.post('api/app/courseChapter')
+            console.log(data)
         },
         onClickLeft(){
             this.$router.go(-1)
@@ -208,7 +208,11 @@ export default {
             this.show = !this.show
         },
         bm(){
-            this.$toast('请先报名')
+            if(sessionStorage.getItem('token') != null){
+                this.$toast('回放未生成')
+            }else{
+                this.$toast('请先报名')
+            }
         },
         sc(){
             if(sessionStorage.getItem('token') != null){
@@ -219,8 +223,15 @@ export default {
                 }else{
                     this.scShow = true
                     this.$toast('收藏成功')
-                    
                 }
+            }else{
+                this.$router.push('/')
+            }
+            localStorage.setItem('sc',JSON.stringify(this.scShow))
+        },
+        lqxq(){
+            if(sessionStorage.getItem('token') != null){
+                this.$router.push('/teacher')
             }else{
                 this.$router.push('/')
             }
@@ -331,6 +342,9 @@ dl {
         font-size: 0.23rem;
         float: right;
         margin-top: -0.05rem;
+    }
+    .xing:nth-child(3){
+        color: #EB6100;
     }
     span {
       font-size: 0.13rem;

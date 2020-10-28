@@ -19,6 +19,20 @@ const routes = [
     }
   },
   {
+   path: 'showclass',
+   name: 'showclass',
+   component: function () {
+      return import('../views/Exercise/tablist/showclass.vue')
+   },
+  },
+  {
+    path: 'seek',
+    name: 'seek',
+    component: function () {
+    return import('../views/Exercise/tablist/seek.vue')
+    },
+  },
+  {
     path: '/gopass',
     name: 'Gopass',
     component: function () {
@@ -36,6 +50,20 @@ const routes = [
       name: 'Search',
       component: function () {
         return import('../views/Search.vue')
+      }
+    },
+    {
+      path: '/search',
+      name: 'Search',
+      component: function () {
+        return import('../views/Search.vue')
+      }
+    },
+    {
+      path: '/teacher',
+      name: 'Teacher',
+      component: function () {
+        return import('../views/Myclass/Teacher.vue')
       }
     },
     {path: '/gopass',
