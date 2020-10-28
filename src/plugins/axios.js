@@ -16,6 +16,7 @@ let config = {
 
 const _axios = axios.create({
   baseURL:'http://120.53.31.103:84',
+  // baseURL:'https://www.365msmk.com',
   timeout:'5000'
 });
 

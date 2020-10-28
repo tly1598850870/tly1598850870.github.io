@@ -22,12 +22,12 @@
                 <p>我的特色课</p>
                 <span>已购特色课程的学习</span>
               </li>
-              <li>
+              <li @click="ydy">
                 <h3>0</h3>
                 <p>一对一辅导</p>
                 <span>我的一对一老师辅导</span>
               </li>
-              <li>
+              <li @click="xxb">
                 <h3>0.00</h3>
                 <p>剩余学习币</p>
                 <span>查看剩余学习币</span>
@@ -56,11 +56,11 @@
           <p class="menu-title">课程相关</p>
           <div class="menu-box">
             <div>
-              <van-icon name="point-gift" />
+              <span class="iconfont van-icon icn">&#xe608;</span>
               <p>关注的老师</p>
             </div>
             <div>
-              <van-icon name="point-gift" />
+              <span class="iconfont van-icon icn">&#xe611;</span>
               <p>我的收藏</p>
             </div>
           </div>
@@ -69,15 +69,15 @@
           <p class="menu-title">订单相关</p>
           <div class="menu-box">
             <div>
-              <van-icon name="point-gift" />
+              <span class="iconfont van-icon ion" @click="qbdd(1)">&#xe614;</span>
               <p>课程订单</p>
             </div>
             <div>
-              <van-icon name="point-gift" />
+              <span class="iconfont van-icon ion" @click="qbdd(2)">&#xe614;</span>
               <p>会员订单</p>
             </div>
             <div>
-              <van-icon name="point-gift" />
+              <span class="iconfont van-icon ion" @click="qbdd(3)">&#xe614;</span>
               <p>约课订单</p>
             </div>
           </div>
@@ -86,15 +86,15 @@
           <p class="menu-title">我的账户</p>
           <div class="menu-box">
             <div>
-              <van-icon name="point-gift" />
+              <span class="iconfont van-icon iin" @click="yh">&#xe631;</span>
               <p>优惠卷</p>
             </div>
             <div>
-              <van-icon name="point-gift" />
+              <span class="iconfont van-icon iin">&#xe60a;</span>
               <p>学习卡</p>
             </div>
             <div>
-              <van-icon name="point-gift" />
+              <span class="iconfont van-icon iin">&#xe607;</span>
               <p>会员</p>
             </div>
           </div>
@@ -103,19 +103,19 @@
           <p class="menu-title">自助服务</p>
           <div class="menu-box">
             <div>
-              <van-icon name="point-gift" />
+              <span class="iconfont van-icon inn">&#xe641;</span>
               <p>我的消息</p>
             </div>
             <div>
-              <van-icon name="point-gift" />
+              <span class="iconfont van-icon inn">&#xe606;</span>
               <p>意见反馈</p>
             </div>
             <div>
-              <van-icon name="point-gift" />
+              <span class="iconfont van-icon inn">&#xe71b;</span>
               <p>在线客服</p>
             </div>
             <div>
-              <van-icon name="setting-o" />
+              <van-icon name="setting-o inn" />
               <p>设置</p>
             </div>
           </div>
@@ -137,12 +137,28 @@ export default {
     return {
       flag: false,
       list: JSON.parse(sessionStorage.getItem("user")),
+      jsq:"",
     }
   }, // 计算属性
   computed: {}, // 侦听器
   watch: {}, // 组件方法
   methods: {
-    
+    xxb(){
+      this.$router.push("/mycurrency")
+    },
+    ydy(){
+      this.$router.push("/footer/myask")
+    },
+    qbdd(a){
+      this.jsq=a
+      this.$router.push({
+        name:"Order",
+        params:{v:this.jsq}
+      })
+    },
+    yh(){
+      this.$router.push("/coupon")
+    }
   },
   /**
    * 组件实例创建完成，属性已绑定，但DOM还未生成，$ el属性还不存在
@@ -280,6 +296,7 @@ export default {
   padding: 0 0.15rem;
   box-sizing: border-box;
   li {
+    border-bottom: 1px solid rgb(240, 239, 239);
     padding: 0.2rem 0;
     box-sizing: border-box;
     .menu-title {
@@ -310,5 +327,17 @@ export default {
 }
 .lit{
   margin-bottom: 0.5rem;
+}
+.icn{
+  color: #ff944b;
+}
+.ion{
+  color: #fc5500;
+}
+.iin{
+  color: #ffaf00;
+}
+.inn{
+  color: #ff9a2a;
 }
 </style>
