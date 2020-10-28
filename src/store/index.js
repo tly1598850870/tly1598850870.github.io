@@ -14,13 +14,21 @@ export default new vuex.Store({
   state: {
     jbrFlag:true,
     thisshowheader:"",
+    leftarrows:false,
+    contentarrows:false
   },
   // 同步方法
   mutations: {
     changeshow(state,name){
       state.thisshowheader=name
+    },
+    changeleftarrows(state,name){
+      state.leftarrows=name
+    },
+    changecontentarrows(state,name){
+      state.contentarrows=name
     }
-  },
+      },
   // 异步方法
   actions: {
     
