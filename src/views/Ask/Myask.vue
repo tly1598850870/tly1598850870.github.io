@@ -66,7 +66,6 @@ export default {
   line-height: 0.5rem;
   color: #898989;
   font-size: 0.2rem;
-  border-bottom: 1px solid gray;
 }
 .zhx_dsktitle {
   width: 100%;
@@ -82,20 +81,20 @@ export default {
 
 .zhx_registration {
   width: 1rem;
-  height: 0.4rem;
+  height: 0.33rem;
   background: #eb6100;
   margin-left: 1.4rem;
   margin-top: 0.2rem;
   color: white;
   text-align: center;
-  line-height: 0.4rem;
+  line-height: 0.33rem;
   font-size: 0.14rem;
 }
 .zhx_sxlh6 {
   text-align: center;
-  font-size: 0.18rem;
+  font-size: 0.14rem;
   margin-top: 0.1rem;
-  color: gray;
+  color: #B7B7B7;
   /* font-weight: 800; */
 }
 </style>

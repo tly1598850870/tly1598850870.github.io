@@ -25,7 +25,14 @@ const routes = [
       return import('../views/Xinfen.vue')
     }
   },
-    {path: '/gopass',
+  {
+    path: '/search',
+    name: 'Search',
+    component: function () {
+      return import('../views/Search.vue')
+    }
+  },
+  {path: '/gopass',
       name: 'Gopass',
       component: function () {
         return import('../views/Pass/Gopass.vue')

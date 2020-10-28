@@ -4,7 +4,7 @@
       <header>
         <van-nav-bar title="特色课">
           <template #right>
-            <van-icon name="search" size="18" />
+            <van-icon name="search" size="18" @click="search()" />
           </template>
         </van-nav-bar>
         <van-dropdown-menu>
@@ -134,6 +134,7 @@
 import Xq from "./Cod";
 import $ from "jquery";
 // import { jbrKc } from '@/utils/api'
+import { Search } from 'vant';
 export default {
   data() {
     return {
@@ -199,6 +200,9 @@ export default {
     jbrXq() {
       this.$router.push("/cod");
     },
+    search(){
+      this.$router.push('/search')
+    }
   },
 };
 </script>
