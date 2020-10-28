@@ -138,6 +138,9 @@ const router = new VueRouter({
 })
 router.beforeEach((to, from, next) => {
   // console.log(from.path)
+  if(from="/"||"login"||"goPass"||"toPass"){
+    next()
+  }
   console.log(sessionStorage.getItem("token"))
   if (sessionStorage.getItem("token") != null) {
     next()
