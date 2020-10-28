@@ -26,7 +26,7 @@ export default {
   // 组件状态值
   data() {
     return {
-        active: JSON.parse(sessionStorage.getItem('act')||0,)
+        active: JSON.parse(sessionStorage.getItem('act'))||0
     };
   },
   // 计算属性

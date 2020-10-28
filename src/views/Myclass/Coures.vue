@@ -282,6 +282,7 @@ dl {
     width: 3.75rem;
     height: 0.5rem;
     display: flex;
+    justify-content: space-around;
     p {
       width: 0.69rem;
       height: 0.33rem;

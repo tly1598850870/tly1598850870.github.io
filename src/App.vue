@@ -4,7 +4,7 @@
   <div class="envelope" @click="jbrShow()">
     <van-icon name="envelop-o" />
   </div>
-  <div class="xx" v-show="show">
+  <!-- <div class="xx" v-show="show">
     <header>
       <p>给我们留言</p>
       <p class="hide" @click="jbrHide()">﹀</p>
@@ -31,7 +31,7 @@
       <van-button type="info" @click="jbrHide()">关闭</van-button><br>
       <u @click="jbHide()">再次留言</u>
     </div>
-  </div>
+  </div> -->
 </div>
 </template>
 
@@ -55,33 +55,34 @@ export default {
   }
  },
  methods: {
-  tj(){
-    if(this.value == ''){
-      this.$toast('请至少填写一项联系方式');
-    }else if(this.message == ''){
-      this.$toast('请保持留言内容在1~1000字符内');
-    }
-    if(this.value != ''){
-      let phone = /^1[345678]\d{9}$/
-      if(phone.test(this.value)){
-        setTimeout(()=>{
-          this.jbShow = false
-        },1300)
-      }else{
-        this.$toast('请正确填写手机号');
-      }
-    }
-  },
+  // tj(){
+  //   if(this.value == ''){
+  //     this.$toast('请至少填写一项联系方式');
+  //   }else if(this.message == ''){
+  //     this.$toast('请保持留言内容在1~1000字符内');
+  //   }
+  //   if(this.value != ''){
+  //     let phone = /^1[345678]\d{9}$/
+  //     if(phone.test(this.value)){
+  //       setTimeout(()=>{
+  //         this.jbShow = false
+  //       },1300)
+  //     }else{
+  //       this.$toast('请正确填写手机号');
+  //     }
+  //   }
+  // },
   jbrShow(){
-    this.show = true
+    // this.show = true
+    this.$router.push('/xinfen')
   },
-  jbrHide(){
-    this.show = false
-  },
-  jbHide(){
-    this.jbShow = true
-    this.value = this.message = ''
-  }
+  // jbrHide(){
+  //   this.show = false
+  // },
+  // jbHide(){
+  //   this.jbShow = true
+  //   this.value = this.message = ''
+  // }
  },
 }
 </script> 
