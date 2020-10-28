@@ -23,6 +23,7 @@ const routes = [
     name: 'Gopass',
     component: function () {
       return import('../views/Pass/Gopass.vue')
+<<<<<<< HEAD
     }
   },
   {
@@ -37,6 +38,41 @@ const routes = [
     name: 'Footer',
     component: Footer,
     children: [
+=======
+    }},
+    {
+      path: '/xinfen',
+      name: 'Xinfen',
+      component: function () {
+        return import('../views/Xinfen.vue')
+      }
+    },
+    {
+      path: '/search',
+      name: 'Search',
+      component: function () {
+        return import('../views/Search.vue')
+      }
+    },
+    {path: '/gopass',
+        name: 'Gopass',
+        component: function () {
+          return import('../views/Pass/Gopass.vue')
+        }
+    },
+    {
+      path: '/topass',
+      name: 'Topass',
+      component: function () {
+        return import('../views/Pass/Topass.vue')
+      }
+    },
+    {
+      path: '/footer',
+      name: 'Footer',
+      component: Footer,
+      children: [
+>>>>>>> e558d88c5a9282d0e7f7e9b591915081280fcaca
       {
         path: 'myhome',
         name: 'Myhome',
@@ -130,6 +166,10 @@ const routes = [
           return import('../views/My/Mywd.vue')
         }
       },
+      {
+        path: '/:id',
+        redirect:'/cod'
+      },
     ]
   },
 ]
@@ -138,6 +178,7 @@ const router = new VueRouter({
   routes
 })
 router.beforeEach((to, from, next) => {
+<<<<<<< HEAD
   // console.log(from.path)
   if (from = "/" || "login" || "goPass" || "toPass") {
     next()
@@ -153,5 +194,23 @@ router.beforeEach((to, from, next) => {
   //     next('/')
   //   }
   // }
+=======
+  console.log(from.path,to.path)
+  if (sessionStorage.getItem("token") == null) {
+    if (from.path == to.path) {
+      next()
+    } else if(to.path=="/toPass"){
+      next()
+    }else if(to.path=="/goPass"){
+      next()
+    }else if(to.path=="/"){
+      next()
+    }else{
+      next('/')
+    }
+  } else {
+    next()
+  }
+>>>>>>> e558d88c5a9282d0e7f7e9b591915081280fcaca
 })
 export default router

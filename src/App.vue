@@ -4,34 +4,6 @@
   <div class="envelope" @click="jbrShow()">
     <van-icon name="envelop-o" />
   </div>
-  <div class="xx" v-show="show">
-    <header>
-      <p>给我们留言</p>
-      <p class="hide" @click="jbrHide()">﹀</p>
-    </header>
-    <div class="jbShow" v-show="jbShow==true">
-      <p class="ts">您好，很抱歉我们暂时无法为您提供服务，如需帮助，请留言，我们将尽快联系并解决您的问题</p>
-      <van-cell-group>
-        <van-field v-model="value" label="手机" placeholder="请输入手机号" />
-      </van-cell-group>
-      <van-field
-        v-model="message"
-        rows="3"
-        autosize
-        label="留言内容"
-        type="textarea"
-        placeholder="请输入"
-        class="ly"
-      />
-      <van-button type="info" @click="tj()">提交</van-button>
-    </div>
-    <div class="jbHide" v-show="jbShow==false">
-      <h3>留言成功</h3>
-      <p>我们会尽快联系你</p>
-      <van-button type="info" @click="jbrHide()">关闭</van-button><br>
-      <u @click="jbHide()">再次留言</u>
-    </div>
-  </div>
 </div>
 </template>
 
@@ -55,34 +27,13 @@ export default {
   }
  },
  methods: {
-  tj(){
-    if(this.value == ''){
-      this.$toast('请至少填写一项联系方式');
-    }else if(this.message == ''){
-      this.$toast('请保持留言内容在1~1000字符内');
-    }
-    if(this.value != ''){
-      let phone = /^1[345678]\d{9}$/
-      if(phone.test(this.value)){
-        setTimeout(()=>{
-          this.jbShow = false
-        },1300)
-      }else{
-        this.$toast('请正确填写手机号');
-      }
-    }
-  },
   jbrShow(){
-    this.show = true
+    this.$router.push('/xinfen')
   },
-  jbrHide(){
-    this.show = false
-  },
-  jbHide(){
-    this.jbShow = true
-    this.value = this.message = ''
-  }
  },
+ mounted () {
+
+ }
 }
 </script> 
 <style scoped lang='scss'>
@@ -103,6 +54,7 @@ html,body,#app{
   position: fixed;
   right: 20px;
   bottom: 70px;
+  z-index: 1000;
 }
 .xx{
   width: 3.75rem;
