@@ -6,6 +6,7 @@ import store from './store'
 import './plugins/vant.js'
 import rem from '@/assets/rem.js'
 import Treetable from 'vue-table-with-tree-grid'
+import common from './assets/common.css'
 
 Vue.config.productionTip = false
 

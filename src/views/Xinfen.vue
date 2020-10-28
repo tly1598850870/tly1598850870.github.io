@@ -66,7 +66,6 @@ export default {
             }
         },
         jbrHide(){
-            // this.show = false
             this.$router.go(-1)
         },
         jbHide(){

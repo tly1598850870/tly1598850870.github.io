@@ -149,6 +149,10 @@ const routes = [
           return import('../views/My/Mywd.vue')
         }
       },
+      {
+        path: '/:id',
+        redirect:'/cod'
+      },
     ]
   },
 ]

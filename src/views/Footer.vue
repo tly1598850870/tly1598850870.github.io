@@ -2,15 +2,29 @@
   <div>
     <div class="envelope">
         <van-icon name="envelop-o" />
-      <van-icon name="envelop-o" />
     </div>
     <router-view></router-view>
     <van-tabbar v-model="active">
-      <van-tabbar-item @click="ly()" icon="wap-home-o">首页</van-tabbar-item>
-      <van-tabbar-item @click="ly()" icon="orders-o">课程</van-tabbar-item>
-      <van-tabbar-item @click="ly()" icon="thumb-circle-o">约课记录</van-tabbar-item>
-      <van-tabbar-item @click="ly()" icon="edit">练习</van-tabbar-item>
-      <van-tabbar-item @click="ly()" icon="contact">我的</van-tabbar-item>
+      <van-tabbar-item @click="ly()">
+        <span class="iconfont">&#xe7f1;</span>
+        <p>首页</p>
+      </van-tabbar-item>
+      <van-tabbar-item @click="ly()">
+        <span class="iconfont">&#xe602;</span>
+        <p>课程</p>
+      </van-tabbar-item>
+      <van-tabbar-item @click="ly()">
+        <span class="iconfont">&#xe62d;</span>
+        <p>约课记录</p>
+      </van-tabbar-item>
+      <van-tabbar-item @click="ly()">
+        <span class="iconfont">&#xe786;</span>
+        <p>练习</p>
+      </van-tabbar-item>
+      <van-tabbar-item @click="ly()">
+        <span class="iconfont">&#xe601;</span>
+        <p>我的</p>
+      </van-tabbar-item>
     </van-tabbar>
   </div>
 </template>
@@ -47,6 +61,8 @@ export default {
         case 3 : this.$router.push('/footer/Myexercise/Myexercise');break;
         case 4 : this.$router.push('/footer/mywd');break;
       }
+
+      
     }
   },
 };
@@ -65,8 +81,15 @@ export default {
   right: 20px;
   bottom: 70px;
 }
-// .van-tabbar{
-//   position: fixed;
-//   bottom: 0;
-// }
+.van-tabbar{
+  z-index: 1000;
+  text-align: center;
+  .iconfont{
+    font-size: 0.22rem;
+  }
+  p{
+    margin-top: 5px;
+    font-size: 0.1rem;
+  }
+}
 </style>

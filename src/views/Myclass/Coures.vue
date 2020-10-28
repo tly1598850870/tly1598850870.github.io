@@ -8,7 +8,32 @@
           </template>
         </van-nav-bar>
         <van-dropdown-menu>
-          <van-dropdown-item title="分类" ref="item1"> </van-dropdown-item>
+          <van-dropdown-item title="分类" ref="item1" class="Fl">
+            <p>年级</p>
+            <ul>
+              <li v-for="(item,key) in jbrnewarr1" :key="key"
+              :style="{
+                background: Active1 == key ? '#EBEEFE' : '#f5f5f5',
+                color: Active1 == key ? '#EB6100' : '',}"
+                @click="act1(key)">
+                {{ item }}
+              </li>
+            </ul>
+            <p>学科</p>
+            <ol>
+              <li v-for="(item,key) in jbrnewarr2" :key="key"
+              :style="{
+                background: Active2 == key ? '#EBEEFE' : '#f5f5f5',
+                color: Active2 == key ? '#EB6100' : '',}"
+                @click="act2(key)">
+                {{ item }}
+              </li>
+            </ol>
+            <div class="but">
+              <button class="cz" @click="cz">重置</button>
+              <button class="qd" @click="qd">确定</button>
+            </div>
+          </van-dropdown-item>
           <van-dropdown-item title="排序" ref="item2">
             <ul class="ul">
               <li
@@ -148,9 +173,12 @@ export default {
       ],
       jbrFl: [],
       jbrActive: 0,
-      jbrActive: 0,
+      Active1: -1,
+      Active2: -1,
       jbrPx: 0,
       jbrarr: ["综合排序", "最新", "最热", "价格从低到高", "价格从高到低"],
+      jbrnewarr1: ["初一", "初二", "初三", "高一", "高二"],
+      jbrnewarr2: ["语文", "数学", "英语", "物理", "化学"],
     };
   },
   components: {
@@ -161,6 +189,7 @@ export default {
     this.list();
     this.fl();
     this.px();
+    this.newlist();
   },
   methods: {
     onConfirm() {
@@ -176,6 +205,11 @@ export default {
       this.jbrPx = k;
       this.$refs.item2.toggle();
     },
+    async newlist(){
+      let { data } = await this.$Axios.get('/api/app/teacher/mainCourse')
+      console.log(data)
+      console.log(data.data)
+    },
     async list() {
       let { data } = await this.$Axios.get("/api/app/myStudy/2");
       // console.log(data)
@@ -183,25 +217,34 @@ export default {
     async fl() {
       let { data } = await this.$Axios.get("/api/app/courseClassify");
       console.log(data);
-      //       console.log(data);
       this.jbrFl = data.data.appCourseType;
-      console.log(this.jbrFl);
-      //       console.log(this.jbrFl);
+      // console.log(this.jbrFl);
     },
     async px() {
       let { data } = await this.$Axios.get(
         `/api/app/courseBasis?order_by=${this.jbrPx}`
       );
-      console.log(data);
+      // console.log(data);
     },
-    jbract(k) {
-      this.jbrActive = k;
+    act1(k) {
+      this.Active1 = k;
+    },
+    act2(k) {
+      this.Active2 = k;
     },
     jbrXq() {
       this.$router.push("/cod");
     },
     search(){
       this.$router.push('/search')
+    },
+    cz(){
+      this.Active1 = -1
+      this.Active2 = -1
+      this.$refs.item1.toggle();
+    },
+    qd(){
+      this.$refs.item1.toggle();
     }
   },
 };
@@ -305,6 +348,69 @@ dl {
     text-align: center;
     border-bottom: 1px solid #f5f5f5;
     font-size: 0.14rem;
+  }
+}
+.Fl{
+  width: 3.75rem;
+  p{
+    font-size: 0.14rem;
+    text-indent: 0.1rem;
+  }
+  ul{
+    width: 3.75rem;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    border-bottom: 1px solid #eee;
+    li{
+      width: 0.7rem;
+      height: 0.33rem;
+      background: #f5f5f5;
+      text-align: center;
+      line-height: 0.33rem;
+      margin: 0.05rem 0.05rem;
+      font-size: 0.14rem;
+    }
+  }
+  ol{
+    width: 3.75rem;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    border-bottom: 1px solid #eee;
+    li{
+      width: 0.7rem;
+      height: 0.33rem;
+      background: #f5f5f5;
+      text-align: center;
+      line-height: 0.33rem;
+      margin: 0.05rem 0.05rem;
+      font-size: 0.14rem;
+    }
+  }
+  .but{
+    width: 3.75rem;
+    margin-bottom: 0.15rem;
+    box-sizing: border-box;
+    padding: 10px 10px;
+    font-size: 0.13rem;
+    .cz{
+      width: 1.7rem;
+      height: 0.33rem;
+      margin-left: 0.05rem;
+      background: white;
+      border: 1px solid #DADADA;
+      border-radius: 0.03rem;
+    }
+    .qd{
+      width: 1.7rem;
+      height: 0.33rem;
+      margin-left: 0.07rem;
+      border: #EB6100;
+      background: #EB6100;
+      color: white;
+      border-radius: 0.03rem;
+    }
   }
 }
 </style>
