@@ -81,6 +81,27 @@ const routes = [
       }
     },
     {
+      path: '/mycurrency',
+      name: 'Mycurrency',
+      component: function () {
+        return import('../views/My/Mycurrency.vue')
+      }
+    },
+    {
+      path: '/order',
+      name: 'Order',
+      component: function () {
+        return import('../views/My/Order.vue')
+      }
+    },
+    {
+      path: '/coupon',
+      name: 'Coupon',
+      component: function () {
+        return import('../views/My/Coupon.vue')
+      }
+    },
+    {
       path: '/footer',
       name: 'Footer',
       component: Footer,
