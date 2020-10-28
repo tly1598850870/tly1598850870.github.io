@@ -67,8 +67,9 @@ export default {
         }).then((res)=>{
           console.log(res)
           sessionStorage.setItem("token",res.data.data.remember_token)
+          this.$router.push("/footer/mywd")
         })
-        this.$router.push("/footer/mywd")
+        
       }
   },
   /**

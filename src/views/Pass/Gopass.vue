@@ -95,6 +95,7 @@ export default {
         sms_code:this.value
       }).then((res)=>{
         console.log(res)
+        this.$router.push("/")
       })
     },
     sendCode() {
