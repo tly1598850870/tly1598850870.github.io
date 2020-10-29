@@ -12,6 +12,11 @@ Vue.config.productionTip = false
 
 Vue.prototype.$Axios=axios
 
+Vue.filter('time',function(el){
+  el=new Date(el)
+  // return el.toLocaleDateString(el)
+  return el.toLocaleString()
+})
 
 new Vue({
   router,

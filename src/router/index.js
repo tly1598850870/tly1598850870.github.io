@@ -19,24 +19,6 @@ const routes = [
     }
   },
   {
-   path: 'showclass',
-   name: 'showclass',
-   path: '/showclass',
-   name: 'Showclass',
-   component: function () {
-      return import('../views/Exercise/tablist/showclass.vue')
-   },
-  },
-  {
-    path: 'seek',
-    name: 'seek',
-    path: '/seek',
-    name: 'Seek',
-    component: function () {
-    return import('../views/Exercise/tablist/seek.vue')
-    },
-  },
-  {
     path: '/gopass',
     name: 'Gopass',
     component: function () {
@@ -123,7 +105,22 @@ const routes = [
         component: function () {
           return import('../views/Exercise/Myexercise.vue')
         },
-        children: [
+        children: 
+        [
+          {
+           path: '/showclass',
+           name: 'Showclass',
+           component: function () {
+              return import('../views/Exercise/tablist/showclass.vue')
+           },
+          },
+          {
+            path: '/seek',
+            name: 'Seek',
+            component: function () {
+            return import('../views/Exercise/tablist/seek.vue')
+            },
+          },
           {
             path: 'Myexercise',
             name: 'Myexercises',

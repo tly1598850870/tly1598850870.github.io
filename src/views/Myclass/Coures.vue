@@ -70,7 +70,8 @@
         <dt>
           <p>{{item.title}}</p>
           <van-icon name="clock-o" class="jbr_icon" />
-          <span>03月16日 18:30 ~ 03月22日 15:00 | 共8课时</span>
+          <span>{{ item.start_play_date | time }} | 共{{item.sales_num}}课时</span>
+          <!-- <span>03月16日 18:30 ~ 03月22日 15:00 | 共8课时</span> -->
           <p class="jbr_lq">
             <img :src="item.cover_img" alt="" />
             <span>{{ item.teachers_list[0].teacher_name }}</span>
@@ -188,7 +189,7 @@ export default {
   created() {},
   mounted() {
     this.list();
-    this.fl();
+    this.fl();7
     this.px();
     this.newlist();
   },
