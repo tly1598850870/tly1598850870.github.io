@@ -108,14 +108,14 @@ const routes = [
         children: 
         [
           {
-           path: '/showclass',
+           path: 'showclass',
            name: 'Showclass',
            component: function () {
               return import('../views/Exercise/tablist/showclass.vue')
            },
           },
           {
-            path: '/seek',
+            path: 'seek',
             name: 'Seek',
             component: function () {
             return import('../views/Exercise/tablist/seek.vue')

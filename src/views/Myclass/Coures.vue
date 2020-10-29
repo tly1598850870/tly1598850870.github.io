@@ -80,78 +80,14 @@
         <dd>
           <p>
             <span>{{ item.brows_num }}人已报名</span>
-            <span class="jbr_mf">免费</span>
+            <!-- <span class="jbr_mf">免费</span> -->
+            <span class="jbr_jg">
+              <img src="@/assets/money.png" alt="">
+              {{ item.total_periods.toFixed(2) }}
+              </span>
           </p>
         </dd>
       </dl>
-      <!-- <dl @click="jbrXq()">
-        <dt>
-          <p>李老师16号到22号地理大课堂开课啦</p>
-          <van-icon name="clock-o" class="jbr_icon" />
-          <span>03月16日 18:30 ~ 03月22日 15:00 | 共8课时</span>
-          <p class="jbr_lq">
-            <img src="@/assets/155.jpg" alt="" />
-            李青
-          </p>
-        </dt>
-        <dd>
-          <p>
-            <span>134人已报名</span>
-            <span class="jbr_mf">免费</span>
-          </p>
-        </dd>
-      </dl>
-      <dl @click="jbrXq()">
-        <dt>
-          <p>李老师16号到22号地理大课堂开课啦</p>
-          <van-icon name="clock-o" class="jbr_icon" />
-          <span>03月16日 18:30 ~ 03月22日 15:00 | 共8课时</span>
-          <p class="jbr_lq">
-            <img src="@/assets/155.jpg" alt="" />
-            李青
-          </p>
-        </dt>
-        <dd>
-          <p>
-            <span>134人已报名</span>
-            <span class="jbr_mf">免费</span>
-          </p>
-        </dd>
-      </dl>
-      <dl @click="jbrXq()">
-        <dt>
-          <p>李老师16号到22号地理大课堂开课啦</p>
-          <van-icon name="clock-o" class="jbr_icon" />
-          <span>03月16日 18:30 ~ 03月22日 15:00 | 共8课时</span>
-          <p class="jbr_lq">
-            <img src="@/assets/155.jpg" alt="" />
-            李青
-          </p>
-        </dt>
-        <dd>
-          <p>
-            <span>134人已报名</span>
-            <span class="jbr_mf">免费</span>
-          </p>
-        </dd>
-      </dl>
-      <dl @click="jbrXq()">
-        <dt>
-          <p>李老师16号到22号地理大课堂开课啦</p>
-          <van-icon name="clock-o" class="jbr_icon" />
-          <span>03月16日 18:30 ~ 03月22日 15:00 | 共8课时</span>
-          <p class="jbr_lq">
-            <img src="@/assets/155.jpg" alt="" />
-            李青
-          </p>
-        </dt>
-        <dd>
-          <p>
-            <span>134人已报名</span>
-            <span class="jbr_mf">免费</span>
-          </p>
-        </dd>
-      </dl> -->
     </div>
   </div>
 </template>
@@ -317,6 +253,12 @@ dl {
         float: right;
         margin-right: 0.1rem;
         color: #44a426;
+        font-size: 0.16rem;
+      }
+      .jbr_jg{
+        float: right;
+        margin-right: 0.1rem;
+        color: red;
         font-size: 0.16rem;
       }
     }
