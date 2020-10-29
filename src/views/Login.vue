@@ -43,7 +43,6 @@ export default {
   // 计算属性
   computed: {},
   // 侦听器
-  watch: {},
   watch: {
     act(val){
       sessionStorage.setItem('act',JSON.stringify(val))
@@ -72,9 +71,10 @@ export default {
           type:1
         }).then((res)=>{
           console.log(res)
+          this.act=4
           sessionStorage.setItem("token",res.data.data.remember_token)
           sessionStorage.setItem("user",JSON.stringify(res.data.data))
-          this.act=4
+          
           this.$router.push("/footer/mywd")
         })
         

@@ -33,11 +33,16 @@ const routes = [
     },
   },
   {
+=======
+>>>>>>> 18d77abd0778c729895c5d3a7be48dc7bc4659e2
     path: '/gopass',
     name: 'Gopass',
     component: function () {
       return import('../views/Pass/Gopass.vue')
+<<<<<<< HEAD
 
+=======
+>>>>>>> 18d77abd0778c729895c5d3a7be48dc7bc4659e2
     }},
     {
       path: '/xinfen',
@@ -120,7 +125,22 @@ const routes = [
         component: function () {
           return import('../views/Exercise/Myexercise.vue')
         },
-        children: [
+        children: 
+        [
+          {
+           path: 'showclass',
+           name: 'Showclass',
+           component: function () {
+              return import('../views/Exercise/tablist/showclass.vue')
+           },
+          },
+          {
+            path: 'seek',
+            name: 'Seek',
+            component: function () {
+            return import('../views/Exercise/tablist/seek.vue')
+            },
+          },
           {
             path: 'Myexercise',
             name: 'Myexercises',
@@ -198,7 +218,10 @@ const router = new VueRouter({
   routes
 })
 router.beforeEach((to, from, next) => {
+<<<<<<< HEAD
 
+=======
+>>>>>>> 18d77abd0778c729895c5d3a7be48dc7bc4659e2
   console.log(from.path,to.path)
   if (sessionStorage.getItem("token") == null) {
     if (from.path == to.path) {
