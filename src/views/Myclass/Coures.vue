@@ -163,7 +163,6 @@ export default {
       let { data } = await this.$Axios.get(
         `/api/app/courseBasis?order_by=${this.jbrPx}`
       );
-      // console.log(data);
     },
     act1(k) {
       this.Active1 = k;
