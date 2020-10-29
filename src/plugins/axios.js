@@ -2,6 +2,8 @@
 
 import Vue from 'vue';
 import axios from "axios";
+import { Guid } from "../assets/guid"
+import { from } from '_array-flatten@2.1.2@array-flatten';
 
 // Full config:  https://github.com/axios/axios#request-config
 // axios.defaults.baseURL = process.env.baseURL || process.env.apiUrl || '';
@@ -13,6 +15,8 @@ let config = {
   // timeout: 60 * 1000, // Timeout
   // withCredentials: true, // Check cross-site Access-Control
 };
+
+  console.log(Guid.NewGuid().ToString("D"))
 
 const _axios = axios.create({
   baseURL:'http://120.53.31.103:84',

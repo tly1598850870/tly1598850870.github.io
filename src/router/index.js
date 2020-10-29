@@ -19,14 +19,14 @@ const routes = [
     }
   },
   {
-   path: 'showclass',
+   path: '/showclass',
    name: 'showclass',
    component: function () {
       return import('../views/Exercise/tablist/showclass.vue')
    },
   },
   {
-    path: 'seek',
+    path: '/seek',
     name: 'seek',
     component: function () {
     return import('../views/Exercise/tablist/seek.vue')
@@ -37,22 +37,7 @@ const routes = [
     name: 'Gopass',
     component: function () {
       return import('../views/Pass/Gopass.vue')
-<<<<<<< HEAD
-    }
-  },
-  {
-    path: '/topass',
-    name: 'Topass',
-    component: function () {
-      return import('../views/Pass/Topass.vue')
-    }
-  },
-  {
-    path: '/footer',
-    name: 'Footer',
-    component: Footer,
-    children: [
-=======
+
     }},
     {
       path: '/xinfen',
@@ -69,24 +54,11 @@ const routes = [
       }
     },
     {
-      path: '/search',
-      name: 'Search',
-      component: function () {
-        return import('../views/Search.vue')
-      }
-    },
-    {
       path: '/teacher',
       name: 'Teacher',
       component: function () {
         return import('../views/Myclass/Teacher.vue')
       }
-    },
-    {path: '/gopass',
-        name: 'Gopass',
-        component: function () {
-          return import('../views/Pass/Gopass.vue')
-        }
     },
     {
       path: '/topass',
@@ -121,7 +93,6 @@ const routes = [
       name: 'Footer',
       component: Footer,
       children: [
->>>>>>> e558d88c5a9282d0e7f7e9b591915081280fcaca
       {
         path: 'myhome',
         name: 'Myhome',
@@ -227,23 +198,7 @@ const router = new VueRouter({
   routes
 })
 router.beforeEach((to, from, next) => {
-<<<<<<< HEAD
-  // console.log(from.path)
-  if (from = "/" || "login" || "goPass" || "toPass") {
-    next()
-  }
-  console.log(sessionStorage.getItem("token"))
-  if (sessionStorage.getItem("token") != null) {
-    next()
-  }
-  // else {
-  //   if (from.path == to.path) {
-  //     next()
-  //   } else {
-  //     next('/')
-  //   }
-  // }
-=======
+
   console.log(from.path,to.path)
   if (sessionStorage.getItem("token") == null) {
     if (from.path == to.path) {
@@ -260,6 +215,5 @@ router.beforeEach((to, from, next) => {
   } else {
     next()
   }
->>>>>>> e558d88c5a9282d0e7f7e9b591915081280fcaca
 })
 export default router
