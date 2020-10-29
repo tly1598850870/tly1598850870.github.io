@@ -138,6 +138,7 @@ export default {
       flag: false,
       list: JSON.parse(sessionStorage.getItem("user")),
       jsq:"",
+      active:JSON.parse(sessionStorage.getItem('act'))||0,
     }
   }, // 计算属性
   computed: {},
@@ -147,6 +148,8 @@ export default {
       this.$router.push("/mycurrency")
     },
     ydy(){
+      this.active = 2
+      sessionStorage.setItem('act',JSON.stringify(this.active))
       this.$router.push("/footer/myask")
     },
     qbdd(a){
@@ -158,6 +161,11 @@ export default {
     },
     yh(){
       this.$router.push("/coupon")
+    }
+  },
+  watch: {
+    active(val){
+      sessionStorage.setItem('act',JSON.stringify(val))
     }
   },
   /**

@@ -61,10 +61,11 @@ export default {
         case 3 : this.$router.push('/footer/Myexercise/Myexercise');break;
         case 4 : this.$router.push('/footer/mywd');break;
       }
-
-
     }
   },
+  mounted () {
+    this.active = JSON.parse(sessionStorage.getItem('act'))
+  }
 };
 </script>
 <style scoped lang='scss'>
