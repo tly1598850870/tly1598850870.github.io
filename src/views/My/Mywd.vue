@@ -6,7 +6,7 @@
         <!-- 登录 -->
         <div class="head">
           <section>
-            <div>
+            <div @click="grxx">
               <img
                 :src="list.avatar"
               />
@@ -90,7 +90,7 @@
               <p>优惠卷</p>
             </div>
             <div>
-              <span class="iconfont van-icon iin">&#xe60a;</span>
+              <span class="iconfont van-icon iin" @click="xxk">&#xe60a;</span>
               <p>学习卡</p>
             </div>
             <div>
@@ -111,7 +111,7 @@
               <p>意见反馈</p>
             </div>
             <div>
-              <span class="iconfont van-icon inn">&#xe71b;</span>
+              <span class="iconfont van-icon inn" @click="kf">&#xe71b;</span>
               <p>在线客服</p>
             </div>
             <div>
@@ -161,6 +161,15 @@ export default {
     },
     yh(){
       this.$router.push("/coupon")
+    },
+    kf(){
+      this.$router.push("/xinfen")
+    },
+    xxk(){
+      this.$router.push("/card")
+    },
+    grxx(){
+      this.$router.push("/info")
     }
   },
   watch: {

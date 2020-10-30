@@ -118,7 +118,6 @@ export default {
       }else{
         this.$router.push({ path, query: { name: name } });
       }
-      
     },
   },
 };

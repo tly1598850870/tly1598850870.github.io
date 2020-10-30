@@ -23,8 +23,14 @@ export default new vuex.Store({
     changeshow(state,name){
       state.thisshowheader=name
     },
+    changeshow(state, name) {
+      state.thisshowheader = name
+    },
     changeleftarrows(state,name){
       state.leftarrows=name
+    },
+    changeleftarrows(state, name) {
+      state.leftarrows = name
     },
     changecontentarrows(state,name){
       state.contentarrows=name
@@ -36,11 +42,12 @@ export default new vuex.Store({
   // 异步方法
   actions: {
     
+
   },
   // 模块化
   modules: {
   },
   // 持久化存储
-  plugins:[per()]
+  plugins: [per()]
 })
 

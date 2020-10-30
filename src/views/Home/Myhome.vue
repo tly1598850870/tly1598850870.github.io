@@ -36,15 +36,16 @@
                   <p>特色课</p></router-link>
               </li>
               <li>
-               <router-link to="/coach">
+               <router-link to="">
                   <img src="../../assets/pic/coach.png" alt="" />
                 <p>一对一辅导</p>
                </router-link>
               </li>
               <li @click="int">
-                <img src="../../assets/pic/Study-Calendar.png" alt="" />
-
+               <router-link to="">
+                  <img src="../../assets/pic/Study-Calendar.png" alt="" />
                 <p>学习日历</p>
+                 </router-link>
               </li>
             </ul>
           </div>
@@ -121,7 +122,9 @@
             </li>
             <li class="del">
               <span class="apply">138人已报名</span>
+                
               <span class="cost">免费</span>
+            
             </li>
           </ul>
         </div>
@@ -140,7 +143,7 @@
             </li>
             <li class="del">
               <span class="apply">100人已报名</span>
-              <span class="cost">免费</span>
+              <span class="cost" >免费</span>
             </li>
           </ul>
         </div>
@@ -157,7 +160,7 @@
             </li>
             <li class="del">
               <span class="apply">127人已报名</span>
-              <span class="cost">免费</span>
+              <span class="cost" >免费</span>
             </li>
           </ul>
         </div>
@@ -273,10 +276,14 @@
               />
               <span>廖天金</span>
             </li>
-            <li class="del">
+           
+              <li class="del">
               <span class="apply">36人已报名</span>
+             
               <span class="cost">免费</span>
+           
             </li>
+          
           </ul>
         </div>
         <div class="course">
@@ -439,6 +446,7 @@ export default {
   // 组件方法
   methods: {
     int() {},
+    
   },
 };
 </script>

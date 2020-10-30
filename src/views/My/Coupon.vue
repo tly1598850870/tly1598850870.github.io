@@ -5,6 +5,7 @@
     <van-tab title="未使用">
         <div class="box">
             <img src="../../assets/empty.0d284c2e.png" alt="">
+            <p>暂无优惠卷</p>
         </div>
     </van-tab>
     <van-tab title="已使用">内容 3</van-tab>
@@ -71,5 +72,13 @@ export default {
 .box{
     width: 100%;
     text-align: center;
+    margin-top:0.5rem;
+    img{
+      width:1.66rem;
+    }
+    p{
+      color:#ccc;
+      font-size:0.14rem;
+    }
 }
 </style>

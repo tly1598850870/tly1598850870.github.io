@@ -15,6 +15,27 @@ const routes = [
     }
   },
   {
+    path: '/passxg',
+    name: 'Passxg',
+    component: function () {
+      return import('../views/Pass/Passxg.vue')
+    }
+  },
+  {
+    path: '/info',
+    name: 'Info',
+    component: function () {
+      return import('../views/My/Info.vue')
+    }
+  },
+  {
+    path: '/exchange',
+    name: 'Exchange',
+    component: function () {
+      return import('../views/My/Exchange.vue')
+    }
+  },
+  {
     path: '/cod',
     name: 'Cod',
     component: function () {
@@ -22,6 +43,13 @@ const routes = [
     },
     meta:{
       title:'课程详情'
+    }
+  },
+  {
+    path: '/card',
+    name: 'Card',
+    component: function () {
+      return import('../views/My/Card.vue')
     }
   },
   {
@@ -195,6 +223,20 @@ const routes = [
             },
           },
           {
+            path: 'showclass',
+            name: 'showclass',
+            component: function () {
+              return import('../views/Exercise/tablist/showclass.vue')
+            },
+          },
+          {
+            path: 'seek',
+            name: 'seek',
+            component: function () {
+              return import('../views/Exercise/tablist/seek.vue')
+            },
+          },
+          {
             path: 'Myexercise',
             name: 'Myexercises',
             component: function () {
@@ -309,7 +351,7 @@ const routes = [
       },
       {
         path: '/:id',
-        redirect:'/cod'
+        redirect: '/cod'
       },
     ]
   },
@@ -326,13 +368,13 @@ router.beforeEach((to, from, next) => {
   if (sessionStorage.getItem("token") == null) {
     if (from.path == to.path) {
       next()
-    } else if(to.path=="/toPass"){
+    } else if (to.path == "/toPass") {
       next()
-    }else if(to.path=="/goPass"){
+    } else if (to.path == "/goPass") {
       next()
-    }else if(to.path=="/"){
+    } else if (to.path == "/") {
       next()
-    }else{
+    } else {
       next('/')
     }
   } else {
