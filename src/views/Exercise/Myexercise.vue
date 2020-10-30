@@ -1,6 +1,7 @@
 <template>
   <div>
     <van-nav-bar
+      :fixed="true"
       v-show="bollens"
       :left-arrow="bollen"
       :title="name"
@@ -10,7 +11,9 @@
         <van-icon v-show="bollen" name="search" size="18" @click="seek" />
       </template>
     </van-nav-bar>
-    <router-view></router-view>
+    <div class="tly_toppaddinbox">
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
@@ -22,6 +25,7 @@ export default {
   created() {},
   mounted() {
     this.$store.commit("changeleftarrows", false);
+    this.$store.commit("changecontentarrows", true);
   },
   methods: {
     onClickLeft() {
@@ -34,7 +38,6 @@ export default {
       }
     },
     seek() {
-      console.log(111);
       this.$router.push("/footer/Myexercise/seek");
     },
   },
@@ -46,6 +49,7 @@ export default {
       return this.$store.state.leftarrows;
     },
     bollens: function () {
+      console.log(this.$store.state.contentarrows);
       return this.$store.state.contentarrows;
     },
   },
@@ -53,4 +57,7 @@ export default {
 </script>
 
 <style scoped>
+.tly_toppaddinbox{
+  padding-top:10vh ;
+}
 </style>

@@ -24,7 +24,7 @@ export default {
   },
 };
 </script>
-<style lang="scss">
+<style lang="scss"  scoped>
 #top {
   height: 7vh;
   padding-top: 10px;
