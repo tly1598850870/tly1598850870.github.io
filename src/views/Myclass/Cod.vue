@@ -20,27 +20,30 @@
                 </van-overlay>
             </div>
             <div class="content">
-                <dl>
+                <dl v-for="(item,key) in newList" :key='key'>
                     <dt>
                         <p>
-                            <span class="lls">李老师16号到22号地理大课堂开课啦</span>
+                            <span class="lls">{{ item.title }}</span>
                             <span v-show="!scShow" class="xing" @click="sc()">☆</span>
                             <span v-show="scShow" class="xing" @click="sc()">★</span>
                         </p>
-                        <span class="jbr_mf">免费</span>
+                        <span class="jbr_mf">
+                            <img src="@/assets/money.png" alt="">
+                            {{ item.total_periods.toFixed(2) }}
+                        </span>
                         <p>
-                            <span>共8课时 | 134人已报名</span>
+                            <span>共{{item.sales_num}}课时 | {{ item.brows_num }}人已报名</span>
                         </p>
-                        <span>开课时间: 020.03.16 18:30 - 2020.03.22 15:00</span>
+                        <span>开课时间: {{ item.start_play_date | time }}</span>
                     </dt>
                     <dd></dd>
                 </dl>
             </div>
             <div class="jbrJxtd">
                 <p>教学团队</p>
-                <p class="jbr_lq" @click="lqxq">
-                    <img src="@/assets/155.jpg" alt="" /><br>
-                    李青
+                <p class="jbr_lq" @click="lqxq"  v-for="(item,key) in newList" :key='key'>
+                    <img :src="item.teachers_list[0].teacher_avatar" alt="" /><br>
+                    <span>{{ item.teachers_list[0].teacher_name }}</span>
                 </p>
             </div>
             <div class="kcjs">
@@ -123,53 +126,23 @@
                 </div>
             </div>
             <div class="kcpl">
-                <p class="pl">课程评论</p>
-                <div class="pl">
+                <p class="pj">课程评论</p>
+                <div v-show="!listShow" class="pl" v-for="(item,key) in $store.state.pl" :key="key">
                     <img src="@/assets/177.jpg" alt="">
                     <p class="name">power</p>
-                    <p class="Xing">★★★★★</p>
+                    <van-rate :touchable='false' v-model="item.val" color='#EA7A2F' void-color='#EA7A2F' />
                     <p class="sj">2020-04-23 14:56</p>
+                    <p class="nr">{{ item.title }}</p>
                 </div>
-                <p class="nr">今天写完静态页面</p>
-                <div class="pl">
-                    <img src="@/assets/155.jpg" alt="">
-                    <p class="name">二珂</p>
-                    <p class="Xing">★★★☆☆</p>
-                    <p class="sj">2020-07-23 18:06</p>
+                <div v-show="listShow" class="zwpl">
+                    <img src="../../assets/zwpl.png" alt="">
+                    <p>暂无评论</p>
                 </div>
-                <p class="nr">今天发新专辑</p>
-                <div class="pl">
-                    <img src="@/assets/13.jpg" alt="">
-                    <p class="name">ys</p>
-                    <p class="Xing">★★★★☆</p>
-                    <p class="sj">2020-05-25 17:31</p>
-                </div>
-                <p class="nr">一起进步</p>
-                <div class="pl">
-                    <img src="@/assets/32.jpg" alt="">
-                    <p class="name">魏巍</p>
-                    <p class="Xing">★★☆☆☆</p>
-                    <p class="sj">2020-08-13 20:37</p>
-                </div>
-                <p class="nr">街拍吧</p>
-                <div class="pl">
-                    <img src="@/assets/35.jpg" alt="">
-                    <p class="name">jsy</p>
-                    <p class="Xing">★☆☆☆☆</p>
-                    <p class="sj">2020-07-13 16:40</p>
-                </div>
-                <p class="nr">同意楼上</p>
-                <div class="pl">
-                    <img src="@/assets/59.jpg" alt="">
-                    <p class="name">gcj</p>
-                    <p class="Xing">★★★★☆</p>
-                    <p class="sj">2020-08-15 13:01</p>
-                </div>
-                <p class="nr">风景挺好...</p>
             </div>
         </div>
         <footer>
-            <van-button>立即报名</van-button>
+            <van-button v-show="!bmxx" @click="ljbm">立即报名</van-button>
+            <van-button v-show="bmxx" @click="xx">立即学习</van-button>
         </footer>
     </div>
 </template>
@@ -187,6 +160,9 @@ export default {
             txt3:'课程评论 ',
             isShow:false,
             scShow:JSON.parse(localStorage.getItem('sc'))||false,
+            bmxx:JSON.parse(localStorage.getItem('bm'))||false,
+            newList:[],
+            listShow:false,
         };
     },
     created() {
@@ -194,9 +170,17 @@ export default {
     },
     mounted() {
         window.addEventListener('scroll', this.handleScroll);
-        this.pl()
+        // this.pl()
+        this.newlist()
+        this.kcpl()
     },
     methods: {
+        kcpl(){
+            console.log(this.$store.state.pl)
+            if(this.$store.state.pl.length == 0){
+                this.listShow = true
+            }
+        },
         async pl(){
             let { data } = await this.$Axios.post('api/app/courseChapter')
             console.log(data)
@@ -213,6 +197,21 @@ export default {
             }else{
                 this.$toast('请先报名')
             }
+        },
+        ljbm(){
+            if(!this.bmxx){
+                this.$toast.success('成功')
+                this.bmxx = true
+                localStorage.setItem('bm',JSON.stringify(this.bmxx))
+            }
+        },
+        xx(){
+            this.$router.push({
+                path:'/study',
+                query:{
+                    title:'李老师16号到22号地理大课堂开课啦'
+                }
+            })
         },
         sc(){
             if(sessionStorage.getItem('token') != null){
@@ -236,6 +235,14 @@ export default {
                 this.$router.push('/')
             }
         },
+        newlist(){
+            // this.newList.push(this.$route.query.item)
+            // console.log(this.newList)
+
+            this.newList.push(JSON.parse(localStorage.getItem('newlist')))
+            console.log(this.newList)
+
+        },
         handleScroll() {
             //滚动条滚动时，距离顶部的距离
             this.scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
@@ -251,11 +258,6 @@ export default {
     destroyed() {
         window.removeEventListener('scroll', this.handleScroll)
     },
-    // directives:{
-    //     drag:{
-
-    //     }
-    // }
 };
 </script>
 
@@ -442,24 +444,39 @@ dl {
     .pl{
         display: flex;
         align-items: center;
+        flex-wrap: wrap;
         p{
             padding: 0px 10px;
             font-size: 0.14rem;
         }
-        .Xing{
-            font-size: 0.2rem;
-            color: #EB6100;
-        }
         .sj{
             color: #999999;
             font-size: 0.13rem;
+            width: 1.2rem;
+            text-align: right;
+        }
+        .nr{
+            margin-top: 0.01rem;
+            margin-left: 0.4rem;
+            font-size: 0.13rem;
+            color: #999999;
         }
     }
-    .nr{
-        margin-top: -10px;
-        margin-left: 45px;
-        font-size: 0.13rem;
-        color: #999999;
+    .zwpl{
+        width: 3.75rem;
+        img{
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 0;
+            margin-left: 1.1rem;
+        }
+        p{
+            margin-left: 1.5rem;
+            margin-top: -0.05rem;
+            font-size: 0.15rem;
+            color: #8C8C8C;
+        }
     }
+
 }
 </style>

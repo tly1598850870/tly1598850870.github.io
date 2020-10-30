@@ -7,3 +7,5 @@ export function gets(url,data){
 export function posts(url,data){
     return axios.post(url,data)
 }
+
+

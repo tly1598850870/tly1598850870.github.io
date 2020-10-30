@@ -15,7 +15,8 @@ export default new vuex.Store({
     jbrFlag:true,
     thisshowheader:"",
     leftarrows:false,
-    contentarrows:false
+    contentarrows:false,
+    pl:[],
   },
   // 同步方法
   mutations: {
@@ -27,8 +28,11 @@ export default new vuex.Store({
     },
     changecontentarrows(state,name){
       state.contentarrows=name
+    },
+    pinglun(state,obj){
+      state.pl.push(obj)
     }
-      },
+  },
   // 异步方法
   actions: {
     

@@ -10,7 +10,7 @@
         <div class="jj">
             <dl class="js">
                 <dt>
-                    <img src="../../assets/32.jpg" alt="">
+                    <img src="../../assets/155.jpg" alt="">
                 </dt>
                 <dd>
                     <p class="lq">李青 <span>M13</span></p>
@@ -142,11 +142,6 @@
                 </div>
             </van-tab>
             <van-tab title="学员评价">
-                <ol>
-                    <li>
-
-                    </li>
-                </ol>
                 <div class='xuexi'>
                     <div class='pj'>
                         <div class='xypj'>
@@ -242,7 +237,7 @@
             </van-tab>
         </van-tabs>
         <footer>
-            <van-button>立即预约</van-button>
+            <van-button @click="yy">立即预约</van-button>
         </footer>
     </div>
 </template>
@@ -258,6 +253,7 @@ export default {
                 '幽默风趣',
                 '亲和力强'
             ],
+            newlist:[],
             active:0,
         };
     },
@@ -283,6 +279,9 @@ export default {
         fan(){
             this.$router.go(-1)
         },
+        yy(){
+            this.$router.push('/neworder')
+        }
     }
 };
 </script>

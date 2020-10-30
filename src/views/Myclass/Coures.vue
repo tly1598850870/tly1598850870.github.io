@@ -40,7 +40,7 @@
                 v-for="(item, key) in jbrarr"
                 :key="key"
                 :style="{ color: jbrPx == key ? '#EB6100' : '' }"
-                @click="jbrpx(key)"
+                @click="jbrpx(item,key)"
               >
                 {{ item }}
               </li>
@@ -66,14 +66,15 @@
     </div>
 
     <div class="cont">
-      <dl @click="jbrXq()" v-for='(item,key) in newList' :key='key'>
+      <dl @click="jbrXq(item)" v-for='(item,key) in newList' :key='key'>
         <dt>
           <p>{{item.title}}</p>
           <van-icon name="clock-o" class="jbr_icon" />
           <span>{{ item.start_play_date | time }} | 共{{item.sales_num}}课时</span>
           <!-- <span>03月16日 18:30 ~ 03月22日 15:00 | 共8课时</span> -->
           <p class="jbr_lq">
-            <img :src="item.cover_img" alt="" />
+            <!-- <img :src="item.cover_img" alt="" /> -->
+            <img :src="item.teachers_list[0].teacher_avatar" alt="" />
             <span>{{ item.teachers_list[0].teacher_name }}</span>
           </p>
         </dt>
@@ -84,7 +85,7 @@
             <span class="jbr_jg">
               <img src="@/assets/money.png" alt="">
               {{ item.total_periods.toFixed(2) }}
-              </span>
+            </span>
           </p>
         </dd>
       </dl>
@@ -139,9 +140,24 @@ export default {
       this.jbrActive = k;
       this.$refs.item3.toggle();
     },
-    jbrpx(k) {
+    jbrpx(item,k) {
       this.jbrPx = k;
       this.$refs.item2.toggle();
+      switch(item){
+        case '综合排序':
+          this.newlist()
+        break;
+        case '价格从低到高':
+          this.newList.sort((a, b) => {
+            return a.total_periods - b.total_periods
+          })
+        break;
+        case '价格从高到低':
+            this.newList.sort((a, b) => {
+              return b.total_periods - a.total_periods
+            })
+        break;
+      }
     },
     async newlist(){
       let { data } = await this.$Axios.get('/api/app/courseBasis?page=1&limit=10&')
@@ -170,8 +186,15 @@ export default {
     act2(k) {
       this.Active2 = k;
     },
-    jbrXq() {
-      this.$router.push("/cod");
+    jbrXq(item) {
+      let xm = JSON.parse(localStorage.getItem('newlist'))
+      this.$router.push({
+        path:"/cod",
+        query:{
+          item:xm
+        }
+      });
+      localStorage.setItem('newlist',JSON.stringify(item))
     },
     search(){
       this.$router.push('/search')

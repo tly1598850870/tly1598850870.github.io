@@ -54,7 +54,7 @@ html,body,#app{
   position: fixed;
   right: 20px;
   bottom: 70px;
-  z-index: 1000;
+  z-index: 10000;
   .iconfont{
     font-size: 0.23rem;
     padding-left: 0.02rem;
