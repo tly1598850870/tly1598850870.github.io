@@ -50,6 +50,9 @@ const routes = [
     name: 'Card',
     component: function () {
       return import('../views/My/Card.vue')
+    },
+    meta:{
+      title:'学习卡'
     }
   },
   {
@@ -107,6 +110,26 @@ const routes = [
     },
     meta:{
       title:'讲师详情'
+    }
+  },
+  {
+    path: '/calendar',
+    name: 'calendar',
+    component: function () {
+      return import('../views/Home/calendar.vue')
+    },
+    meta:{
+      title:'一对一辅导'
+    }
+  },
+  {
+    path: '/coach',
+    name: 'coach',
+    component: function () {
+      return import('../views/Home/coach.vue')
+    },
+    meta:{
+      title:'一对一辅导'
     }
   },
   {
