@@ -70,7 +70,8 @@
         <dt>
           <p>{{item.title}}</p>
           <van-icon name="clock-o" class="jbr_icon" />
-          <span>03月16日 18:30 ~ 03月22日 15:00 | 共8课时</span>
+          <span>{{ item.start_play_date | time }} | 共{{item.sales_num}}课时</span>
+          <!-- <span>03月16日 18:30 ~ 03月22日 15:00 | 共8课时</span> -->
           <p class="jbr_lq">
             <img :src="item.cover_img" alt="" />
             <span>{{ item.teachers_list[0].teacher_name }}</span>
@@ -79,78 +80,14 @@
         <dd>
           <p>
             <span>{{ item.brows_num }}人已报名</span>
-            <span class="jbr_mf">免费</span>
+            <!-- <span class="jbr_mf">免费</span> -->
+            <span class="jbr_jg">
+              <img src="@/assets/money.png" alt="">
+              {{ item.total_periods.toFixed(2) }}
+              </span>
           </p>
         </dd>
       </dl>
-      <!-- <dl @click="jbrXq()">
-        <dt>
-          <p>李老师16号到22号地理大课堂开课啦</p>
-          <van-icon name="clock-o" class="jbr_icon" />
-          <span>03月16日 18:30 ~ 03月22日 15:00 | 共8课时</span>
-          <p class="jbr_lq">
-            <img src="@/assets/155.jpg" alt="" />
-            李青
-          </p>
-        </dt>
-        <dd>
-          <p>
-            <span>134人已报名</span>
-            <span class="jbr_mf">免费</span>
-          </p>
-        </dd>
-      </dl>
-      <dl @click="jbrXq()">
-        <dt>
-          <p>李老师16号到22号地理大课堂开课啦</p>
-          <van-icon name="clock-o" class="jbr_icon" />
-          <span>03月16日 18:30 ~ 03月22日 15:00 | 共8课时</span>
-          <p class="jbr_lq">
-            <img src="@/assets/155.jpg" alt="" />
-            李青
-          </p>
-        </dt>
-        <dd>
-          <p>
-            <span>134人已报名</span>
-            <span class="jbr_mf">免费</span>
-          </p>
-        </dd>
-      </dl>
-      <dl @click="jbrXq()">
-        <dt>
-          <p>李老师16号到22号地理大课堂开课啦</p>
-          <van-icon name="clock-o" class="jbr_icon" />
-          <span>03月16日 18:30 ~ 03月22日 15:00 | 共8课时</span>
-          <p class="jbr_lq">
-            <img src="@/assets/155.jpg" alt="" />
-            李青
-          </p>
-        </dt>
-        <dd>
-          <p>
-            <span>134人已报名</span>
-            <span class="jbr_mf">免费</span>
-          </p>
-        </dd>
-      </dl>
-      <dl @click="jbrXq()">
-        <dt>
-          <p>李老师16号到22号地理大课堂开课啦</p>
-          <van-icon name="clock-o" class="jbr_icon" />
-          <span>03月16日 18:30 ~ 03月22日 15:00 | 共8课时</span>
-          <p class="jbr_lq">
-            <img src="@/assets/155.jpg" alt="" />
-            李青
-          </p>
-        </dt>
-        <dd>
-          <p>
-            <span>134人已报名</span>
-            <span class="jbr_mf">免费</span>
-          </p>
-        </dd>
-      </dl> -->
     </div>
   </div>
 </template>
@@ -188,7 +125,7 @@ export default {
   created() {},
   mounted() {
     this.list();
-    this.fl();
+    this.fl();7
     this.px();
     this.newlist();
   },
@@ -226,7 +163,6 @@ export default {
       let { data } = await this.$Axios.get(
         `/api/app/courseBasis?order_by=${this.jbrPx}`
       );
-      // console.log(data);
     },
     act1(k) {
       this.Active1 = k;
@@ -316,6 +252,12 @@ dl {
         float: right;
         margin-right: 0.1rem;
         color: #44a426;
+        font-size: 0.16rem;
+      }
+      .jbr_jg{
+        float: right;
+        margin-right: 0.1rem;
+        color: red;
         font-size: 0.16rem;
       }
     }
