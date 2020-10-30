@@ -19,83 +19,66 @@ const routes = [
     }
   },
   {
-   path: 'showclass',
-   name: 'showclass',
-   path: '/showclass',
-   name: 'Showclass',
-   component: function () {
-      return import('../views/Exercise/tablist/showclass.vue')
-   },
-  },
-  {
-    path: 'seek',
-    name: 'seek',
-    path: '/seek',
-    name: 'Seek',
-    component: function () {
-    return import('../views/Exercise/tablist/seek.vue')
-    },
-  },
-  {
     path: '/gopass',
     name: 'Gopass',
     component: function () {
       return import('../views/Pass/Gopass.vue')
-    }},
-    {
-      path: '/xinfen',
-      name: 'Xinfen',
-      component: function () {
-        return import('../views/Xinfen.vue')
-      }
-    },
-    {
-      path: '/search',
-      name: 'Search',
-      component: function () {
-        return import('../views/Search.vue')
-      }
-    },
-    {
-      path: '/teacher',
-      name: 'Teacher',
-      component: function () {
-        return import('../views/Myclass/Teacher.vue')
-      }
-    },
-    {
-      path: '/topass',
-      name: 'Topass',
-      component: function () {
-        return import('../views/Pass/Topass.vue')
-      }
-    },
-    {
-      path: '/mycurrency',
-      name: 'Mycurrency',
-      component: function () {
-        return import('../views/My/Mycurrency.vue')
-      }
-    },
-    {
-      path: '/order',
-      name: 'Order',
-      component: function () {
-        return import('../views/My/Order.vue')
-      }
-    },
-    {
-      path: '/coupon',
-      name: 'Coupon',
-      component: function () {
-        return import('../views/My/Coupon.vue')
-      }
-    },
-    {
-      path: '/footer',
-      name: 'Footer',
-      component: Footer,
-      children: [
+    }
+  },
+  {
+    path: '/xinfen',
+    name: 'Xinfen',
+    component: function () {
+      return import('../views/Xinfen.vue')
+    }
+  },
+  {
+    path: '/search',
+    name: 'Search',
+    component: function () {
+      return import('../views/Search.vue')
+    }
+  },
+  {
+    path: '/teacher',
+    name: 'Teacher',
+    component: function () {
+      return import('../views/Myclass/Teacher.vue')
+    }
+  },
+  {
+    path: '/topass',
+    name: 'Topass',
+    component: function () {
+      return import('../views/Pass/Topass.vue')
+    }
+  },
+  {
+    path: '/mycurrency',
+    name: 'Mycurrency',
+    component: function () {
+      return import('../views/My/Mycurrency.vue')
+    }
+  },
+  {
+    path: '/order',
+    name: 'Order',
+    component: function () {
+      return import('../views/My/Order.vue')
+    }
+  },
+  {
+    path: '/coupon',
+    name: 'Coupon',
+    component: function () {
+      return import('../views/My/Coupon.vue')
+    }
+  },
+  {
+    path: '/footer',
+    name: 'Footer',
+    component: Footer,
+    children: [
       {
         path: 'myhome',
         name: 'Myhome',
@@ -125,10 +108,38 @@ const routes = [
         },
         children: [
           {
+            path: 'showclass',
+            name: 'showclass',
+            component: function () {
+              return import('../views/Exercise/tablist/showclass.vue')
+            },
+          },
+          {
+            path: 'seek',
+            name: 'seek',
+            component: function () {
+              return import('../views/Exercise/tablist/seek.vue')
+            },
+          },
+          {
             path: 'Myexercise',
             name: 'Myexercises',
             component: function () {
               return import('../views/Exercise/tabhome/myexercisetab.vue')
+            },
+          },
+          {
+            path: 'analysis',
+            name: 'analysis',
+            component: function () {
+              return import('../views/Exercise/tablist/analysis.vue')
+            },
+          },
+          {
+            path: 'again',
+            name: 'again',
+            component: function () {
+              return import('../views/Exercise/tablist/again.vue')
             },
           },
           {
@@ -191,7 +202,7 @@ const routes = [
       },
       {
         path: '/:id',
-        redirect:'/cod'
+        redirect: '/cod'
       },
     ]
   },
@@ -201,17 +212,17 @@ const router = new VueRouter({
   routes
 })
 router.beforeEach((to, from, next) => {
-  console.log(from.path,to.path)
+  console.log(from.path, to.path)
   if (sessionStorage.getItem("token") == null) {
     if (from.path == to.path) {
       next()
-    } else if(to.path=="/toPass"){
+    } else if (to.path == "/toPass") {
       next()
-    }else if(to.path=="/goPass"){
+    } else if (to.path == "/goPass") {
       next()
-    }else if(to.path=="/"){
+    } else if (to.path == "/") {
       next()
-    }else{
+    } else {
       next('/')
     }
   } else {
