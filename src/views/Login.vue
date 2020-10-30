@@ -76,6 +76,7 @@ export default {
           sessionStorage.setItem("user",JSON.stringify(res.data.data))
           
           this.$router.push("/footer/mywd")
+        
         })
         
       }

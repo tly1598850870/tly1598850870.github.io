@@ -1,16 +1,24 @@
 <template>
   <div>
-    <van-nav-bar title="我的优惠券" left-text left-arrow @click-left="onClickLeft" />
-    <van-tabs v-model="active">
-    <van-tab title="未使用">
-        <div class="box">
-            <img src="../../assets/empty.0d284c2e.png" alt="">
-            <p>暂无优惠卷</p>
-        </div>
-    </van-tab>
-    <van-tab title="已使用">内容 3</van-tab>
-    <van-tab title="已过期">内容 4</van-tab>
-    </van-tabs>
+    <van-nav-bar title="设置密码" right-text="跳过" @click-right="onClickRight" />
+    <div class="box">
+        <div class="xmc_bk">
+      <van-cell-group>
+        <van-field v-model="password" type="password" placeholder="请输入密码" />
+      </van-cell-group>
+    </div>
+    <div class="xmc_bk">
+      <van-field v-model="passwords" type="password" placeholder="请输入再次密码" />
+    </div>
+    </div>
+    <van-button
+        round
+        block
+        type="info"
+        native-type="submit"
+        color="linear-gradient(to right, #ff6034, #ee0a24)"
+        @click="tj"
+      >确定</van-button>
   </div>
 </template>
 
@@ -25,7 +33,8 @@ export default {
   // 组件状态值
   data() {
     return {
-        active:0,
+        password:'',
+        passwords:'',
     };
   },
   // 计算属性
@@ -34,9 +43,28 @@ export default {
   watch: {},
   // 组件方法
   methods: {
-      onClickLeft(){
-          this.$router.go(-1)
-      }
+    onClickRight() {
+        this.$router.push("/info")
+    },
+    tj(){
+        if(this.password==""){
+          this.$toast('请输入的密码');
+        }else if(this.passwords==""){
+          this.$toast('两次输入的密码必须一致');
+        }
+        if(this.password==this.passwords){
+            this.$Axios.post("/api/app/password",{
+              mobile:sessionStorage.getItem("tel"),
+              password:this.password,
+              sms_code:sessionStorage.getItem("sms")
+            }).then((res)=>{
+              console.log(res)
+            })
+            this.$router.push("/info")
+        }else{
+             this.$toast('两次输入的密码必须一致');
+        }
+    }
   },
   /**
    * 组件实例创建完成，属性已绑定，但DOM还未生成，$ el属性还不存在
@@ -47,7 +75,9 @@ export default {
  * el 被新创建的 vm.$ el 替换，并挂载到实例上去之后调用该钩子。
  * 如果 root 实例挂载了一个文档内元素，当 mounted 被调用时 vm.$ el 也在文档内。
  */
-  mounted() {},
+  mounted() {
+    
+  },
   /**
    * 由于数据更改导致的虚拟 DOM 重新渲染和打补丁，在这之后会调用该钩子。
    * 当这个钩子被调用时，组件 DOM 已经更新，所以你现在可以执行依赖于 DOM 的操作。
@@ -69,16 +99,16 @@ export default {
 <!--然而子组件的根节点元素会同时被设置了scoped的父css样式和设置了scoped的子css样式影响，-->
 <!--这么设计的目的是父组件可以对子组件根元素进行布局。-->
 <style scoped lang="scss">
+.xmc_bk {
+  border-bottom: 1px solid #ebedf0;
+  margin-bottom: 0.1rem;
+}
+.xmc_btn {
+  background: none;
+  border: none;
+  color: rgb(236, 108, 22);
+}
 .box{
-    width: 100%;
-    text-align: center;
-    margin-top:0.5rem;
-    img{
-      width:1.66rem;
-    }
-    p{
-      color:#ccc;
-      font-size:0.14rem;
-    }
+    margin-bottom:0.4rem;
 }
 </style>

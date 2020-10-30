@@ -12,10 +12,38 @@ const routes = [
     component: Login,
   },
   {
+    path: '/passxg',
+    name: 'Passxg',
+    component: function () {
+      return import('../views/Pass/Passxg.vue')
+    }
+  },
+  {
+    path: '/info',
+    name: 'Info',
+    component: function () {
+      return import('../views/My/Info.vue')
+    }
+  },
+  {
+    path: '/exchange',
+    name: 'Exchange',
+    component: function () {
+      return import('../views/My/Exchange.vue')
+    }
+  },
+  {
     path: '/cod',
     name: 'Cod',
     component: function () {
       return import('../views/Myclass/Cod.vue')
+    }
+  },
+  {
+    path: '/card',
+    name: 'Card',
+    component: function () {
+      return import('../views/My/Card.vue')
     }
   },
   {

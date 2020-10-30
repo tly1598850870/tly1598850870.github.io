@@ -1,8 +1,8 @@
 "use strict";
-
+import { Guid } from "../assets/guid"
 import Vue from 'vue';
 import axios from "axios";
-import { Guid } from "../assets/guid"
+
 import { from } from '_array-flatten@2.1.2@array-flatten';
 
 // Full config:  https://github.com/axios/axios#request-config
@@ -16,11 +16,11 @@ let config = {
   // withCredentials: true, // Check cross-site Access-Control
 };
 
-  console.log(Guid.NewGuid().ToString("D"))
+  
 
 const _axios = axios.create({
-  baseURL:'http://120.53.31.103:84',
-  // baseURL:'https://www.365msmk.com',
+  // baseURL:'http://120.53.31.103:84',
+  baseURL:'https://www.365msmk.com',
   timeout:'5000'
 });
 
@@ -28,8 +28,10 @@ _axios.interceptors.request.use(
   function(config) {
     const token = sessionStorage.getItem('token')
     if(token){
-        config.headers.authorization = token
+        config.headers.authorization = `Bearer ${token}`
     }
+    config.headers.DeviceID = Guid.NewGuid().ToString("D")
+    config.headers.DeviceType = "H5"
     return config;
   },
   function(error) {
@@ -50,23 +52,23 @@ _axios.interceptors.response.use(
   }
 );
 
-Plugin.install = function(Vue, options) {
-  Vue.axios = _axios;
-  window.axios = _axios;
-  Object.defineProperties(Vue.prototype, {
-    axios: {
-      get() {
-        return _axios;
-      }
-    },
-    $axios: {
-      get() {
-        return _axios;
-      }
-    },
-  });
-};
+// Plugin.install = function(Vue, options) {
+//   Vue.axios = _axios;
+//   window.axios = _axios;
+//   Object.defineProperties(Vue.prototype, {
+//     axios: {
+//       get() {
+//         return _axios;
+//       }
+//     },
+//     $axios: {
+//       get() {
+//         return _axios;
+//       }
+//     },
+//   });
+// };
 
-Vue.use(Plugin)
+// Vue.use(Plugin)
 
-export default Plugin;
+export default _axios;

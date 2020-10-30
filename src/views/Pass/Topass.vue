@@ -95,8 +95,10 @@ export default {
       }).then((res)=>{
         console.log(res)
         sessionStorage.setItem("token",res.data.data.remember_token)
-        if(res.data.data.isnew==1){
-          this.$router.push("/goPass")
+        if(res.data.data.is_new==1){
+          sessionStorage.setItem("sms",this.value)
+          sessionStorage.setItem("tel",this.tel)
+          this.$router.push("/passxg")
         }else{
           this.$router.push("/footer/mywd")
         }
