@@ -40,7 +40,13 @@ import { RadioGroup, Radio } from "vant";
 
 Vue.use(Radio);
 Vue.use(RadioGroup);
-export default {};
+export default {
+  data() {
+    return {
+      radio:0
+    }
+  },
+};
 </script>
 <style lang="scss">
 * {

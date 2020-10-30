@@ -1,7 +1,7 @@
 <template>
   <div>
     <van-nav-bar
-      fixed="true"
+      :fixed="true"
       v-show="bollens"
       :left-arrow="bollen"
       :title="name"

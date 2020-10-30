@@ -21,23 +21,6 @@ const routes = [
   {
     path: '/gopass',
     name: 'Gopass',
-<<<<<<< HEAD
-    component: function () {
-      return import('../views/Pass/Gopass.vue')
-    }
-  },
-  {
-    path: '/xinfen',
-    name: 'Xinfen',
-    component: function () {
-      return import('../views/Xinfen.vue')
-    }
-  },
-  {
-    path: '/search',
-    name: 'Search',
-=======
->>>>>>> 00ddb8156781a972df901b9649f1418e8be685a7
     component: function () {
       return import('../views/Search.vue')
     }
@@ -109,7 +92,6 @@ const routes = [
         component: function () {
           return import('../views/Exercise/Myexercise.vue')
         },
-        children: [
         children: 
         [
           {
