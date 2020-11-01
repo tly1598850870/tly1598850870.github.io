@@ -30,22 +30,17 @@
         <div class="zhx_nav">
           <div class="nav">
             <ul>
-              <li>
-                <router-link to="">
+              <li @click="coures">
                   <img src="../../assets/pic/characteristic.png" alt="" />
-                  <p>特色课</p></router-link>
+                  <p>特色课</p>
               </li>
-              <li>
-               <router-link to="">
+              <li @click="ydy">
                   <img src="../../assets/pic/coach.png" alt="" />
-                <p>一对一辅导</p>
-               </router-link>
+                  <p>一对一辅导</p>
               </li>
-              <li @click="int">
-               <router-link to="">
+              <li @click="date">
                   <img src="../../assets/pic/Study-Calendar.png" alt="" />
-                <p>学习日历</p>
-                 </router-link>
+                  <p>学习日历</p>
               </li>
             </ul>
           </div>
@@ -54,79 +49,36 @@
         <!-- 名师阵容 -->
         <div class="teacher_list">
           <div class="teacher_item">
-            <div>
+
+            <div class="Boutique">
               <div class="title">名师阵容</div>
-              <div>
-                <div class="itemm">
-                  <img
-                    src="https://msmk2019.oss-cn-shanghai.aliyuncs.com/uploads/image/2019X3gWvILU7J1571983543.png"
-                    alt=""
-                  />
-                  <div>
-                    <div class="zhx_yang">
-                      杨德胜
-                      <p class="describers">
-                        杨老师，特级教师，多次被中国数学会评为...
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div class="itemm">
-                  <img
-                    src="https://msmk2019.oss-cn-shanghai.aliyuncs.com/uploads/image/2019wX5ZNRNxBT1577773182.jpg"
-                    alt=""
-                  />
-                  <div>
-                    <div class="zhx_yang">
-                      文卫星
-                      <p class="describers">
-                        文卫星，江苏沭阳县人，上海市特技教师...
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div class="itemm">
-                  <img
-                    src="https://msmk2019.oss-cn-shanghai.aliyuncs.com/uploads/image/20192TSKKmyNso1572684453.png"
-                    alt=""
-                  />
-                  <div>
-                    <div class="zhx_yang">马学斌</div>
-                    <p class="describers">
-                      马学斌老师，从2004年起，专注中考数学...
-                    </p>
-                  </div>
-                </div>
-              </div>
+              <dl>
+                <dt><img src="https://msmk2019.oss-cn-shanghai.aliyuncs.com/uploads/image/2019X3gWvILU7J1571983543.png" alt=""></dt>
+                <dd>
+                  <p>杨德胜</p>
+                  <p>杨老师，特级教师，多次被中国数学会评为</p>
+                </dd>
+              </dl>
+              <dl>
+                <dt><img src="https://msmk2019.oss-cn-shanghai.aliyuncs.com/uploads/image/2019wX5ZNRNxBT1577773182.jpg" alt=""></dt>
+                <dd>
+                  <p>文卫星</p>
+                  <p>文卫星，江苏沭阳县人，上海市特技教师</p>
+                </dd>
+              </dl>
+              <dl>
+                <dt><img src="https://msmk2019.oss-cn-shanghai.aliyuncs.com/uploads/image/20192TSKKmyNso1572684453.png" alt=""></dt>
+                <dd>
+                  <p>马学斌</p>
+                  <p>马学斌老师，从2004年起，专注中考数学</p>
+                </dd>
+              </dl>
             </div>
 
             <div class="Boutique">
               <div class="title">精品课程</div>
             </div>
           </div>
-        </div>
-
-        <div class="course">
-          <ul>
-            <li class="tit">
-              <p class="tit_p">每时每课特级教师-自主招生冲刺讲座6-多元</p>
-              <p class="tit_p">方程组与可转化多元方程组问题</p>
-            </li>
-            <li class="hour">共1课时</li>
-            <li class="teacher">
-              <img
-                src="https://msmk2019.oss-cn-shanghai.aliyuncs.com/uploads/image/2019X3gWvILU7J1571983543.png"
-                alt=""
-              />
-              <span>杨德胜</span>
-            </li>
-            <li class="del">
-              <span class="apply">138人已报名</span>
-                
-              <span class="cost">免费</span>
-            
-            </li>
-          </ul>
         </div>
         <div class="course">
           <ul>
@@ -144,122 +96,6 @@
             <li class="del">
               <span class="apply">100人已报名</span>
               <span class="cost" >免费</span>
-            </li>
-          </ul>
-        </div>
-        <div class="course">
-          <ul>
-            <li class="tit">每时每课特级教师-自主招生冲刺讲座-1代数式求值1</li>
-            <li class="hour">共1课时</li>
-            <li class="teacher">
-              <img
-                src="https://msmk2019.oss-cn-shanghai.aliyuncs.com/uploads/image/20192TSKKmyNso1572684453.png"
-                alt=""
-              />
-              <span>杨德胜</span>
-            </li>
-            <li class="del">
-              <span class="apply">127人已报名</span>
-              <span class="cost" >免费</span>
-            </li>
-          </ul>
-        </div>
-
-        <div class="course">
-          <ul>
-            <li class="tit">
-              初中重点几何知识点————第三讲:平行四边形与矩形、菱形、正方形的关系
-            </li>
-            <li class="hour">共1课时</li>
-            <li class="teacher">
-              <img
-                src="https://msmk2019.oss-cn-shanghai.aliyuncs.com/uploads/image/20192TSKKmyNso1572684453.png"
-                alt=""
-              />
-              <span>马学斌</span>
-            </li>
-            <li class="del">
-              <span class="apply">123人已报名</span>
-              <span class="cost">
-                <img
-                  src="https://msmk2019.oss-cn-shanghai.aliyuncs.com/uploads/image/20191HHDExgz0u1567065946.png"
-                  alt=""
-                />
-                <span>1.00</span>
-              </span>
-            </li>
-          </ul>
-        </div>
-        <div class="course">
-          <ul>
-            <li class="tit">
-              初中重点几何知识点————第九讲:用描点法画出二次函数y=-x^2的图像
-            </li>
-            <li class="hour">共1课时</li>
-            <li class="teacher">
-              <img
-                src="https://msmk2019.oss-cn-shanghai.aliyuncs.com/uploads/image/20192TSKKmyNso1572684453.png"
-                alt=""
-              />
-              <span>马学斌</span>
-            </li>
-            <li class="del">
-              <span class="apply">127人已报名</span>
-              <span class="cost">
-                <img
-                  src="https://msmk2019.oss-cn-shanghai.aliyuncs.com/uploads/image/20191HHDExgz0u1567065946.png"
-                  alt=""
-                />
-                <span>1.00</span>
-              </span>
-            </li>
-          </ul>
-        </div>
-        <div class="course">
-          <ul>
-            <li class="tit">
-              初中重点几何知识点————第二讲:三角形对平行四边形的影响
-            </li>
-            <li class="hour">共1课时</li>
-            <li class="teacher">
-              <img
-                src="https://msmk2019.oss-cn-shanghai.aliyuncs.com/uploads/image/20192TSKKmyNso1572684453.png"
-                alt=""
-              />
-              <span>杨德胜</span>
-            </li>
-            <li class="del">
-              <span class="apply">120人已报名</span>
-              <span class="cost">
-                <img
-                  src="https://msmk2019.oss-cn-shanghai.aliyuncs.com/uploads/image/20191HHDExgz0u1567065946.png"
-                  alt=""
-                />
-                <span>1.00</span>
-              </span>
-            </li>
-          </ul>
-        </div>
-        <div class="course">
-          <ul>
-            <li class="tit">每时每课特级教师-自主招生冲刺讲座-1代数式求值1</li>
-            <li class="hour">共1课时</li>
-            <li class="teacher">
-              <img
-                src="https://msmk2019.oss-cn-shanghai.aliyuncs.com/uploads/image/20192TSKKmyNso1572684453.png"
-                alt=""
-              />
-              <span>杨德胜</span>
-            </li>
-            <li class="del">
-              <span class="apply">127人已报名</span>
-              <span class="cost">
-                <img
-                  src="https://msmk2019.oss-cn-shanghai.aliyuncs.com/uploads/image/20191HHDExgz0u1567065946.png"
-                  alt=""
-                />
-                <span>1.00</span>
-              </span>
             </li>
           </ul>
         </div>
@@ -437,7 +273,10 @@ export default {
   //  },
   // 组件状态值
   data() {
-    return {};
+    return {
+      banner:[],
+      act:JSON.parse(sessionStorage.getItem('act'))||1
+    };
   },
   // 计算属性
   computed: {},
@@ -445,8 +284,17 @@ export default {
   watch: {},
   // 组件方法
   methods: {
-    int() {},
-    
+    date() {
+      this.$router.push('/date')
+    },
+    ydy(){
+      
+    },
+    coures(){
+      this.act = 1
+      sessionStorage.setItem('act',JSON.stringify(this.act))
+      this.$router.push('/footer/coures')
+    }
   },
 };
 </script>
@@ -467,6 +315,7 @@ export default {
   height: 0.5rem;
 }
 .content {
+  height: 2450px;
   background: rgb(240, 242, 245);
   img {
     display: block;
@@ -486,7 +335,7 @@ export default {
       width: 1rem;
       height: 1.08rem;
       background: #fff;
-      margin-left: 0.2rem;
+      margin-left: 0.19rem;
       border-radius: 10%;
       img {
         width: 0.24rem;
@@ -543,8 +392,8 @@ export default {
 }
 .title {
   border-left: red 0.03rem solid;
-  padding-left: 0.2rem;
-  font-size: 0.18rem;
+  padding-left: 0.1rem;
+  font-size: 0.15rem;
   margin: 0.2rem 0.2rem;
 }
 .item {
@@ -566,49 +415,47 @@ export default {
   background: white;
   display: flex;
   justify-content: space-around;
- 
+  align-items: center;
+
 }
 .itemm img {
   width: 0.5rem;
   height: 0.5rem;
   border-radius: 50%;
-  margin-top: 0.17rem;
-  margin-left: 0.08rem;
 }
 .zhx_yang {
   font-size: 0.15rem;
-  margin-top: 0.3rem;
-  padding-left: 0.03rem;
+  margin-top: 0.1rem;
 }
 .title_de {
   font-size: 0.18rem;
 }
 .item img {
-  width: 0.5rem;
-  height: 0.5rem;
+  width: 0.4rem;
+  height: 0.4rem;
   border-radius: 50%;
   margin-top: 0.17rem;
-  // margin-left: 1rem;
+  margin-left: 0.1rem;
 }
 .zhx_bai {
-  font-size: 0.15rem;
+  font-size: 0.14rem;
   margin-left: 0.2rem;
   margin-top: 0.23rem;
 }
 .zhx_baib{
   display: block;
-white-space: nowrap;
-overflow: hidden;
-text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .describe {
+  width: 2.7rem;
   color: rgb(177, 174, 174);
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
   font-size: 0.1rem;
   margin-left: 0.2rem;
-  width: 100%;
 }
 .describers {
   color: rgb(177, 174, 174);
@@ -621,7 +468,7 @@ text-overflow: ellipsis;
   width: 90%;
   background: white;
   border-radius: 0.1rem;
-  margin-top: 0.3rem;
+  margin-top: 0.2rem;
   margin-left: 0.2rem;
 }
 .course ul {
@@ -629,8 +476,8 @@ text-overflow: ellipsis;
   margin-left: 3%;
 }
 .course ul img {
-  width: 0.4rem;
-  height: 0.4rem;
+  width: 0.31rem;
+  height: 0.31rem;
   border-radius: 50%;
 }
 .course .tit {
@@ -641,7 +488,7 @@ text-overflow: ellipsis;
   height: 0.3rem;
 }
 .hour {
-  font-size: 0.18rem;
+  font-size: 0.13rem;
   color: #666;
   margin-top: 0.05rem;
 }
@@ -653,22 +500,23 @@ text-overflow: ellipsis;
   font-size: 0.3rem;
 }
 .teacher span {
-  margin-left: 0.3rem;
+  margin-left: 0.1rem;
+  font-size: 0.13rem;
   color: rgba(0, 0, 0, 0.45);
 }
 
 .del {
-  height: 0.6rem;
+  height: 0.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 .apply {
-  font-size: 0.18rem;
+  font-size: 0.13rem;
   color: gray;
 }
 .cost {
-  font-size: 0.18rem;
+  font-size: 0.16rem;
   color: rgb(80, 158, 34);
 }
 ul .cost img {
@@ -683,14 +531,38 @@ ul .cost img {
 }
 .mat {
   width: 100%;
-  height: 1.5rem;
+  height: 0.5rem;
 }
 .rank {
+  font-size: 0.13rem;
   color: rgb(226, 134, 80);
   margin-left: 0.1rem;
 }
 
 span {
   font-size: 0.18rem;
+}
+dl{
+  width: 3.4rem;
+  height: 0.81rem;
+  padding: 0.2rem 0.17rem;
+  box-sizing: border-box;
+  background: white;
+  dt{
+    float: left;
+    margin-right: 0.13rem;
+    img{
+      width: 0.4rem;
+      height: 0.4rem;
+      border-radius: 0.5rem;
+    }
+  }
+  dd{
+    margin-top: -0.2rem;
+    font-size: 0.13rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
 }
 </style>

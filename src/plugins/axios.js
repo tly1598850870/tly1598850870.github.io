@@ -2,6 +2,7 @@
 import { Guid } from "../assets/guid"
 import Vue from 'vue';
 import axios from "axios";
+import { Toast } from 'vant';
 
 import { from } from '_array-flatten@2.1.2@array-flatten';
 
@@ -26,6 +27,11 @@ const _axios = axios.create({
 
 _axios.interceptors.request.use(
   function(config) {
+    Toast.loading({
+      duration: 5000,
+      message: '加载中...',
+      forbidClick: true,
+    });
     const token = sessionStorage.getItem('token')
     if(token){
         config.headers.authorization = `Bearer ${token}`
@@ -43,6 +49,7 @@ _axios.interceptors.request.use(
 // Add a response interceptor
 _axios.interceptors.response.use(
   function(response) {
+    Toast.clear()
     // Do something with response data
     return response;
   },

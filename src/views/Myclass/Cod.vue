@@ -163,6 +163,7 @@ export default {
             bmxx:JSON.parse(localStorage.getItem('bm'))||false,
             newList:[],
             listShow:false,
+            list:[],
         };
     },
     created() {
@@ -170,7 +171,7 @@ export default {
     },
     mounted() {
         window.addEventListener('scroll', this.handleScroll);
-        // this.pl()
+        this.pl()
         this.newlist()
         this.kcpl()
     },
@@ -182,7 +183,7 @@ export default {
             }
         },
         async pl(){
-            let { data } = await this.$Axios.post('api/app/courseChapter')
+            let { data } = await this.$Axios.post('/api/app/courseChapter')
             console.log(data)
         },
         onClickLeft(){
@@ -236,9 +237,6 @@ export default {
             }
         },
         newlist(){
-            // this.newList.push(this.$route.query.item)
-            // console.log(this.newList)
-
             this.newList.push(JSON.parse(localStorage.getItem('newlist')))
             console.log(this.newList)
 

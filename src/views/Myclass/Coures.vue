@@ -64,31 +64,37 @@
         </van-dropdown-menu>
       </header>
     </div>
-
     <div class="cont">
-      <dl @click="jbrXq(item)" v-for='(item,key) in newList' :key='key'>
-        <dt>
-          <p>{{item.title}}</p>
-          <van-icon name="clock-o" class="jbr_icon" />
-          <span>{{ item.start_play_date | time }} | 共{{item.sales_num}}课时</span>
-          <!-- <span>03月16日 18:30 ~ 03月22日 15:00 | 共8课时</span> -->
-          <p class="jbr_lq">
-            <!-- <img :src="item.cover_img" alt="" /> -->
-            <img :src="item.teachers_list[0].teacher_avatar" alt="" />
-            <span>{{ item.teachers_list[0].teacher_name }}</span>
-          </p>
-        </dt>
-        <dd>
-          <p>
-            <span>{{ item.brows_num }}人已报名</span>
-            <!-- <span class="jbr_mf">免费</span> -->
-            <span class="jbr_jg">
-              <img src="@/assets/money.png" alt="">
-              {{ item.total_periods.toFixed(2) }}
-            </span>
-          </p>
-        </dd>
-      </dl>
+       <van-list
+          v-model="loading"
+          :finished="finished"
+          finished-text="没有更多了"
+          @load="onLoad"
+          ref="Lod"
+          :immediate-check='false'
+          error-text='加载失败，请点击重试'
+        >
+          <dl @click="jbrXq(item)" v-for='(item,key) in newList' :key='key'>
+            <dt>
+              <p class="title">{{item.title}}</p>
+              <van-icon name="clock-o" class="jbr_icon" />
+              <span>{{ item.start_play_date | time }} | 共{{item.total_periods}}课时</span>
+              <p class="jbr_lq">
+                <img :src="item.teachers_list[0].teacher_avatar" alt="" />
+                <span>{{ item.teachers_list[0].teacher_name }}</span>
+              </p>
+            </dt>
+            <dd>
+              <p>
+                <span>{{ item.brows_num }}人已报名</span>
+                <span class="jbr_jg" :style="{color:item.underlined_price>0?'red':'#44A426'}">
+                  <img src="@/assets/money.png" alt="" v-show="item.underlined_price>0">
+                  {{ item.underlined_price>0?item.underlined_price.toFixed(2):'免费' }}
+                </span>
+              </p>
+            </dd>
+          </dl>
+      </van-list>
     </div>
   </div>
 </template>
@@ -97,7 +103,7 @@
 import Xq from "./Cod";
 import $ from "jquery";
 // import { jbrKc } from '@/utils/api'
-import { Search } from 'vant';
+import { Search, Loading } from 'vant';
 export default {
   data() {
     return {
@@ -118,6 +124,12 @@ export default {
       jbrnewarr1: ["初一", "初二", "初三", "高一", "高二"],
       jbrnewarr2: ["语文", "数学", "英语", "物理", "化学"],
       newList:[],
+      page:1,
+      limit:10,
+      loading: false,
+      finished: false,
+      refreshing: false,
+      timer:null,
     };
   },
   components: {
@@ -160,7 +172,7 @@ export default {
       }
     },
     async newlist(){
-      let { data } = await this.$Axios.get('/api/app/courseBasis?page=1&limit=10&')
+      let { data } = await this.$Axios.get(`/api/app/courseBasis?page=${this.page}&limit=${this.limit}`)
       console.log(data)
       this.newList=data.data.list
       console.log(this.newList)
@@ -206,7 +218,22 @@ export default {
     },
     qd(){
       this.$refs.item1.toggle();
-    }
+    },
+    onLoad() {
+        this.$refs.Lod.check();
+        setTimeout(() => {
+          this.limit+=5
+          this.newlist()
+          
+          // 加载状态结束
+          this.loading = false;
+
+          // 数据全部加载完成
+          if (this.newList.length >= 180) {
+            this.finished = true;
+          }
+        }, 1000);
+    },
   },
 };
 </script>
@@ -234,13 +261,17 @@ header {
 }
 dl {
   width: 3.45rem;
-  height: 1.9rem;
+  // height: 1.9rem;
   border-radius: 5px;
   background: white;
   margin: 15px auto;
-  padding: 1px 10px;
+  padding: 0.01rem 10px;
   box-sizing: border-box;
   dt {
+    .title{
+      font-size: 0.16rem;
+      margin: 10px 0;
+    }
     .jbr_icon {
       font-size: 0.13rem;
       color: #d5d5d5;
@@ -251,6 +282,7 @@ dl {
       margin-left: 0.07rem;
     }
     .jbr_lq {
+      // height: 0.5rem;
       font-size: 0.14rem;
       color: rgba(0, 0, 0, 0.45);
       display: flex;
@@ -264,11 +296,14 @@ dl {
     }
   }
   dd {
-    margin: 0;
+    margin: 10px 0;
     border-top: 0.01rem solid #eee;
     p {
+      padding: 0.05rem 0;
+      box-sizing: border-box;
+      line-height: 0rem;
       span {
-        font-size: 0.13rem;
+        font-size: 0.12rem;
         color: rgba(0, 0, 0, 0.45);
       }
       .jbr_mf {

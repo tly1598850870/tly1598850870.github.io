@@ -24,6 +24,8 @@ import {
     Progress,
     Popup,
     Rate,
+    Loading,
+    List,
 } from 'vant';
 import { Field } from 'vant';
 import { Button } from 'vant';
@@ -53,3 +55,5 @@ Vue.use(Calendar);
 Vue.use(Progress);
 Vue.use(Popup);
 Vue.use(Rate);
+Vue.use(Loading);
+Vue.use(List);
