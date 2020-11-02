@@ -275,7 +275,7 @@ export default {
   data() {
     return {
       banner:[],
-      act:JSON.parse(sessionStorage.getItem('act'))||1
+      act:JSON.parse(localStorage.getItem('act'))||1
     };
   },
   // 计算属性
@@ -292,8 +292,11 @@ export default {
     },
     coures(){
       this.act = 1
-      sessionStorage.setItem('act',JSON.stringify(this.act))
+      localStorage.setItem('act',JSON.stringify(this.act))
       this.$router.push('/footer/coures')
+    },
+    bann(){
+      
     }
   },
 };
