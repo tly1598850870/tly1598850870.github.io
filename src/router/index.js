@@ -19,6 +19,9 @@ const routes = [
     name: 'Passxg',
     component: function () {
       return import('../views/Pass/Passxg.vue')
+    },
+    meta:{
+      title:'密码修改'
     }
   },
   {
@@ -36,6 +39,9 @@ const routes = [
     name: 'Info',
     component: function () {
       return import('../views/My/Info.vue')
+    },
+    meta:{
+      title:'个人信息'
     }
   },
   {
@@ -43,6 +49,9 @@ const routes = [
     name: 'Exchange',
     component: function () {
       return import('../views/My/Exchange.vue')
+    },
+    meta:{
+      title:'学习卡兑换'
     }
   },
   {
@@ -63,6 +72,26 @@ const routes = [
     },
     meta:{
       title:'学习卡'
+    }
+  },
+  {
+    path: '/setmessage',
+    name: 'Setmessage',
+    component: function () {
+      return import('../views/My/Setmessage.vue')
+    },
+    meta:{
+      title:'信息填写'
+    }
+  },
+  {
+    path: '/sex',
+    name: 'Sex',
+    component: function () {
+      return import('../views/My/Sex.vue')
+    },
+    meta:{
+      title:'修改昵称'
     }
   },
   {

@@ -2,42 +2,39 @@
   <div class="info">
     <van-nav-bar title="个人信息" left-arrow @click-left="onClickLeft" left-text=""/>    
     <ul>
-      <li>
-        <span>头像</span>
-        <span>
-          <img :src="userinfo.avatar" alt />
-        </span>
-      </li>
-      <li>
+      <li @click="xjnc">
         <span>昵称</span>
-        <span>{{userinfo.nickname}}</span>
+        <span>{{name}}</span>
       </li>
-      <li>
-        <span>手机号</span>
-        <span>{{userinfo.mobile}}</span>
-      </li>
-      <li>
+      <li @click="xjsex">
         <span>性别</span>
-        <span>{{userinfo.sex}}</span>
+        <span>{{xb}}</span>
       </li>
       <li>
         <span>出生日期</span>
-        <span>{{userinfo.birthday}}</span>
+        <span>{{userinfo.birthday==0?"请选择":userinfo.birthday}}</span>
       </li>
       <li @click="city">
         <span>所在城市</span>
         <span>{{cs}}</span>
       </li>
       <li>
-        <span>{{xk.attr}}</span>
-        <span>{{xk.attr_value}}</span>
+        <span>学科</span>
+        <span>{{xk}}</span>
       </li>
       <li>
-        <span>{{nj.attr}}</span>
-        <span>{{nj.attr_value}}</span>
+        <span>年级</span>
+        <span>{{nj}}</span>
       </li>
     </ul>
-
+<van-button
+        round
+        block
+        type="info"
+        native-type="submit"
+        color="linear-gradient(to right, #ff6034, #ee0a24)"
+        @click="tj"
+      >确定</van-button>
 
     <!-- 城市信息 -->
     <van-popup position="bottom" v-model="cityShow">
@@ -49,7 +46,7 @@
 
 
 <script>
-import {getData} from '@/utils/api'
+import {userInfo} from '@/utils/api'
 export default {
   // 组件名称
   name: "",
@@ -66,7 +63,9 @@ export default {
       cityEdit: [],
       cs:'',
       xk:'',
-      nj:''
+      nj:'',
+      xb:'',
+      name:'',
     };
   },
   // 计算属性
@@ -82,18 +81,26 @@ export default {
         this.$router.go(-1)
     },
     async info() {
-      let res = await getData();
+      let res = await userInfo();
       this.userinfo = res.data.data;
+      this.name=this.userinfo.nickname;
       console.log(res);
-      this.cs=`${this.userinfo.province_name},${this.userinfo.city_name},${this.userinfo.district_name}`;
-      this.userinfo.attr.forEach((i,k)=>{
-          if(i.attr=="学科"){
-              this.xk=this.userinfo.attr[k]
-          }else{
-              this.nj=this.userinfo.attr[k]
-          }
-      })
-    },
+      if(this.userinfo.sex==3){
+          this.xb="保密"
+      }else if(this.userinfo.sex==1){
+          this.xb="女"
+      }else if(this.userinfo.sex==2){
+          this.xb="男"
+      }
+      if(this.userinfo.province_name==0){
+          this.cs="请选择"
+      }
+      if(this.userinfo.arr==[]){
+          this.xk="",
+          this.nj="请选择"
+      }
+      },
+    
     // 城市信息
     async city() {
       let { data } = await AjaxEditSonArea();
@@ -105,6 +112,21 @@ export default {
       let data = await AjaxEditUser();
       this.user = res.data;
       console.log(data);
+    },
+    tj(){
+
+    },
+    xjnc(){
+      this.$router.push({
+        name:"Xjnc",
+        params:{name:this.name}
+      })
+    },
+    xjsex(){
+      this.$router.push({
+        name:"Sex",
+        params:{name:this.sb}
+      })
     }
   },
   /**

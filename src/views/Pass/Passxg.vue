@@ -60,7 +60,7 @@ export default {
             }).then((res)=>{
               console.log(res)
             })
-            this.$router.push("/info")
+            this.$router.push("/setmessage")
         }else{
              this.$toast('两次输入的密码必须一致');
         }
