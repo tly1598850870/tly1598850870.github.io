@@ -254,7 +254,7 @@ export default {
             lslist:[],
             cid:0,
             flag:JSON.parse(localStorage.getItem('gz'))||2,
-            arrid:JSON.parse(localStorage.getItem('arrid'))||[],
+            // arrid:JSON.parse(localStorage.getItem('arrid'))||[],
             // flag:2,
         };
     },
