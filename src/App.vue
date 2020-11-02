@@ -53,8 +53,6 @@ export default {
       }
       console.log('鼠标点所在位置', touch.clientX,touch.clientY)
       console.log('div左上角位置', event.target.offsetTop,event.target.offsetLeft)
-      dx = touch.clientX - event.target.offsetLeft
-      dy = touch.clientY - event.target.offsetTop
     },
     move() {
       if (this.flags) {
@@ -65,8 +63,9 @@ export default {
           touch = event;
         }
         // 定位滑块的位置
-        this.position.x = touch.clientX - dx;
-        this.position.y = touch.clientY - dy;
+        this.position.x = touch.clientX -20;
+        this.position.y = touch.clientY -20;
+        console.log(this.position.x,this.position.y )
         // 限制滑块超出页面
         // console.log('屏幕大小', screenWidth, screenHeight )
         if (this.position.x < 0) {
@@ -118,30 +117,6 @@ html,body,#app{
   .iconfont{
     font-size: 0.23rem;
     padding-left: 0.02rem;
-  }
-}
-.xx{
-  width: 3.75rem;
-  height: 100%;
-  background: #F2F3F5;
-  position: absolute;
-  top: 0;
-  z-index: 1000;
-  header{
-    width: 3.75rem;
-    height: 0.6rem;
-    background: #007AFF;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 10px;
-    box-sizing: border-box;
-    color: white;
-    font-size: 0.14rem;
-    .hide{
-      padding-right: 0.05rem;
-      padding-top: 0.03rem;
-    }
   }
 }
 .jbShow{

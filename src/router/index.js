@@ -65,6 +65,26 @@ const routes = [
     }
   },
   {
+    path: '/setmessage',
+    name: 'Setmessage',
+    component: function () {
+      return import('../views/My/Setmessage.vue')
+    },
+    meta:{
+      title:'信息填写'
+    }
+  },
+  {
+    path: '/sex',
+    name: 'Sex',
+    component: function () {
+      return import('../views/My/Sex.vue')
+    },
+    meta:{
+      title:'修改昵称'
+    }
+  },
+  {
     path: '/gopass',
     name: 'Gopass',
     component: function () {
