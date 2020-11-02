@@ -9,6 +9,7 @@ export function gets(url,data){
 export function posts(url,data){
     return axios.post(url,data)
 }
+
 export function getData(token) {
     return axios({
       url: "/api/app/userInfo",
