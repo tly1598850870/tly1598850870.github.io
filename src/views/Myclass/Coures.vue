@@ -74,7 +74,7 @@
           :immediate-check='false'
           error-text='加载失败，请点击重试'
         >
-          <dl @click="jbrXq(item)" v-for='(item,key) in newList' :key='key'>
+          <dl @click="jbrXq(item,item.id)" v-for='(item,key) in newList' :key='key'>
             <dt>
               <p class="title">{{item.title}}</p>
               <van-icon name="clock-o" class="jbr_icon" />
@@ -87,9 +87,9 @@
             <dd>
               <p>
                 <span>{{ item.brows_num }}人已报名</span>
-                <span class="jbr_jg" :style="{color:item.underlined_price>0?'red':'#44A426'}">
-                  <img src="@/assets/money.png" alt="" v-show="item.underlined_price>0">
-                  {{ item.underlined_price>0?item.underlined_price.toFixed(2):'免费' }}
+                <span class="jbr_jg" :style="{color:item.price>0?'red':'#44A426'}">
+                  <img src="@/assets/money.png" alt="" v-show="item.price>0">
+                  {{ item.price>0?item.price.toFixed(2):'免费' }}
                 </span>
               </p>
             </dd>
@@ -198,15 +198,17 @@ export default {
     act2(k) {
       this.Active2 = k;
     },
-    jbrXq(item) {
-      let xm = JSON.parse(localStorage.getItem('newlist'))
+    jbrXq(item,id) {
+      console.log(item,id)
+      // let xm = JSON.parse(localStorage.getItem('newlist'))
       this.$router.push({
         path:"/cod",
         query:{
-          item:xm
+          id:id,
+          item:item,
         }
       });
-      localStorage.setItem('newlist',JSON.stringify(item))
+      // localStorage.setItem('newlist',JSON.stringify(item))
     },
     search(){
       this.$router.push('/search')
@@ -261,7 +263,6 @@ header {
 }
 dl {
   width: 3.45rem;
-  // height: 1.9rem;
   border-radius: 5px;
   background: white;
   margin: 15px auto;

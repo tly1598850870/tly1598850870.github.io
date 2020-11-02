@@ -27,41 +27,39 @@
                             <span v-show="!scShow" class="xing" @click="sc()">☆</span>
                             <span v-show="scShow" class="xing" @click="sc()">★</span>
                         </p>
-                        <span class="jbr_mf">
-                            <img src="@/assets/money.png" alt="">
-                            {{ item.total_periods.toFixed(2) }}
+                        <span class="jbr_mf" :style="{color:item.price>0?'red':'#EB6100'}" >
+                            <img src="@/assets/money.png" alt="" v-show="item.price>0">
+                            {{ item.price>0?item.price.toFixed(2):'免费' }}
                         </span>
                         <p>
-                            <span>共{{item.sales_num}}课时 | {{ item.brows_num }}人已报名</span>
+                            <span>共{{item.total_periods}}课时 | {{ item.sales_num }}人已报名</span>
                         </p>
-                        <span>开课时间: {{ item.start_play_date | time }}</span>
                     </dt>
                     <dd></dd>
                 </dl>
             </div>
             <div class="jbrJxtd">
                 <p>教学团队</p>
-                <p class="jbr_lq" @click="lqxq"  v-for="(item,key) in newList" :key='key'>
-                    <img :src="item.teachers_list[0].teacher_avatar" alt="" /><br>
-                    <span>{{ item.teachers_list[0].teacher_name }}</span>
+                <p class="jbr_lq" @click="lqxq"  v-for="(item,key) in teacher" :key='key'>
+                    <img :src="item.avatar" alt="" /><br>
+                    <span>{{ item.teacher_name }}</span>
                 </p>
             </div>
             <div class="kcjs">
                 <p>课程介绍</p>
+                <p v-for="(item,key) in newList" :key='key'>
+                    <span v-html="item.course_details"></span>
+                </p>
             </div>
 
             <div class="kcdg">
                 <p id="dg">课程大纲</p>
-                <div class="hf" @click="bm()">
+                <div class="hf" @click="bm()" v-for="(item,key) in Video" :key='key'>
                     <span class="dian">·</span>
-                    <span class="hui">回放</span>
-                    <span class="one">第一讲第一课时</span>
+                    <!-- <span class="hui">回放</span> -->
+                    <span class="one">{{ item.periods_title }}</span>
                 </div>
-                <div class="lq" @click="bm()">
-                    <span>李青</span>
-                    <span>03月16日 18:30 - 19:30</span>
-                </div>
-                <div class="hf" @click="bm()">
+                <!-- <div class="hf" @click="bm()">
                     <span class="dian">·</span>
                     <span class="hui">回放</span>
                     <span class="one">第一讲第二课时</span>
@@ -69,72 +67,18 @@
                 <div class="lq" @click="bm()">
                     <span>李青</span>
                     <span>03月16日 18:30 - 19:30</span>
-                </div>
-                <div class="hf" @click="bm()">
-                    <span class="dian">·</span>
-                    <span class="hui">回放</span>
-                    <span class="one">第二讲第一课时</span>
-                </div>
-                <div class="lq" @click="bm()">
-                    <span>李青</span>
-                    <span>03月16日 18:30 - 19:30</span>
-                </div>
-                <div class="hf" @click="bm()">
-                    <span class="dian">·</span>
-                    <span class="hui">回放</span>
-                    <span class="one">第二讲第二课时</span>
-                </div>
-                <div class="lq" @click="bm()">
-                    <span>李青</span>
-                    <span>03月16日 18:30 - 19:30</span>
-                </div>
-                <div class="hf" @click="bm()">
-                    <span class="dian">·</span>
-                    <span class="hui">回放</span>
-                    <span class="one">第二讲第三课时</span>
-                </div>
-                <div class="lq" @click="bm()">
-                    <span>李青</span>
-                    <span>03月16日 18:30 - 19:30</span>
-                </div>
-                <div class="hf" @click="bm()">
-                    <span class="dian">·</span>
-                    <span class="hui">回放</span>
-                    <span class="one">第二讲第四课时</span>
-                </div>
-                <div class="lq" @click="bm()">
-                    <span>李青</span>
-                    <span>03月16日 18:30 - 19:30</span>
-                </div>
-                <div class="hf" @click="bm()">
-                    <span class="dian">·</span>
-                    <span class="hui">回放</span>
-                    <span class="one">第二讲第五课时</span>
-                </div>
-                <div class="lq" @click="bm()">
-                    <span>李青</span>
-                    <span>03月16日 18:30 - 19:30</span>
-                </div>
-                <div class="hf" @click="bm()">
-                    <span class="dian">·</span>
-                    <span class="hui">回放</span>
-                    <span class="one">第二讲第六课时</span>
-                </div>
-                <div class="lq" @click="bm()">
-                    <span>李青</span>
-                    <span>03月16日 18:30 - 19:30</span>
-                </div>
+                </div> -->
             </div>
             <div class="kcpl">
                 <p class="pj">课程评论</p>
-                <div v-show="!listShow" class="pl" v-for="(item,key) in $store.state.pl" :key="key">
-                    <img src="@/assets/177.jpg" alt="">
-                    <p class="name">power</p>
-                    <van-rate :touchable='false' v-model="item.val" color='#EA7A2F' void-color='#EA7A2F' />
-                    <p class="sj">2020-04-23 14:56</p>
-                    <p class="nr">{{ item.title }}</p>
+                <div v-show="listShow==false" class="pl" v-for="(item,key) in Pl" :key="key">
+                    <img :src="item.avatar" alt="">
+                    <span class="name">{{ item.nickname }}</span>
+                    <van-rate size='14px' :touchable='false' v-model="item.grade" color='#EA7A2F' void-color='#EA7A2F' />
+                    <p class="sj">{{ item.created_at | formatDate }}</p>
+                    <p class="nr">{{ item.content }}</p>
                 </div>
-                <div v-show="listShow" class="zwpl">
+                <div v-show="listShow==true" class="zwpl">
                     <img src="../../assets/zwpl.png" alt="">
                     <p>暂无评论</p>
                 </div>
@@ -164,6 +108,11 @@ export default {
             newList:[],
             listShow:false,
             list:[],
+            xid:0,
+            teacher:[],
+            Video:[],
+            Pl:[],
+            item:[],
         };
     },
     created() {
@@ -171,21 +120,14 @@ export default {
     },
     mounted() {
         window.addEventListener('scroll', this.handleScroll);
+        this.xid = this.$route.query.id
+        this.item = this.$route.query.item
+        console.log(this.item.has_buy)
         this.pl()
         this.newlist()
-        this.kcpl()
+        this.video()
     },
     methods: {
-        kcpl(){
-            console.log(this.$store.state.pl)
-            if(this.$store.state.pl.length == 0){
-                this.listShow = true
-            }
-        },
-        async pl(){
-            let { data } = await this.$Axios.post('/api/app/courseChapter')
-            console.log(data)
-        },
         onClickLeft(){
             this.$router.go(-1)
         },
@@ -236,10 +178,32 @@ export default {
                 this.$router.push('/')
             }
         },
-        newlist(){
-            this.newList.push(JSON.parse(localStorage.getItem('newlist')))
-            console.log(this.newList)
+        async newlist(){
+            // this.newList.push(JSON.parse(localStorage.getItem('newlist')))
+            // console.log(this.newList)
 
+            let { data } = await this.$Axios.get(`/api/app/courseInfo/basis_id=${this.xid}`)
+            // console.log(data)
+            this.newList.push(data.data.info)
+            // console.log(this.newList)
+            this.teacher = data.data.teachers
+
+        },
+        async video(){
+            let { data } = await this.$Axios.post(`/api/app/courseChapter/`,{id:this.xid})
+            // console.log(data)
+            this.Video = data.data
+        },
+        async pl(){
+            let { data } = await this.$Axios.post(`/api/app/courseComment`,{id:this.xid,page: 1,limit: 10})
+            // console.log(data)
+            this.Pl = data.data.list
+            console.log(this.Pl)
+            if(this.Pl.length == 0){
+                this.listShow = true
+            }else{
+                this.listShow = false
+            }
         },
         handleScroll() {
             //滚动条滚动时，距离顶部的距离
@@ -250,7 +214,7 @@ export default {
             } else {
                 this.isShow = false
             }
-            console.log(this.scrollTop)
+            // console.log(this.scrollTop)
         },
     },
     destroyed() {
@@ -323,7 +287,7 @@ footer{
 }
 dl {
   width: 3.75rem;
-  height: 1.6rem;
+//   height: 1.6rem;
   background: white;
   margin: 14px auto;
   padding: 1px 10px;
@@ -335,13 +299,15 @@ dl {
       color: #d5d5d5;
     }
     .lls{
+        width: 3.3rem;
+        display: block;
         font-size: 0.16rem;
         color: black;
     }
     .xing{
         font-size: 0.23rem;
         float: right;
-        margin-top: -0.05rem;
+        margin-top: -0.57rem;
     }
     .xing:nth-child(3){
         color: #EB6100;
@@ -359,7 +325,7 @@ dl {
 }
 .jbrJxtd{
     width: 3.75rem;
-    height: 1.5rem;
+    // height: 1.5rem;
     background: white;
     margin-top: -5px;
     padding: 1px 10px;
@@ -378,11 +344,11 @@ dl {
 }
 .kcjs{
     width: 3.75rem;
-    height: 0.7rem;
     background: white;
     box-sizing: border-box;
     padding: 0.01rem 0.1rem;
     margin-top: 0.12rem;
+    font-size: 0.14rem;
     margin-bottom: 0.1rem;
 }
 .kcdg{
@@ -393,6 +359,7 @@ dl {
     margin-top: 0.12rem;
     margin-bottom: 0.1rem;
     .hf{
+        padding: 0.07rem 0;
         display: flex;
         span{
             padding: 0px 10px;
@@ -446,18 +413,23 @@ dl {
         p{
             padding: 0px 10px;
             font-size: 0.14rem;
+            width: 1rem;
         }
         .sj{
+            width: 0.8rem;
             color: #999999;
             font-size: 0.13rem;
-            width: 1.2rem;
-            text-align: right;
         }
         .nr{
+            width: 3rem;
             margin-top: 0.01rem;
             margin-left: 0.4rem;
             font-size: 0.13rem;
             color: #999999;
+        }
+        .name{
+            font-size: 0.13rem;
+            margin-right: 0.05rem;
         }
     }
     .zwpl{
@@ -475,6 +447,5 @@ dl {
             color: #8C8C8C;
         }
     }
-
 }
 </style>

@@ -22,6 +22,16 @@ const routes = [
     }
   },
   {
+    path: '/gzls',
+    name: 'Gzls',
+    component: function () {
+      return import('../views/Myclass/Gzls.vue')
+    },
+    meta:{
+      title:'我的关注'
+    }
+  },
+  {
     path: '/info',
     name: 'Info',
     component: function () {

@@ -1,22 +1,13 @@
 <template>
   <div>
-    <div class="coach_head">
-      <div class="coach_head_top">
-        <img src="../../assets/kuohao.png" alt="" />
-      </div>
-      <div class="coach_head_text">一对一辅导</div>
-      <div class="coach_head_reght">
-        <img src="../../assets/soushuo.png" alt="" />
-      </div>
-    </div>
-    <div>
-      <van-dropdown-menu>
-        <van-dropdown-item v-model="value1" :options="option1" />
-        <van-dropdown-item v-model="value2" :options="option2" />
-      </van-dropdown-menu>
-    </div>
+    <van-nav-bar
+      title="学习日历"
+      left-arrow
+      @click-left="onClickLeft"
+    />
     <van-calendar
-      title="日期"
+      title=""
+      
       :poppable="false"
       :show-confirm="false"
       :style="{ height: '400px' }"
@@ -25,14 +16,6 @@
 </template>
 
 <script>
-import Vue from "vue";
-import { Calendar } from "vant";
-import { DropdownMenu, DropdownItem } from "vant";
-
-Vue.use(DropdownMenu);
-Vue.use(DropdownItem);
-
-Vue.use(Calendar);
 export default {
   data() {
     return {
@@ -46,6 +29,11 @@ export default {
       ],
     };
   },
+  methods: {
+    onClickLeft(){
+      this.$router.go(-1)
+    }
+  }
 };
 </script>
 

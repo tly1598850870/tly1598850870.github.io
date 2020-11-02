@@ -8,15 +8,16 @@
             </header>
         </div>
         <div class="jj">
-            <dl class="js">
+            <dl class="js" v-for="(item,key) in yylist" :key="key">
                 <dt>
-                    <img src="../../assets/155.jpg" alt="">
+                    <img :src="item.avatar" alt="">
                 </dt>
                 <dd>
-                    <p class="lq">李青</p>
-                    <p class="sex">女 <span>7年教龄</span></p>
+                    <p class="lq">{{ item.teacher_name }}</p>
+                    <p class="sex">{{ item.sex == 0?"男":'女' }} 
+                        <span>{{ item.teach_age }}年教龄</span></p>
                     <p class="gz">
-                        <button v-show="!gzShow" @click="xq()" class="but">查看详情</button>
+                        <button @click="xq()" class="but">查看详情</button>
                     </p>
                 </dd>
             </dl>
@@ -29,19 +30,14 @@
             </div>
         </div>
         <div class="rqsj">
-            <!-- <ul>
-                <li>周一</li>
-                <li>周二</li>
-                <li>周三</li>
-                <li>周四</li>
-                <li>周五</li>
-                <li>周六</li>
-                <li>周日</li>
-            </ul> -->
-            <van-tabs v-model="active">
+            <!-- <van-tabs v-model="active">
                 <van-tab v-for="(item,key) in date" :key="key" 
                     :title="item.name+item.rq">
-
+                </van-tab>
+            </van-tabs> -->
+            <van-tabs v-model="active">
+                <van-tab v-for="(item,key) in yydate" :key="key" 
+                    :title="item">
                 </van-tab>
             </van-tabs>
         </div>
@@ -67,30 +63,20 @@ export default {
                 '幽默风趣',
                 '亲和力强'
             ],
-            date:[
-                {name:'周四',rq:'10/29',tab:0},
-                {name:'周五',rq:'10/30',tab:1},
-                {name:'周六',rq:'10/31',tab:2},
-                {name:'周日',rq:'11/01',tab:3},
-                {name:'周一',rq:'11/02',tab:4},
-                {name:'周二',rq:'11/03',tab:5},
-                {name:'周三',rq:'11/04',tab:6},
-                {name:'周四',rq:'11/05',tab:7},
-                {name:'周五',rq:'11/06',tab:8},
-                {name:'周六',rq:'11/07',tab:9},
-                {name:'周日',rq:'11/08',tab:10},
-                {name:'周一',rq:'11/09',tab:11},
-                {name:'周二',rq:'11/10',tab:12},
-                {name:'周三',rq:'11/11',tab:13},
-            ],
             active:0,
+            xid:0,
+            yylist:[],
+            yydate:[],
         };
     },
     created() {
 
     },
     mounted() {
-
+        this.xid = this.$route.query.id
+        console.log(this.xid)
+        this.yyxx()
+        this.yyDate()
     },
     methods: {
         xq(){
@@ -101,6 +87,22 @@ export default {
         },
         yy(){
             this.$toast('请选择预约时间')
+        },
+        async yyxx(){
+            let { data } = await this.$Axios.get(`/api/app/teacher/${this.xid}`)
+            console.log(data)
+            this.yylist.push(data.data.teacher)
+        },
+        async yyDate(){
+            let { data } = await this.$Axios.post(`/api/app/teacher/invite`,
+            {
+                teacher_id:this.xid,
+                week_day: 1,
+                is_next: 0
+            })
+            console.log(data)
+            this.yydate = data.data.weekDateList
+            console.log(this.yydate)
         }
     }
 };
