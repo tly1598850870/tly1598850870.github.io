@@ -37,7 +37,7 @@ export default {
     return {
       tel: "",
       password: "",
-      act: JSON.parse(sessionStorage.getItem('act'))||4,
+      act: JSON.parse(localStorage.getItem('act'))||4,
     };
   },
   // 计算属性
@@ -45,7 +45,7 @@ export default {
   // 侦听器
   watch: {
     act(val){
-      sessionStorage.setItem('act',JSON.stringify(val))
+      localStorage.setItem('act',JSON.stringify(val))
     }
   },
   // 组件方法
