@@ -57,8 +57,9 @@ export default {
           this.$router.push("/toPass")
       },
       tj(){
+        let telzz=new RegExp(/^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\d{8}$/);
         console.log(this.tel)
-        if(this.tel==""){
+        if(!telzz.test(this.tel)){
         this.$toast('请输入正确手机号或密码');
         return false
       }else if(this.password==""){
@@ -123,6 +124,9 @@ img {
 }
 .van-cell{
     border-bottom: 1px solid #ebedf0 !important;
+}
+.van-cell:hover{
+  border-bottom: 1px solid red !important;
 }
 .xmc_inp{
     width: 3.5rem;
