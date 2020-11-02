@@ -19,6 +19,9 @@ const routes = [
     name: 'Passxg',
     component: function () {
       return import('../views/Pass/Passxg.vue')
+    },
+    meta:{
+      title:'密码修改'
     }
   },
   {
@@ -26,6 +29,9 @@ const routes = [
     name: 'Info',
     component: function () {
       return import('../views/My/Info.vue')
+    },
+    meta:{
+      title:'个人信息'
     }
   },
   {
@@ -33,6 +39,9 @@ const routes = [
     name: 'Exchange',
     component: function () {
       return import('../views/My/Exchange.vue')
+    },
+    meta:{
+      title:'学习卡兑换'
     }
   },
   {
