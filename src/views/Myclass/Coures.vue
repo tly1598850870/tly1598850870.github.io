@@ -74,22 +74,25 @@
           :immediate-check='false'
           error-text='加载失败，请点击重试'
         >
-          <dl @click="jbrXq(item,item.id)" v-for='(item,key) in newList' :key='key'>
+          <dl @click="jbrXq(item.id,item)" v-for='(item,key) in newList' :key='key'>
             <dt>
               <p class="title">{{item.title}}</p>
               <van-icon name="clock-o" class="jbr_icon" />
               <span>{{ item.start_play_date | time }} | 共{{item.total_periods}}课时</span>
-              <p class="jbr_lq">
+              <div class="jbr_lq">
                 <img :src="item.teachers_list[0].teacher_avatar" alt="" />
                 <span>{{ item.teachers_list[0].teacher_name }}</span>
-              </p>
+                <p class="p" v-show="item.has_buy == 1">
+                  <img src="../../assets/bm.png" alt="">
+                </p>
+              </div>
             </dt>
             <dd>
               <p>
                 <span>{{ item.brows_num }}人已报名</span>
                 <span class="jbr_jg" :style="{color:item.price>0?'red':'#44A426'}">
                   <img src="@/assets/money.png" alt="" v-show="item.price>0">
-                  {{ item.price>0?item.price.toFixed(2):'免费' }}
+                  {{ item.price>0?(item.price/100).toFixed(2):'免费' }}
                 </span>
               </p>
             </dd>
@@ -198,14 +201,14 @@ export default {
     act2(k) {
       this.Active2 = k;
     },
-    jbrXq(item,id) {
-      console.log(item,id)
+    jbrXq(id,item) {
+      console.log(id)
       // let xm = JSON.parse(localStorage.getItem('newlist'))
       this.$router.push({
         path:"/cod",
         query:{
           id:id,
-          item:item,
+          item:item
         }
       });
       // localStorage.setItem('newlist',JSON.stringify(item))
@@ -283,11 +286,23 @@ dl {
       margin-left: 0.07rem;
     }
     .jbr_lq {
-      // height: 0.5rem;
       font-size: 0.14rem;
       color: rgba(0, 0, 0, 0.45);
       display: flex;
       align-items: center;
+      padding: 0.1rem 0;
+      position: relative;
+      .p{
+        width: 0.63rem;
+        height: 0.5rem;
+        position: absolute;
+        right: 0.1rem;
+        top: -0.31rem;
+        img{
+          width: 0.63rem;
+          height: 0.5rem;
+        }
+      }
     }
     img {
       width: 0.35rem;

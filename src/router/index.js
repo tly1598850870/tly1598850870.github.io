@@ -35,6 +35,16 @@ const routes = [
     }
   },
   {
+    path: '/scls',
+    name: 'Scls',
+    component: function () {
+      return import('../views/Myclass/Scls.vue')
+    },
+    meta:{
+      title:'我的收藏'
+    }
+  },
+  {
     path: '/info',
     name: 'Info',
     component: function () {
@@ -132,6 +142,16 @@ const routes = [
     }
   },
   {
+    path: '/bmfk',
+    name: 'Bmfk',
+    component: function () {
+      return import('../views/Myclass/Bmfk.vue')
+    },
+    meta:{
+      title:'确认订单'
+    }
+  },
+  {
     path: '/search',
     name: 'Search',
     component: function () {
@@ -198,7 +218,7 @@ const routes = [
       return import('../views/My/Mycurrency.vue')
     },
     meta:{
-      title:'验证码登录'
+      title:'我的余额'
     }
   },
   {

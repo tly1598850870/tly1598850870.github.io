@@ -233,7 +233,7 @@ header {
   box-sizing: border-box;
   padding: 10px 10px;
   .title{
-    width: 2.7rem;
+    width: 2.5rem;
     font-size: 0.18rem;
     overflow: hidden;
     text-overflow: ellipsis;

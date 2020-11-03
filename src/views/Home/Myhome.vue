@@ -54,7 +54,7 @@
           <!-- 精品课程 -->
             <div class="title">{{ jp }}</div>
           </div>
-          <ul v-for="(item,key) in sylistjp.list" :key="key" @click="jpkc(item.id)">
+          <ul v-for="(item,key) in sylistjp.list" :key="key" @click="jpkc(item.id,item)">
             <li class="tit">
               {{ item.title }}
             </li>
@@ -65,13 +65,16 @@
                 alt=""
               />
               <span>{{ item.teachers_list[0].teacher_name }}</span>
+              <p class="p" v-show="item.has_buy == 1">
+                <img src="../../assets/bm.png" alt="">
+              </p>
             </li>
             <li class="del">
               <span class="apply">{{ item.sales_num }}人已报名</span>
               <!-- <span class="cost" >免费</span> -->
               <span class="cost" :style="{color:item.price>0?'red':'#44A426'}" >
                 <img src="@/assets/money.png" alt="" v-show="item.price>0">
-                {{ item.price>0?item.price.toFixed(2):'免费' }}
+                {{ item.price>0?(item.price/100).toFixed(2):'免费' }}
               </span>
             </li>
           </ul>
@@ -79,7 +82,7 @@
         <!-- 推荐课程 -->
         <div class="course">
           <div class="title">{{ tj }}</div>
-          <ul v-for="(item,key) in sylisttj.list" :key="key" @click="jpkc(item.id)">
+          <ul v-for="(item,key) in sylisttj.list" :key="key" @click="jpkc(item.id,item)">
             <li class="tit">{{ item.title }}</li>
             <li class="hour">共{{ item.total_periods }}课时</li>
             <li class="teacher">
@@ -88,6 +91,9 @@
                 alt=""
               />
               <span>{{ item.teachers_list[0].teacher_name }}</span>
+              <p class="p" v-show="item.has_buy == 1">
+                <img src="../../assets/bm.png" alt="">
+              </p>
             </li>
            
               <li class="del">
@@ -95,7 +101,7 @@
              
               <span class="cost" :style="{color:item.price>0?'red':'#44A426'}" >
                 <img src="@/assets/money.png" alt="" v-show="item.price>0">
-                {{ item.price>0?item.price.toFixed(2):'免费' }}
+                {{ item.price>0?(item.price/100).toFixed(2):'免费' }}
               </span>
             </li>
           </ul>
@@ -143,12 +149,20 @@ export default {
       jp:'',
       tj:'',
       mx:'',
-      act:JSON.parse(localStorage.getItem('act'))||1
+      act:JSON.parse(localStorage.getItem('act'))||1,
+      free:0,
+      xid:0,
     };
+  },
+  filters: {
+    fixT(val){
+      return (val/100).toFixed(2)
+    }
   },
   mounted () {
     this.bann()
     this.syList()
+    // this.bm()
   },
   // 计算属性
   computed: {},
@@ -178,11 +192,21 @@ export default {
       this.sylistjp=data.data[1]
       this.sylisttj=data.data[2]
       this.sylistmx=data.data[3]
-      console.log(this.sylistmx)
+      console.log(this.sylistjp)
+      console.log(this.sylisttj)
+
       this.ms = this.sylistms.channel_info.name
       this.jp = this.sylistjp.channel_info.name
       this.tj = this.sylisttj.channel_info.name
       this.mx = this.sylistmx.channel_info.name
+
+
+    },
+    async bm(){
+      let { data } = await this.$Axios.post(`/api/app/courseChapter`,{id:this.xid})
+      console.log(data)
+      this.item=data.data
+      this.free = this.item[0].is_free
     },
     js(id){
       this.$router.push({
@@ -192,12 +216,13 @@ export default {
         }
       })
     },
-    jpkc(id){
+    jpkc(id,item){
       console.log(id)
       this.$router.push({
         path:'/cod',
         query:{
-          id:id
+          id:id,
+          item:item,
         }
       })
     },
@@ -381,8 +406,6 @@ export default {
 }
 .course {
   width: 90%;
-  // background: white;
-  
   margin-top: 0.2rem;
   margin-left: 0.2rem;
 }
@@ -417,6 +440,18 @@ export default {
   display: flex;
   align-items: center;
   font-size: 0.3rem;
+  position: relative;
+  .p{
+    width: 0.7rem;
+    height: 0.6rem;
+    position: absolute;
+    right: 0.1rem;
+    top: -0.31rem;
+    img{
+      width: 0.7rem;
+      height: 0.6rem;
+    }
+  }
 }
 .teacher span {
   margin-left: 0.1rem;

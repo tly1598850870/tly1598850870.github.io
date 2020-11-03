@@ -59,7 +59,7 @@
               <span class="iconfont van-icon icn">&#xe608;</span>
               <p>关注的老师</p>
             </div>
-            <div>
+            <div @click="jbr_sc()">
               <span class="iconfont van-icon icn">&#xe611;</span>
               <p>我的收藏</p>
             </div>
@@ -173,6 +173,9 @@ export default {
     },
     jbr_gz(){
       this.$router.push('/gzls')
+    },
+    jbr_sc(){
+      this.$router.push('/scls')
     }
   },
   watch: {
