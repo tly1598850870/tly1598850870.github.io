@@ -55,7 +55,7 @@
         <li>
           <p class="menu-title">课程相关</p>
           <div class="menu-box">
-            <div>
+            <div @click="jbr_gz()">
               <span class="iconfont van-icon icn">&#xe608;</span>
               <p>关注的老师</p>
             </div>
@@ -170,6 +170,9 @@ export default {
     },
     grxx(){
       this.$router.push("/info")
+    },
+    jbr_gz(){
+      this.$router.push('/gzls')
     }
   },
   watch: {

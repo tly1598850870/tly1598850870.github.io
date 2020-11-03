@@ -151,7 +151,8 @@ export default {
     };
   },
   mounted() {
-    this.$store.commit("changeleftarrows", true);
+    this.$store.commit("changeleftarrows", true)
+
   },
   methods: {
     change(name) {

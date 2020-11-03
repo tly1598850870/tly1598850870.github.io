@@ -4,26 +4,13 @@
       <div class="content">
         <div class="block">
           <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
-            <van-swipe-item>
+            <van-swipe-item v-for="(item,key) in banner" :key="key">
               <img
-                src="../../assets/pic/banner/1.jpg"
+                :src="item.banner_img"
                 alt=""
                 class="zhx_img_lunbo"
               />
             </van-swipe-item>
-            <van-swipe-item>
-              <img
-                src="../../assets/pic/banner/2.jpg"
-                alt=""
-                class="zhx_img_lunbo"
-              />
-            </van-swipe-item>
-            <van-swipe-item
-              ><img
-                src="../../assets/pic/banner/3.jpg"
-                alt=""
-                class="zhx_img_lunbo"
-            /></van-swipe-item>
           </van-swipe>
         </div>
 
@@ -49,213 +36,86 @@
         <!-- 名师阵容 -->
         <div class="teacher_list">
           <div class="teacher_item">
-
-            <div class="Boutique">
-              <div class="title">名师阵容</div>
-              <dl>
-                <dt><img src="https://msmk2019.oss-cn-shanghai.aliyuncs.com/uploads/image/2019X3gWvILU7J1571983543.png" alt=""></dt>
-                <dd>
-                  <p>杨德胜</p>
-                  <p>杨老师，特级教师，多次被中国数学会评为</p>
-                </dd>
-              </dl>
-              <dl>
-                <dt><img src="https://msmk2019.oss-cn-shanghai.aliyuncs.com/uploads/image/2019wX5ZNRNxBT1577773182.jpg" alt=""></dt>
-                <dd>
-                  <p>文卫星</p>
-                  <p>文卫星，江苏沭阳县人，上海市特技教师</p>
-                </dd>
-              </dl>
-              <dl>
-                <dt><img src="https://msmk2019.oss-cn-shanghai.aliyuncs.com/uploads/image/20192TSKKmyNso1572684453.png" alt=""></dt>
-                <dd>
-                  <p>马学斌</p>
-                  <p>马学斌老师，从2004年起，专注中考数学</p>
-                </dd>
-              </dl>
-            </div>
-
-            <div class="Boutique">
-              <div class="title">精品课程</div>
+            <div class="Boutique" >
+              <div class="title">{{ ms }}</div>
+                <dl v-for="(item,key) in sylistms.list" :key="key" @click="js(item.teacher_id)">
+                  <dt><img :src="item.teacher_avatar" alt=""></dt>
+                  <dd>
+                    <p>{{ item.teacher_name }}</p>
+                    <p>{{ item.introduction }}</p>
+                  </dd>
+                </dl>
             </div>
           </div>
         </div>
+        
         <div class="course">
-          <ul>
+          <div class="Boutique">
+          <!-- 精品课程 -->
+            <div class="title">{{ jp }}</div>
+          </div>
+          <ul v-for="(item,key) in sylistjp.list" :key="key" @click="jpkc(item.id)">
             <li class="tit">
-              每时每课特级教师-自主招生冲刺讲座8-二次函数2--根的分布
+              {{ item.title }}
             </li>
-            <li class="hour">共1课时</li>
+            <li class="hour">共{{ item.total_periods }}课时</li>
             <li class="teacher">
               <img
-                src="https://msmk2019.oss-cn-shanghai.aliyuncs.com/uploads/image/2019X3gWvILU7J1571983543.png"
+                :src="item.teachers_list[0].teacher_avatar"
                 alt=""
               />
-              <span>杨德胜</span>
+              <span>{{ item.teachers_list[0].teacher_name }}</span>
             </li>
             <li class="del">
-              <span class="apply">100人已报名</span>
-              <span class="cost" >免费</span>
+              <span class="apply">{{ item.sales_num }}人已报名</span>
+              <!-- <span class="cost" >免费</span> -->
+              <span class="cost" :style="{color:item.price>0?'red':'#44A426'}" >
+                <img src="@/assets/money.png" alt="" v-show="item.price>0">
+                {{ item.price>0?item.price.toFixed(2):'免费' }}
+              </span>
             </li>
           </ul>
         </div>
         <!-- 推荐课程 -->
-        <div class="title">推荐课程</div>
         <div class="course">
-          <ul>
-            <li class="tit">每时每课初中数学——初一拓展-分式（一）</li>
-            <li class="hour">共1课时</li>
+          <div class="title">{{ tj }}</div>
+          <ul v-for="(item,key) in sylisttj.list" :key="key" @click="jpkc(item.id)">
+            <li class="tit">{{ item.title }}</li>
+            <li class="hour">共{{ item.total_periods }}课时</li>
             <li class="teacher">
               <img
-                src="https://baijiayun-wangxiao.oss-cn-beijing.aliyuncs.com/uploads/avatar.jpg"
+                :src="item.teachers_list[0].teacher_avatar"
                 alt=""
               />
-              <span>廖天金</span>
+              <span>{{ item.teachers_list[0].teacher_name }}</span>
             </li>
            
               <li class="del">
-              <span class="apply">36人已报名</span>
+              <span class="apply">{{ item.sales_num }}人已报名</span>
              
-              <span class="cost">免费</span>
-           
-            </li>
-          
-          </ul>
-        </div>
-        <div class="course">
-          <ul>
-            <li class="tit">每时每课-初二物理-摩擦力</li>
-            <li class="hour">共1课时</li>
-            <li class="teacher">
-              <img
-                src="https://baijiayun-wangxiao.oss-cn-beijing.aliyuncs.com/uploads/avatar.jpg"
-                alt=""
-              />
-              <span>白静</span>
-            </li>
-            <li class="del">
-              <span class="apply">43人已报名</span>
-              <span class="cost">免费</span>
-            </li>
-          </ul>
-        </div>
-        <div class="course">
-          <ul>
-            <li class="tit">每时每课-初二物理-牛顿第一定律&二力平衡知识点</li>
-            <li class="hour">共1课时</li>
-            <li class="teacher">
-              <img
-                src="https://baijiayun-wangxiao.oss-cn-beijing.aliyuncs.com/uploads/avatar.jpg"
-                alt=""
-              />
-              <span>白静</span>
-            </li>
-            <li class="del">
-              <span class="apply">39人已报名</span>
-              <span class="cost">免费</span>
-            </li>
-          </ul>
-        </div>
-        <div class="course">
-          <ul>
-            <li class="tit">
-              每时每课-初一英语-where引导的特殊疑问句和on，in，under介词用法知识点
-            </li>
-            <li class="hour">共1课时</li>
-            <li class="teacher">
-              <img
-                src="https://baijiayun-wangxiao.oss-cn-beijing.aliyuncs.com/uploads/avatar.jpg"
-                alt=""
-              />
-              <span>璐璐</span>
-            </li>
-            <li class="del">
-              <span class="apply">37人已报名</span>
-              <span class="cost">免费</span>
-            </li>
-          </ul>
-        </div>
-        <div class="course">
-          <ul>
-            <li class="tit">每时每课-初二英语-频率副词知识点</li>
-            <li class="hour">共1课时</li>
-            <li class="teacher">
-              <img
-                src="https://baijiayun-wangxiao.oss-cn-beijing.aliyuncs.com/uploads/avatar.jpg"
-                alt=""
-              />
-              <span>Willa</span>
-            </li>
-            <li class="del">
-              <span class="apply">28人已报名</span>
-              <span class="cost">免费</span>
+              <span class="cost" :style="{color:item.price>0?'red':'#44A426'}" >
+                <img src="@/assets/money.png" alt="" v-show="item.price>0">
+                {{ item.price>0?item.price.toFixed(2):'免费' }}
+              </span>
             </li>
           </ul>
         </div>
         <!-- 明星讲师 -->
-        <div class="title">明星讲师</div>
-        <div class="item">
+        <div class="title">{{ mx }}</div>
+        <div class="item" v-for="(item,key) in sylistmx.list" :key="key" @click="mxjs(item.teacher_id)">
           <img
-            src="https://baijiayun-wangxiao.oss-cn-beijing.aliyuncs.com/uploads/avatar.jpg"
+            :src="item.teacher_avatar"
             alt=""
           />
           <div class="zhx_baib">
-            <div class="zhx_bai">杨老师<span class="rank">M8</span></div>
+            <div class="zhx_bai">{{ item.teacher_name }}<span class="rank">{{ item.level_nameze }}</span></div>
             <p class="describe">
-              教学风格幽默风趣的同时也很严谨，对学生也很严谨，对学生
-            </p>
-          </div>
-        </div>
-        <div class="item">
-          <img
-            src="https://baijiayun-wangxiao.oss-cn-beijing.aliyuncs.com/uploads/avatar.jpg"
-            alt=""
-          />
-          <div class="zhx_baib">
-            <div class="zhx_bai">白静<span class="rank">M8</span></div>
-            <p class="describe">
-              教学风格幽默风趣的同时也很严谨，对学生也很严谨，对学生
-            </p>
-          </div>
-        </div>
-        <div class="item">
-          <img
-            src="https://baijiayun-wangxiao.oss-cn-beijing.aliyuncs.com/uploads/avatar.jpg"
-            alt=""
-          />
-          <div class="zhx_baib">
-            <div class="zhx_bai">盛老师<span class="rank">M8</span></div>
-            <p class="describe">
-              教学风格幽默风趣的同时也很严谨，对学生也很严谨，对学生
-            </p>
-          </div>
-        </div>
-        <div class="item">
-          <img
-            src="https://baijiayun-wangxiao.oss-cn-beijing.aliyuncs.com/uploads/avatar.jpg"
-            alt=""
-          />
-          <div class="zhx_baib">
-            <div class="zhx_bai">Grace<span class="rank">M20</span></div>
-            <p class="describe">
-              教学风格幽默风趣的同时也很严谨，对学生也很严谨，对学生
-            </p>
-          </div>
-        </div>
-        <div class="item">
-          <img
-            src="https://baijiayun-wangxiao.oss-cn-beijing.aliyuncs.com/uploads/avatar.jpg"
-            alt=""
-          />
-          <div class="zhx_baib">
-            <div class="zhx_bai">露露<span class="rank">M1</span></div>
-            <p class="describe">
-              教学风格幽默风趣的同时也很严谨，对学生也很严谨，对学生
+              {{ item.introduction }}
             </p>
           </div>
         </div>
       </div>
-      <div class="mat"></div>
+      <!-- <div class="mat"></div> -->
     </div>
   </div>
 </template>
@@ -275,8 +135,20 @@ export default {
   data() {
     return {
       banner:[],
+      sylistms:[],
+      sylistjp:[],
+      sylisttj:[],
+      sylistmx:[],
+      ms:'',
+      jp:'',
+      tj:'',
+      mx:'',
       act:JSON.parse(localStorage.getItem('act'))||1
     };
+  },
+  mounted () {
+    this.bann()
+    this.syList()
   },
   // 计算属性
   computed: {},
@@ -288,15 +160,55 @@ export default {
       this.$router.push('/date')
     },
     ydy(){
-      
+      this.$router.push('/coach')
     },
     coures(){
       this.act = 1
       localStorage.setItem('act',JSON.stringify(this.act))
       this.$router.push('/footer/coures')
     },
-    bann(){
-      
+    async bann(){
+      let { data } = await this.$Axios.get('api/app/banner')
+      this.banner=data.data
+    },
+    async syList(){
+      let { data } = await this.$Axios.get('api/app/recommend/appIndex')
+      console.log(data)
+      this.sylistms=data.data[0]
+      this.sylistjp=data.data[1]
+      this.sylisttj=data.data[2]
+      this.sylistmx=data.data[3]
+      console.log(this.sylistmx)
+      this.ms = this.sylistms.channel_info.name
+      this.jp = this.sylistjp.channel_info.name
+      this.tj = this.sylisttj.channel_info.name
+      this.mx = this.sylistmx.channel_info.name
+    },
+    js(id){
+      this.$router.push({
+        path:'/teacher',
+        query:{
+          id:id
+        }
+      })
+    },
+    jpkc(id){
+      console.log(id)
+      this.$router.push({
+        path:'/cod',
+        query:{
+          id:id
+        }
+      })
+    },
+    mxjs(id){
+      console.log(id)
+      this.$router.push({
+        path:'/teacher',
+        query:{
+          id:id
+        }
+      })
     }
   },
 };
@@ -311,14 +223,14 @@ export default {
   font-size: 20px;
   line-height: 150px;
   text-align: center;
-  background-color: #39a9ed;
 }
 .block {
   width: 100%;
   height: 0.5rem;
 }
 .content {
-  height: 2450px;
+  margin-bottom: 0.57rem;
+  height: 100%;
   background: rgb(240, 242, 245);
   img {
     display: block;
@@ -469,14 +381,18 @@ export default {
 }
 .course {
   width: 90%;
-  background: white;
-  border-radius: 0.1rem;
+  // background: white;
+  
   margin-top: 0.2rem;
   margin-left: 0.2rem;
 }
 .course ul {
-  width: 94%;
-  margin-left: 3%;
+  width: 90%;
+  padding: 10px 20px;
+  margin-top: 0.2rem;
+  margin-left: -0.04rem;
+  background: white;
+  border-radius: 0.1rem;
 }
 .course ul img {
   width: 0.31rem;
@@ -521,6 +437,12 @@ export default {
 .cost {
   font-size: 0.16rem;
   color: rgb(80, 158, 34);
+  img {
+    width: 0.35rem;
+    height: 0.35rem;
+    border-radius: 0.5rem;
+    margin-right: 0.07rem;
+  }
 }
 ul .cost img {
   width: 0.18rem;
@@ -563,9 +485,13 @@ dl{
   dd{
     margin-top: -0.2rem;
     font-size: 0.13rem;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+    p:nth-child(2){
+      font-size: 0.13rem;
+      color: #B7B7B7;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
   }
 }
 </style>

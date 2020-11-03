@@ -86,7 +86,9 @@ export default {
   mounted() {
     this.$store.commit("changeshow", "练习");
     this.$store.commit("changeleftarrows",false)
+    this.$store.commit("changerightseek",false)
   },
+  
   methods: {
     changes() {
       if (this.show == false) {
@@ -119,6 +121,9 @@ export default {
         this.$router.push({ path, query: { name: name } });
       }
     },
+  },
+  beforeDestroy() {
+    this.$store.commit("changerightseek",true)
   },
 };
 </script>

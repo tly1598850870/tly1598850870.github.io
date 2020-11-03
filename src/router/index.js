@@ -25,6 +25,16 @@ const routes = [
     }
   },
   {
+    path: '/gzls',
+    name: 'Gzls',
+    component: function () {
+      return import('../views/Myclass/Gzls.vue')
+    },
+    meta:{
+      title:'我的关注'
+    }
+  },
+  {
     path: '/info',
     name: 'Info',
     component: function () {
@@ -254,6 +264,13 @@ const routes = [
         },
         children: 
         [
+          {
+            path: 'collect',
+            name: 'collect',
+            component: function () {
+              return import('../views/Exercise/tablist/collect.vue')
+            },
+          },
           {
            path: 'showclass',
            name: 'Showclass',
