@@ -12,10 +12,12 @@ Vue.use(vuex)
 export default new vuex.Store({
   // 用来存储变量 所有组件都可以使用
   state: {
-    jbrFlag:true,
-    thisshowheader:"",
-    leftarrows:false,
-    contentarrows:false,
+    jbrFlag: true,
+    thisshowheader: "",
+    leftarrows: false,
+    contentarrows: false,
+    rightarrows: false,
+    rightseek:false,
     pl:[],
   },
   // 同步方法
@@ -23,17 +25,17 @@ export default new vuex.Store({
     changeshow(state,name){
       state.thisshowheader=name
     },
-    changeshow(state, name) {
-      state.thisshowheader = name
-    },
     changeleftarrows(state,name){
       state.leftarrows=name
     },
-    changeleftarrows(state, name) {
-      state.leftarrows = name
+    changerightarrows(state, name) {
+      state.rightarrows = name
     },
-    changecontentarrows(state,name){
-      state.contentarrows=name
+    changecontentarrows(state, name) {
+      state.contentarrows = name
+    },
+    changerightseek(state, zhis) {
+      state.rightseek = zhis
     },
     pinglun(state,obj){
       state.pl.push(obj)

@@ -37,11 +37,11 @@ export default {
   },
   mounted() {
     this.$store.commit("changecontentarrows", false);
-    console.log(true);
+    // console.log(true);
   },
   destroyed() {
     this.$store.commit("changecontentarrows", true);
-    console.log(false);
+    // console.log(false);
   },
   methods: {
       changes(){
@@ -50,7 +50,7 @@ export default {
       seeks(){
           this.seekl.unshift(this.value)
           this.showseek=false 
-          console.log(this.showseeks);
+          // console.log(this.showseeks);
       }
   },
   computed: {

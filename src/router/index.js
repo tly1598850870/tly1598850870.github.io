@@ -285,6 +285,13 @@ const routes = [
         children: 
         [
           {
+            path: 'collect',
+            name: 'collect',
+            component: function () {
+              return import('../views/Exercise/tablist/collect.vue')
+            },
+          },
+          {
            path: 'showclass',
            name: 'Showclass',
            component: function () {

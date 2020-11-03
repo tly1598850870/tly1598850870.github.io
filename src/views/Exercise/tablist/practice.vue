@@ -19,6 +19,9 @@
         </div>
       </van-dropdown-item>
     </van-dropdown-menu>
+    <div class="tly_nullbox">
+      <img src="http://localhost:8080/%E8%80%83%E5%8D%B7.png" alt="">
+    </div>
   </div>
 </template>
 <script>
@@ -77,7 +80,7 @@ export default {
       this.optionitem[index].option.forEach((element) => {
         this.optionitemes.push(element);
       });
-      console.log(this.optionitemes);
+      // console.log(this.optionitemes);
     },
   },
 };
@@ -91,5 +94,14 @@ export default {
 }
 .tly_showbox{
     width: 70%;
+}
+.tly_nullbox{
+    width: 100%;
+    height: 30vh;
+    display: flex;
+    align-items: center;
+    img{
+        width: 100%;
+    }
 }
 </style>

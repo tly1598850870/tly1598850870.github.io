@@ -14,23 +14,20 @@
         <van-radio name="2" shape="square">单选框 2</van-radio>
       </van-radio-group>
     </div>
-    <div class="tly_bottombotton">
-      <van-button plain size="small" type="info">上一题</van-button>
-      <van-button plain size="small" type="info">下一题</van-button>
-    </div>
-    <div class="tly_graybox"></div>
-    <div class="tly_bottom_box">
-      <div class="tly_bottomxz">
-        <p><span class="tly_gray">正确答案：</span><span class="tly_blue">A,D</span></p>
-        <p><span class="tly_gray">正确答案：</span><span class="tly_red">A,D</span></p>
+    <div class="conter_backrgray"></div>
+    <div class="tly_bottomboxs">
+      <p>
+        <span class="tly_gray">正确答案:</span><span class="tly_blue">C</span>
+      </p>
+      <p class="tly_contep"><span class="tly_gray"> 考点 </span></p>
+      <div class="tly_fl">
+        <span class="tly_bluesbox">生物史学</span>
       </div>
-      <div>
-          <p class="tly_graybig">考点：</p>
-          <div class="tly_fl">
-              <span class="tly_bluesbox">生物史学</span>
-          </div>
-          <p class="tly_graybig">解析：</p>
-      </div>
+      <p class="tly_bottombox">
+        <span class="tly_gray">解析:</span>
+        <span>222222222222<br>
+        1</span>
+      </p>
     </div>
   </div>
 </template>
@@ -43,8 +40,8 @@ Vue.use(RadioGroup);
 export default {
   data() {
     return {
-      radio:0
-    }
+      radio: 0,
+    };
   },
   mounted() {
     console.log('sssssss'+this.$store.state.rightseek);
@@ -53,10 +50,11 @@ export default {
     // console.log(true);
   },
   destroyed() {
+    console.log('sssssss'+this.$store.state.rightseek);
     this.$store.commit("changerightarrows",false );
     this.$store.commit("changerightseek", true);
     // console.log(false);
-  }
+  },
 };
 </script>
 <style lang="scss" scoped>
@@ -75,12 +73,21 @@ export default {
   font-size: 0.09rem;
 }
 .tly_conterbox {
-  height: 50vh;
+  height: 40vh;
   box-sizing: border-box;
   padding: 0.2rem;
 }
 .tly_blue {
   color: blue;
+}
+.tly_bottomboxs {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.1rem;
+}
+.tly_contep {
+  box-sizing: border-box;
+  padding: 0.1rem 0rem 0rem 0rem;
 }
 .tly_topp {
   display: flex;
@@ -89,6 +96,10 @@ export default {
 .tly_graybox {
   height: 1vh;
   background: gainsboro;
+}
+.tly_gray {
+  color: #818181;
+  font-size: 0.14rem;
 }
 .tly_bluebox {
   height: 3vh;
@@ -100,55 +111,47 @@ export default {
   border-radius: 0.05rem 0rem 0.05rem 0rem;
   box-sizing: border-box;
 }
-.tly_bottombotton {
-  box-sizing: border-box;
-  display: flex;
-  justify-content: space-between;
-  padding: 0.2rem;
-}
 .van-radio {
   padding: 0.1rem;
 }
-.tly_gray{
-    color: gray;
-    font-size: 0.12rem;
-}
-.tly_bluesbox{
-    padding: 0.05rem;
-    background: skyblue;
-    color: white;
-    font-size: 0.09rem;
-    border-radius:0.15rem ;
-}
-.tly_graybig{
-    color: gray;
-    font-size: 0.15rem;
-}
-.tly_blue{
-    color: blue;
-    font-size: 0.12rem;
-}
-.tly_fl{
-    display: flex;
-}
-.tly_red{
-   color: peru;
-    font-size: 0.12rem; 
+.tly_blue {
+  color: blue;
+  font-size: 0.14rem;
 }
 .tly_conterbox {
   width: 100%;
 }
+.tly_bottombox {
+  display: flex;
+  span:nth-child(1) {
+    flex: 1;
+  }
+  span:nth-child(2) {
+    flex: 4;
+  }
+}
+.tly_bluesbox {
+  padding: 0.05rem;
+  background: skyblue;
+  color: white;
+  font-size: 0.09rem;
+  border-radius: 0.15rem;
+}
+.tly_fl {
+  display: flex;
+  box-sizing: border-box;
+  margin: 0.1rem 0rem;
+}
 .tly_bottom_box {
   box-sizing: border-box;
   padding: 0.2rem;
-  p{
-      padding: 0.1rem 0rem;
+  p {
+    padding: 0.1rem 0rem;
   }
 }
-.tly_bottomxz {
-  display: flex;
-  p {
-    flex: 1;
-  }
+.conter_backrgray {
+  width: 100%;
+  height: 1vh;
+  background: gainsboro;
 }
 </style>

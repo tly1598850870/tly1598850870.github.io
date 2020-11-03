@@ -48,7 +48,7 @@ export default {
   mounted() {
     this.$store.commit("changeshow", this.$route.query.name);
     this.$store.commit("changeleftarrows", true);
-    console.log(this.$store.state.leftarrows);
+    // console.log(this.$store.state.leftarrows);
   },
   methods: {
       toanalysis(){

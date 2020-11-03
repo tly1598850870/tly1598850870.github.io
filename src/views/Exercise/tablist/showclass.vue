@@ -18,9 +18,9 @@ export default {
     this.$store.commit("changeshow", this.$route.query.name);
   },
   methods: {
-      tosubject(){
-          this.$router.push("/footer/Myexercise/question")
-      }
+    tosubject() {
+      this.$router.push("/footer/Myexercise/question");
+    },
   },
 };
 </script>
@@ -38,11 +38,11 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    span:nth-child(1){
-        flex: 5;
+    span:nth-child(1) {
+      flex: 5;
     }
-    span:nth-child(2){
-        flex: 1;
+    span:nth-child(2) {
+      flex: 1;
     }
   }
 }
