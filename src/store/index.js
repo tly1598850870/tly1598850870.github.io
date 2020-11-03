@@ -15,7 +15,9 @@ export default new vuex.Store({
     jbrFlag: true,
     thisshowheader: "",
     leftarrows: false,
-    contentarrows: false
+    contentarrows: false,
+    rightarrows: false,
+    rightseek:false
   },
   // 同步方法
   mutations: {
@@ -25,9 +27,15 @@ export default new vuex.Store({
     changeleftarrows(state, name) {
       state.leftarrows = name
     },
+    changerightarrows(state, name) {
+      state.rightarrows = name
+    },
     changecontentarrows(state, name) {
       state.contentarrows = name
-    }
+    },
+    changerightseek(state, zhis) {
+      state.rightseek = zhis
+    },
   },
   // 异步方法
   actions: {
