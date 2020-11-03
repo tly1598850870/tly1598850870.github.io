@@ -15,7 +15,7 @@
           </template>
         </van-field>
       </div>
-      <div class="xmc_bk">
+      <div class="xmc_bk1">
         <van-cell-group>
           <van-field v-model="value" placeholder="请输入短信验证码" />
         </van-cell-group>
@@ -65,8 +65,10 @@ export default {
       this.$router.push("/")
     },
     dlyz(){
-      if(this.tel==""){
-        this.$toast('请先输入手机号');
+      let telzz=new RegExp(/^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\d{8}$/);
+        console.log(this.tel)
+        if(!telzz.test(this.tel)){
+        this.$toast('请输入正确的手机号');
         return false
       }
       this.flag=true
@@ -79,8 +81,10 @@ export default {
       })
     },
     tj(){
-      if(this.tel==""){
-        this.$toast('请输入手机号');
+      let telzz=new RegExp(/^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\d{8}$/);
+        console.log(this.tel)
+        if(!telzz.test(this.tel)){
+        this.$toast('请输入正确的手机号');
         return false
       }
       if(this.value==""){
@@ -95,8 +99,10 @@ export default {
       }).then((res)=>{
         console.log(res)
         sessionStorage.setItem("token",res.data.data.remember_token)
-        if(res.data.data.isnew==1){
-          this.$router.push("/goPass")
+        if(res.data.data.is_new==1){
+          sessionStorage.setItem("sms",this.value)
+          sessionStorage.setItem("tel",this.tel)
+          this.$router.push("/passxg")
         }else{
           this.$router.push("/footer/mywd")
         }
@@ -178,12 +184,18 @@ img {
     color: rgb(151, 149, 149);
   }
 }
-.xmc_bk {
+.xmc_bk,.xmc_bk1 {
   border-bottom: 1px solid #ebedf0;
   margin-bottom: 0.1rem;
 }
 .xmc_tj{
     box-sizing: border-box;
     padding: 0.5rem 0.3rem;
+}
+.xmc_bk1:hover{
+  border-bottom: 1px solid red;
+}
+.xmc_bk:hover{
+  border-bottom: 1px solid red;
 }
 </style>

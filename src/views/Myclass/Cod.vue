@@ -20,45 +20,46 @@
                 </van-overlay>
             </div>
             <div class="content">
-                <dl>
+                <dl v-for="(item,key) in newList" :key='key'>
                     <dt>
                         <p>
-                            <span class="lls">李老师16号到22号地理大课堂开课啦</span>
+                            <span class="lls">{{ item.title }}</span>
                             <span v-show="!scShow" class="xing" @click="sc()">☆</span>
                             <span v-show="scShow" class="xing" @click="sc()">★</span>
                         </p>
-                        <span class="jbr_mf">免费</span>
+                        <span class="jbr_mf" :style="{color:item.price>0?'red':'#EB6100'}" >
+                            <img src="@/assets/money.png" alt="" v-show="item.price>0">
+                            {{ item.price>0?item.price.toFixed(2):'免费' }}
+                        </span>
                         <p>
-                            <span>共8课时 | 134人已报名</span>
+                            <span>共{{item.total_periods}}课时 | {{ item.sales_num }}人已报名</span>
                         </p>
-                        <span>开课时间: 020.03.16 18:30 - 2020.03.22 15:00</span>
                     </dt>
                     <dd></dd>
                 </dl>
             </div>
             <div class="jbrJxtd">
                 <p>教学团队</p>
-                <p class="jbr_lq" @click="lqxq">
-                    <img src="@/assets/155.jpg" alt="" /><br>
-                    李青
+                <p class="jbr_lq" @click="lqxq"  v-for="(item,key) in teacher" :key='key'>
+                    <img :src="item.avatar" alt="" /><br>
+                    <span>{{ item.teacher_name }}</span>
                 </p>
             </div>
             <div class="kcjs">
                 <p>课程介绍</p>
+                <p v-for="(item,key) in newList" :key='key'>
+                    <span v-html="item.course_details"></span>
+                </p>
             </div>
 
             <div class="kcdg">
                 <p id="dg">课程大纲</p>
-                <div class="hf" @click="bm()">
+                <div class="hf" @click="bm()" v-for="(item,key) in Video" :key='key'>
                     <span class="dian">·</span>
-                    <span class="hui">回放</span>
-                    <span class="one">第一讲第一课时</span>
+                    <!-- <span class="hui">回放</span> -->
+                    <span class="one">{{ item.periods_title }}</span>
                 </div>
-                <div class="lq" @click="bm()">
-                    <span>李青</span>
-                    <span>03月16日 18:30 - 19:30</span>
-                </div>
-                <div class="hf" @click="bm()">
+                <!-- <div class="hf" @click="bm()">
                     <span class="dian">·</span>
                     <span class="hui">回放</span>
                     <span class="one">第一讲第二课时</span>
@@ -66,110 +67,26 @@
                 <div class="lq" @click="bm()">
                     <span>李青</span>
                     <span>03月16日 18:30 - 19:30</span>
-                </div>
-                <div class="hf" @click="bm()">
-                    <span class="dian">·</span>
-                    <span class="hui">回放</span>
-                    <span class="one">第二讲第一课时</span>
-                </div>
-                <div class="lq" @click="bm()">
-                    <span>李青</span>
-                    <span>03月16日 18:30 - 19:30</span>
-                </div>
-                <div class="hf" @click="bm()">
-                    <span class="dian">·</span>
-                    <span class="hui">回放</span>
-                    <span class="one">第二讲第二课时</span>
-                </div>
-                <div class="lq" @click="bm()">
-                    <span>李青</span>
-                    <span>03月16日 18:30 - 19:30</span>
-                </div>
-                <div class="hf" @click="bm()">
-                    <span class="dian">·</span>
-                    <span class="hui">回放</span>
-                    <span class="one">第二讲第三课时</span>
-                </div>
-                <div class="lq" @click="bm()">
-                    <span>李青</span>
-                    <span>03月16日 18:30 - 19:30</span>
-                </div>
-                <div class="hf" @click="bm()">
-                    <span class="dian">·</span>
-                    <span class="hui">回放</span>
-                    <span class="one">第二讲第四课时</span>
-                </div>
-                <div class="lq" @click="bm()">
-                    <span>李青</span>
-                    <span>03月16日 18:30 - 19:30</span>
-                </div>
-                <div class="hf" @click="bm()">
-                    <span class="dian">·</span>
-                    <span class="hui">回放</span>
-                    <span class="one">第二讲第五课时</span>
-                </div>
-                <div class="lq" @click="bm()">
-                    <span>李青</span>
-                    <span>03月16日 18:30 - 19:30</span>
-                </div>
-                <div class="hf" @click="bm()">
-                    <span class="dian">·</span>
-                    <span class="hui">回放</span>
-                    <span class="one">第二讲第六课时</span>
-                </div>
-                <div class="lq" @click="bm()">
-                    <span>李青</span>
-                    <span>03月16日 18:30 - 19:30</span>
-                </div>
+                </div> -->
             </div>
             <div class="kcpl">
-                <p class="pl">课程评论</p>
-                <div class="pl">
-                    <img src="@/assets/177.jpg" alt="">
-                    <p class="name">power</p>
-                    <p class="Xing">★★★★★</p>
-                    <p class="sj">2020-04-23 14:56</p>
+                <p class="pj">课程评论</p>
+                <div v-show="listShow==false" class="pl" v-for="(item,key) in Pl" :key="key">
+                    <img :src="item.avatar" alt="">
+                    <span class="name">{{ item.nickname }}</span>
+                    <van-rate size='14px' :touchable='false' v-model="item.grade" color='#EA7A2F' void-color='#EA7A2F' />
+                    <p class="sj">{{ item.created_at | formatDate }}</p>
+                    <p class="nr">{{ item.content }}</p>
                 </div>
-                <p class="nr">今天写完静态页面</p>
-                <div class="pl">
-                    <img src="@/assets/155.jpg" alt="">
-                    <p class="name">二珂</p>
-                    <p class="Xing">★★★☆☆</p>
-                    <p class="sj">2020-07-23 18:06</p>
+                <div v-show="listShow==true" class="zwpl">
+                    <img src="../../assets/zwpl.png" alt="">
+                    <p>暂无评论</p>
                 </div>
-                <p class="nr">今天发新专辑</p>
-                <div class="pl">
-                    <img src="@/assets/13.jpg" alt="">
-                    <p class="name">ys</p>
-                    <p class="Xing">★★★★☆</p>
-                    <p class="sj">2020-05-25 17:31</p>
-                </div>
-                <p class="nr">一起进步</p>
-                <div class="pl">
-                    <img src="@/assets/32.jpg" alt="">
-                    <p class="name">魏巍</p>
-                    <p class="Xing">★★☆☆☆</p>
-                    <p class="sj">2020-08-13 20:37</p>
-                </div>
-                <p class="nr">街拍吧</p>
-                <div class="pl">
-                    <img src="@/assets/35.jpg" alt="">
-                    <p class="name">jsy</p>
-                    <p class="Xing">★☆☆☆☆</p>
-                    <p class="sj">2020-07-13 16:40</p>
-                </div>
-                <p class="nr">同意楼上</p>
-                <div class="pl">
-                    <img src="@/assets/59.jpg" alt="">
-                    <p class="name">gcj</p>
-                    <p class="Xing">★★★★☆</p>
-                    <p class="sj">2020-08-15 13:01</p>
-                </div>
-                <p class="nr">风景挺好...</p>
             </div>
         </div>
         <footer>
-            <van-button>立即报名</van-button>
+            <van-button v-show="!bmxx" @click="ljbm">立即报名</van-button>
+            <van-button v-show="bmxx" @click="xx">立即学习</van-button>
         </footer>
     </div>
 </template>
@@ -187,6 +104,15 @@ export default {
             txt3:'课程评论 ',
             isShow:false,
             scShow:JSON.parse(localStorage.getItem('sc'))||false,
+            bmxx:JSON.parse(localStorage.getItem('bm'))||false,
+            newList:[],
+            listShow:false,
+            list:[],
+            xid:0,
+            teacher:[],
+            Video:[],
+            Pl:[],
+            item:[],
         };
     },
     created() {
@@ -194,13 +120,14 @@ export default {
     },
     mounted() {
         window.addEventListener('scroll', this.handleScroll);
+        this.xid = this.$route.query.id
+        this.item = this.$route.query.item
+        console.log(this.item.has_buy)
         this.pl()
+        this.newlist()
+        this.video()
     },
     methods: {
-        async pl(){
-            let { data } = await this.$Axios.post('api/app/courseChapter')
-            console.log(data)
-        },
         onClickLeft(){
             this.$router.go(-1)
         },
@@ -213,6 +140,21 @@ export default {
             }else{
                 this.$toast('请先报名')
             }
+        },
+        ljbm(){
+            if(!this.bmxx){
+                this.$toast.success('成功')
+                this.bmxx = true
+                localStorage.setItem('bm',JSON.stringify(this.bmxx))
+            }
+        },
+        xx(){
+            this.$router.push({
+                path:'/study',
+                query:{
+                    title:'李老师16号到22号地理大课堂开课啦'
+                }
+            })
         },
         sc(){
             if(sessionStorage.getItem('token') != null){
@@ -236,6 +178,33 @@ export default {
                 this.$router.push('/')
             }
         },
+        async newlist(){
+            // this.newList.push(JSON.parse(localStorage.getItem('newlist')))
+            // console.log(this.newList)
+
+            let { data } = await this.$Axios.get(`/api/app/courseInfo/basis_id=${this.xid}`)
+            // console.log(data)
+            this.newList.push(data.data.info)
+            // console.log(this.newList)
+            this.teacher = data.data.teachers
+
+        },
+        async video(){
+            let { data } = await this.$Axios.post(`/api/app/courseChapter/`,{id:this.xid})
+            // console.log(data)
+            this.Video = data.data
+        },
+        async pl(){
+            let { data } = await this.$Axios.post(`/api/app/courseComment`,{id:this.xid,page: 1,limit: 10})
+            // console.log(data)
+            this.Pl = data.data.list
+            console.log(this.Pl)
+            if(this.Pl.length == 0){
+                this.listShow = true
+            }else{
+                this.listShow = false
+            }
+        },
         handleScroll() {
             //滚动条滚动时，距离顶部的距离
             this.scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
@@ -245,17 +214,12 @@ export default {
             } else {
                 this.isShow = false
             }
-            console.log(this.scrollTop)
+            // console.log(this.scrollTop)
         },
     },
     destroyed() {
         window.removeEventListener('scroll', this.handleScroll)
     },
-    // directives:{
-    //     drag:{
-
-    //     }
-    // }
 };
 </script>
 
@@ -323,7 +287,7 @@ footer{
 }
 dl {
   width: 3.75rem;
-  height: 1.6rem;
+//   height: 1.6rem;
   background: white;
   margin: 14px auto;
   padding: 1px 10px;
@@ -335,13 +299,15 @@ dl {
       color: #d5d5d5;
     }
     .lls{
+        width: 3.3rem;
+        display: block;
         font-size: 0.16rem;
         color: black;
     }
     .xing{
         font-size: 0.23rem;
         float: right;
-        margin-top: -0.05rem;
+        margin-top: -0.57rem;
     }
     .xing:nth-child(3){
         color: #EB6100;
@@ -359,7 +325,7 @@ dl {
 }
 .jbrJxtd{
     width: 3.75rem;
-    height: 1.5rem;
+    // height: 1.5rem;
     background: white;
     margin-top: -5px;
     padding: 1px 10px;
@@ -378,11 +344,11 @@ dl {
 }
 .kcjs{
     width: 3.75rem;
-    height: 0.7rem;
     background: white;
     box-sizing: border-box;
     padding: 0.01rem 0.1rem;
     margin-top: 0.12rem;
+    font-size: 0.14rem;
     margin-bottom: 0.1rem;
 }
 .kcdg{
@@ -393,6 +359,7 @@ dl {
     margin-top: 0.12rem;
     margin-bottom: 0.1rem;
     .hf{
+        padding: 0.07rem 0;
         display: flex;
         span{
             padding: 0px 10px;
@@ -442,24 +409,43 @@ dl {
     .pl{
         display: flex;
         align-items: center;
+        flex-wrap: wrap;
         p{
             padding: 0px 10px;
             font-size: 0.14rem;
-        }
-        .Xing{
-            font-size: 0.2rem;
-            color: #EB6100;
+            width: 1rem;
         }
         .sj{
+            width: 0.8rem;
             color: #999999;
             font-size: 0.13rem;
         }
+        .nr{
+            width: 3rem;
+            margin-top: 0.01rem;
+            margin-left: 0.4rem;
+            font-size: 0.13rem;
+            color: #999999;
+        }
+        .name{
+            font-size: 0.13rem;
+            margin-right: 0.05rem;
+        }
     }
-    .nr{
-        margin-top: -10px;
-        margin-left: 45px;
-        font-size: 0.13rem;
-        color: #999999;
+    .zwpl{
+        width: 3.75rem;
+        img{
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 0;
+            margin-left: 1.1rem;
+        }
+        p{
+            margin-left: 1.5rem;
+            margin-top: -0.05rem;
+            font-size: 0.15rem;
+            color: #8C8C8C;
+        }
     }
 }
 </style>

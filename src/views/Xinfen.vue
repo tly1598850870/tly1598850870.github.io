@@ -54,12 +54,12 @@ export default {
             }else if(this.message == ''){
             this.$toast('请保持留言内容在1~1000字符内');
             }
-            if(this.value != ''){
+            if(this.value != '' && this.message != ''){
             let phone = /^1[345678]\d{9}$/
             if(phone.test(this.value)){
                 setTimeout(()=>{
                 this.jbShow = false
-                },1300)
+                },700)
             }else{
                 this.$toast('请正确填写手机号');
             }

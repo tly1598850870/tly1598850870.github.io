@@ -14,12 +14,12 @@
           </template>
         </van-field>
       </div>
-      <div class="xmc_bk">
+      <div class="xmc_bk1">
         <van-cell-group>
           <van-field v-model="value" placeholder="请输入短信验证码" />
         </van-cell-group>
       </div>
-      <div class="xmc_bk">
+      <div class="xmc_bk2">
       <van-field v-model="password" type="password" placeholder="请输入密码" />
       </div>
       <div class="xmc_tj">
@@ -63,8 +63,10 @@ export default {
       this.$router.go(-1)
     },
     xgyz(){
-      if(this.tel==""){
-        this.$toast('请先输入手机号');
+      let telzz=new RegExp(/^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\d{8}$/);
+        console.log(this.tel)
+        if(!telzz.test(this.tel)){
+        this.$toast('请输入正确的手机号');
         return false
       }
       this.flag=true
@@ -77,8 +79,10 @@ export default {
       })
     },
     tj(){
-      if(this.tel==""){
-        this.$toast('请输入手机号');
+      let telzz=new RegExp(/^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\d{8}$/);
+        console.log(this.tel)
+        if(!telzz.test(this.tel)){
+        this.$toast('请输入正确的手机号');
         return false
       }
       if(this.value==""){
@@ -149,7 +153,7 @@ export default {
 <!--然而子组件的根节点元素会同时被设置了scoped的父css样式和设置了scoped的子css样式影响，-->
 <!--这么设计的目的是父组件可以对子组件根元素进行布局。-->
 <style scoped lang="scss">
-.xmc_bk {
+.xmc_bk1,.xmc_bk2,.xmc_bk {
   border-bottom: 1px solid #ebedf0;
   margin-bottom: 0.1rem;
 }
@@ -161,5 +165,14 @@ export default {
   background: none;
   border: none;
   color: rgb(236, 108, 22);
+}
+.xmc_bk1:hover{
+  border-bottom: 1px solid red;
+}
+.xmc_bk2:hover{
+  border-bottom: 1px solid red;
+}
+.xmc_bk:hover{
+  border-bottom: 1px solid red;
 }
 </style>

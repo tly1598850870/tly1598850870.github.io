@@ -8,20 +8,22 @@
             </header>
         </div>
         <div class="jj">
-            <dl class="js">
+            <dl class="js" v-for="(item,key) in lslist" :key="key">
                 <dt>
-                    <img src="../../assets/32.jpg" alt="">
+                    <img :src="item.avatar" alt="">
                 </dt>
                 <dd>
-                    <p class="lq">李青 <span>M13</span></p>
-                    <p class="sex">女 <span>7年教龄</span></p>
+                    <p class="lq">{{ item.teacher_name }} <span>{{ item.level_name }}</span></p>
+                    <p class="sex">{{ item.sex == 0?"男":'女' }} 
+                        <span>{{ item.teach_age }}年教龄</span>
+                    </p>
                     <p class="gz">
-                        <button v-show="!gzShow" @click="gz()" class="but">关注</button>
-                        <button v-show="gzShow" @click="gz()" class="btn">已关注</button>
+                        <button v-show="flag==2" @click="gz(item.id)" class="but">关注</button>
+                        <button v-show="flag==1" @click="gz(item.id)" class="btn">已关注</button>
                     </p>
                 </dd>
                 <ul>
-                    <li v-for="(item,key) in arr" :key="key">
+                    <li v-for="(item,key) in lslist[0].tag_content" :key="key">
                         {{ item }}
                     </li>
                 </ul>
@@ -30,23 +32,15 @@
         <van-tabs v-model="active" class='tabs'>
             <van-tab title="讲师介绍">
                 <ul>
-                    <li>
-                        <span>教学年龄</span>
-                        <span class='qi'>7年</span>
-                    </li>
-                    <li>
-                        <span>授课价格</span>
-                        <span class='qi'>200学习币</span>
+                    <li v-for="(item,key) in jslist.attr" :key="key">
+                        <span>{{ item.attr_name }}</span>
+                        <span class='qi'>{{ item.attr_value[0].attr_value_name }}</span>
                     </li>
                     <li>
                         <span class='ls'>老师简介</span>
                         <p>
                             <span class='lsjj'>
-                                教学最大的特点就是通俗易懂，幽默风趣，
-                                因此也深受同学们的喜爱 毕业于华东师范大学，
-                                地理研究生硕士，专业知识毋庸置疑；在职地理老师，
-                                外带学生30%A+，40%A，差的学生也在B。；因为能教出成绩也受家长们的信任。
-                                教学成果颇多，辅导的学生成绩明显提升。
+                                {{ jslist.intro }}
                             </span>
                         </p>
                     </li>
@@ -142,11 +136,6 @@
                 </div>
             </van-tab>
             <van-tab title="学员评价">
-                <ol>
-                    <li>
-
-                    </li>
-                </ol>
                 <div class='xuexi'>
                     <div class='pj'>
                         <div class='xypj'>
@@ -242,7 +231,7 @@
             </van-tab>
         </van-tabs>
         <footer>
-            <van-button>立即预约</van-button>
+            <van-button @click="yy()">立即预约</van-button>
         </footer>
     </div>
 </template>
@@ -258,32 +247,90 @@ export default {
                 '幽默风趣',
                 '亲和力强'
             ],
+            newlist:[],
             active:0,
+            xid:0,
+            jslist:[],
+            lslist:[],
+            cid:0,
+            flag:JSON.parse(localStorage.getItem('gz'))||2,
+            // arrid:JSON.parse(localStorage.getItem('arrid'))||[],
+            // flag:2,
         };
     },
     created() {
 
     },
     mounted() {
+        this.xid = this.$route.query.id
+        // console.log(this.xid)
 
+        this.jsList();
+        this.lsList();
     },
     methods: {
-        gz(){
-            if(this.gzShow){
-                this.gzShow = false
-                this.$toast.success('已取消')
-                
-            }else{
-                this.gzShow = true
-                this.$toast.success('已关注')
-            }
+        gz(id){
+            this.$Axios.get(`/api/app/teacher/collect/${id}`).then((res) => {
+                console.log(res)
+                // let obj ={
+                //     id:id
+                // }
+                this.flag = res.data.data.flag
 
-            localStorage.setItem('gz',JSON.stringify(this.gzShow))
+                if(this.flag == 1){
+                    this.flag = 1
+                    this.$toast.success('已关注')
+                    localStorage.setItem('gz',JSON.stringify(this.flag))
+                }else{
+                    this.flag = 2
+                    this.$toast.success('已取消')
+                }
+                
+                // let index = this.arrid.findIndex((i,k) => {
+                //     return i.id === obj.id
+                // })
+
+                // console.log(index)
+
+                // if(index == -1){
+                //     this.arrid.push(obj)
+                // }else{
+                //     return false
+                // }
+                // console.log(this.arrid)
+            })
         },
         fan(){
             this.$router.go(-1)
         },
-    }
+        yy(id){
+            this.$router.push({
+                path:'/neworder',
+                query:{
+                    id:this.cid
+                }
+            })
+        },
+        async jsList(){
+            let { data } = await this.$Axios.get(`/api/app/teacher/info/${this.xid}`)
+            this.jslist=data.data
+            // console.log(this.jslist)
+        },
+        async lsList(){
+            let { data } = await this.$Axios.get(`/api/app/teacher/${this.xid}`)
+            this.lslist.push(data.data.teacher)
+            console.log(this.lslist)
+            this.cid = this.lslist[0].id
+            // console.log(this.cid)
+        },
+    },
+    watch: {
+        arrid:{
+            handler(val){
+                localStorage.setItem('arrid',JSON.stringify(val))
+            }
+        }
+    }
 };
 </script>
 
@@ -323,7 +370,6 @@ footer{
 }
 .jj{
     width: 3.55rem;
-    height: 1.28rem;
     background: white;
     border-radius: 0.05rem;
     position: absolute;
@@ -346,15 +392,17 @@ footer{
         dd{
             display: flex;
             .lq{
+                width: 1rem;
                 margin-top: 0.01rem;
-                font-size: 0.15rem;
+                font-size: 0.14rem;
                 span{
                     font-size: 0.12rem;
                     color: #EA7A2F;
                 }
             }
             .sex{
-                margin-left: -0.58rem;
+                width: 1rem;
+                margin-left: -0.85rem;
                 margin-top: 0.25rem;
                 font-size: 0.1rem;
                 color: #B7B7B7;
@@ -366,7 +414,8 @@ footer{
                 margin-left: 0.1rem;
                 .but{
                     width: 0.7rem;
-                    height: 0.3rem;
+                    padding: 0.05rem 0.05rem;
+                    box-sizing: border-box;
                     border-radius: 0.5rem;
                     border: 1px solid #EBEEFE;
                     background: #EBEEFE;
@@ -375,7 +424,7 @@ footer{
                 }
                 .btn{
                     width: 0.7rem;
-                    height: 0.3rem;
+                    font-size: 0.15rem;
                     border: none;
                     background: white;
                     outline: none;
@@ -391,7 +440,7 @@ footer{
                 padding: 0.05rem 0.1rem;
                 background: #FFE4D3;
                 color: #EA7A2F;
-                margin: 0.05rem 0.05rem;
+                margin: 0 0.05rem;
                 border-radius: 0.5rem;
                 font-size: 0.1rem;
                 text-align: center;
@@ -403,7 +452,7 @@ footer{
     margin-top: 0.85rem;
     ul{
         width: 3.75rem;
-        height: 3.3rem;
+        // height: 3.3rem;
         background: white;
         box-sizing: border-box;
         li{
@@ -417,6 +466,7 @@ footer{
                 width: 2.8rem;
                 margin-left: 0.66rem;
                 margin-top: -0.23rem;
+                margin-bottom: 0.31rem;
             }
             .lsjj{
                 line-height: 0.31rem;

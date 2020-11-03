@@ -1,8 +1,5 @@
 <template>
   <div>
-    <div class="envelope">
-        <van-icon name="envelop-o" />
-    </div>
     <router-view></router-view>
     <van-tabbar v-model="active">
       <van-tabbar-item @click="ly()">
@@ -40,7 +37,7 @@ export default {
   // 组件状态值
   data() {
     return {
-      active: JSON.parse(sessionStorage.getItem('act'))||0,
+      active: JSON.parse(localStorage.getItem('act'))||0,
     };
   },
   // 计算属性
@@ -48,7 +45,7 @@ export default {
   // 侦听器
   watch: {
     active(val){
-      sessionStorage.setItem('act',JSON.stringify(val))
+      localStorage.setItem('act',JSON.stringify(val))
     }
   },
   // 组件方法
@@ -64,7 +61,7 @@ export default {
     }
   },
   mounted () {
-    this.active = JSON.parse(sessionStorage.getItem('act'))
+    this.active = JSON.parse(localStorage.getItem('act'))
   }
 };
 </script>
