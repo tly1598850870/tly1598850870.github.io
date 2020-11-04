@@ -1,4 +1,3 @@
-import { Button } from 'vant';
 <template>
     <div class="box">
         <header>
@@ -12,105 +11,15 @@ import { Button } from 'vant';
             <span>已学习0%</span>
         </div>
         <div class="sp">
-            <div class="kc" @click="bm()">
+            <div class="kc" @click="bm()" v-for="(item,key) in newlist" :key="key">
                 <div class="hf">
                     <span class="dian">·</span>
                     <span class="hui">[回放]</span>
-                    <span class="one">第一讲第一课时</span>
+                    <span class="one">{{ item.periods_title }}</span>
                 </div>
                 <div class="lq">
-                    <span>李青</span>
-                    <span>03月16日 18:30 - 19:30</span>
-                </div>
-                <div class="ks">
-                    <span class="jdt"></span>
-                    <span>已观看0%</span>
-                </div>
-            </div>
-            <div class="kc" @click="bm()">
-                <div class="hf">
-                    <span class="dian">·</span>
-                    <span class="hui">[回放]</span>
-                    <span class="one">第一讲第一课时</span>
-                </div>
-                <div class="lq">
-                    <span>李青</span>
-                    <span>03月16日 18:30 - 19:30</span>
-                </div>
-                <div class="ks">
-                    <span class="jdt"></span>
-                    <span>已观看0%</span>
-                </div>
-            </div>
-            <div class="kc" @click="bm()">
-                <div class="hf">
-                    <span class="dian">·</span>
-                    <span class="hui">[回放]</span>
-                    <span class="one">第一讲第一课时</span>
-                </div>
-                <div class="lq">
-                    <span>李青</span>
-                    <span>03月16日 18:30 - 19:30</span>
-                </div>
-                <div class="ks">
-                    <span class="jdt"></span>
-                    <span>已观看0%</span>
-                </div>
-            </div>
-            <div class="kc" @click="bm()">
-                <div class="hf">
-                    <span class="dian">·</span>
-                    <span class="hui">[回放]</span>
-                    <span class="one">第一讲第一课时</span>
-                </div>
-                <div class="lq">
-                    <span>李青</span>
-                    <span>03月16日 18:30 - 19:30</span>
-                </div>
-                <div class="ks">
-                    <span class="jdt"></span>
-                    <span>已观看0%</span>
-                </div>
-            </div>
-            <div class="kc" @click="bm()">
-                <div class="hf">
-                    <span class="dian">·</span>
-                    <span class="hui">[回放]</span>
-                    <span class="one">第一讲第一课时</span>
-                </div>
-                <div class="lq">
-                    <span>李青</span>
-                    <span>03月16日 18:30 - 19:30</span>
-                </div>
-                <div class="ks">
-                    <span class="jdt"></span>
-                    <span>已观看0%</span>
-                </div>
-            </div>
-            <div class="kc" @click="bm()">
-                <div class="hf">
-                    <span class="dian">·</span>
-                    <span class="hui">[回放]</span>
-                    <span class="one">第一讲第一课时</span>
-                </div>
-                <div class="lq">
-                    <span>李青</span>
-                    <span>03月16日 18:30 - 19:30</span>
-                </div>
-                <div class="ks">
-                    <span class="jdt"></span>
-                    <span>已观看0%</span>
-                </div>
-            </div>
-            <div class="kc" @click="bm()">
-                <div class="hf">
-                    <span class="dian">·</span>
-                    <span class="hui">[回放]</span>
-                    <span class="one">第一讲第一课时</span>
-                </div>
-                <div class="lq">
-                    <span>李青</span>
-                    <span>03月16日 18:30 - 19:30</span>
+                    <span>{{ item.teachers.length > 0?item.teachers[0].teacher_name:'' }}</span>
+                    <span>{{ item.start_play }}</span>
                 </div>
                 <div class="ks">
                     <span class="jdt"></span>
@@ -156,6 +65,8 @@ export default {
             show:false,
             value:5,
             fbpl:'',
+            xid:'',
+            newlist:[],
         };
     },
     created() {
@@ -163,7 +74,8 @@ export default {
     },
     mounted() {
        this.title = this.$route.query.title
-    //    this.$store.state.pl = []
+       this.xid = this.$route.query.id
+       this.kc()
     },
     methods: {
         onClickLeft(){
@@ -180,39 +92,78 @@ export default {
         },
         cuo(){
             this.show = false
+            this.fbpl = ''
         },
         kcxq(){
-            // this.$router.go(-1)
-            this.$router.push("/cod")
-        },
-        fb(){
-
-            let index = this.$store.state.pl.findIndex((i,k) => {
-                return i.title == this.fbpl
-            })
-            console.log(index)
-
-            let obj={
-                val:this.value,
-                title:this.fbpl,
-            }
-
-            if(index == -1){
-                if(this.fbpl != ''){
-                    this.$store.commit('pinglun',obj)
-                    this.show = false
-                    this.$toast('评价成功')
-                    this.fbpl = ''
-                }else{
-                    this.$toast('评价内容 必须填写')
+            this.$router.push({
+                path:'/cod',
+                query:{
+                    id:this.xid,
+                    item:this.newlist
                 }
-            }else{
-                this.$toast('已评论无法再次评论')
-            }
-            console.log(this.$store.state.pl)
+            })
         },
-        del(){
-            
+        async fb(){
+            let { data } = await this.$Axios.post(`/api/app/myStudy/comment`,{
+                grade: this.value,
+                content: this.fbpl,
+                course_id: this.xid,
+                type: 1
+            })
+            console.log(data)
+
+            if(data.code == 201){
+                this.$toast(data.msg)
+            }else{
+                this.$toast('发布成功')
+                this.show = false
+                this.fbpl = ''
+            }
+
+            if(this.fbpl == ''){
+                this.$toast('评价内容 必须填写')
+                return false
+            }
+
+            // let index = this.$store.state.pl.findIndex((i,k) => {
+            //     return i.title == this.fbpl
+            // })
+            // console.log(index)
+
+            // let obj={
+            //     val:this.value,
+            //     title:this.fbpl,
+            // }
+
+            // if(index == -1){
+            //     if(this.fbpl != ''){
+            //         this.$store.commit('pinglun',obj)
+            //         this.show = false
+            //         this.$toast('评价成功')
+            //         this.fbpl = ''
+            //     }else{
+            //         this.$toast('评价内容 必须填写')
+            //     }
+            // }else{
+            //     this.$toast('已评论无法再次评论')
+            // }
+            // console.log(this.$store.state.pl)
+        },
+        async del(){
+            let {data} = await this.$Axios.delete(`/api/app/myStudy/course/${this.xid}`)
+            console.log(data)
+            let {data:res} = await this.$Axios.get(`/api/app/myStudy/course/${this.xid}`)
+            this.newlist = res.data.periods
+            this.$toast.success('成功')
+            setTimeout(() => {
+                this.$router.push('/mycoures')
+            }, 1000);
+        },
+        async kc(){
+            let {data} = await this.$Axios.get(`/api/app/myStudy/course/${this.xid}`)
+            console.log(data)
+            this.newlist = data.data.periods
+            console.log(this.newlist)
         }
     }
 };
@@ -233,8 +184,9 @@ header {
   box-sizing: border-box;
   padding: 10px 10px;
   .title{
-    width: 2.5rem;
-    font-size: 0.18rem;
+    width: 2rem;
+    font-size: 0.17rem;
+    text-align: center;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space:nowrap;
@@ -264,7 +216,6 @@ header {
 }
 .kc{
     width: 3.4rem;
-    height: 1rem;
     border: 1px solid #E9E9E9;
     border-radius: 0.03rem;
     margin: 0.1rem auto;
@@ -288,6 +239,7 @@ header {
             color: #EA7A2F;
         }
         .one{
+            width: 2.3rem;
             font-size: 0.1rem;
             color: #595959;
         }

@@ -136,7 +136,6 @@ export default {
     },
     mounted() {
         this.xid = this.$route.query.id
-        
         this.jsList();
         this.lsList();
         this.tList();

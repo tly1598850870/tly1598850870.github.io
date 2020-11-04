@@ -14,7 +14,8 @@
                     <div class="wrapper">
                         <div class="block">
                             <p>分享</p>
-                            <img src="@/assets/ewm.png" alt="">
+                            <!-- <img src="@/assets/ewm.png" alt=""> -->
+                            <qriously :value="initQCode" :size="150" />
                         </div>
                     </div>
                 </van-overlay>
@@ -54,24 +55,17 @@
 
             <div class="kcdg">
                 <p id="dg">课程大纲</p>
-                <div class="hf" @click="bm()" v-for="(item,key) in Video" :key='key'>
-                    <span class="dian">·</span>
-                    <!-- <span class="hui">回放</span> -->
-                    <span class="one">{{ item.periods_title }}</span>
+                <div v-for="(item,key) in Video" :key='key'>
+                    <div class="hf" @click="bm(item)">
+                        <span class="dian">·</span>
+                        <span class="hui" v-show="item.is_playback == 0">回放</span>
+                        <span class="one">{{ item.periods_title }}</span>
+                    </div>
+                    <div class="lq" @click="bm(item)" v-show="item.is_playback == 0">
+                        <span>{{ item.teachers.length > 0?item.teachers[0].teacher_name:'' }}</span>
+                        <span>{{ item.start_play }}</span>
+                    </div>
                 </div>
-                <!--<div class="lq" @click="bm()">
-                    <span>李青</span>
-                    <span>03月16日 18:30 - 19:30</span>
-                </div> -->
-                <!-- <div class="hf" @click="bm()">
-                    <span class="dian">·</span>
-                    <span class="hui">回放</span>
-                    <span class="one">第一讲第二课时</span>
-                </div>
-                <div class="lq" @click="bm()">
-                    <span>李青</span>
-                    <span>03月16日 18:30 - 19:30</span>
-                </div> -->
             </div>
             <div class="kcpl">
                 <p class="pj">课程评论</p>
@@ -127,6 +121,9 @@ export default {
             cid:0,
             collect:0,
             qxid:0,
+            bf:'',
+            vid:'',
+            initQCode:'https://www.jianshu.com/p/21aadfa95e1f',
         };
     },
     created() {
@@ -136,8 +133,13 @@ export default {
         window.addEventListener('scroll', this.handleScroll);
         this.xid = this.$route.query.id
         this.item = this.$route.query.item
-        this.buy = this.item.has_buy
-        console.log(this.buy)
+        if(this.item.hasOwnProperty('has_buy') == false){
+            this.buy = 1
+            console.log(this.buy)
+        }else{
+            this.buy = this.item.has_buy
+            console.log(this.buy)
+        }
         this.pl()
         this.newlist()
         this.video()
@@ -150,43 +152,74 @@ export default {
         fx(){
             this.show = !this.show
         },
-        bm(){
+        async bm(item){
+            let { data } = await this.$Axios.get('/api/app/getPcRoomCode/course_id=287/chapter_id=933')
+            console.log(data)
             if(sessionStorage.getItem('token') != null){
-                this.$toast('回放未生成')
+                if(this.bf == 1){
+                    if(item.datum.length == 0){
+                        this.vid = 0
+                    }else{
+                        this.vid = item.datum[0].course_basis_id
+                    }
+                    this.$router.push({
+                        path:'myvideo',
+                        query:{
+                            videoid:item.video_id,
+                            id:this.vid
+                        }
+                    })
+                    return false
+                }
+                if(this.buy == 0){
+                    if(this.price > 0){
+                        this.$toast('请购买之后观看')
+                    }else{
+                        this.$toast('请先报名')
+                    }
+                }else{
+                    this.$toast(data.msg)
+                }
+                
             }else{
-                this.$toast('请先报名')
+                
             }
         },
         async ljbm(){
-            if(this.buy == 0){
-                if(this.price > 0){
+            if(sessionStorage.getItem('token') != null){
+                if(this.buy == 0){
+                    if(this.price > 0){
+                        this.$router.push({
+                            path:'/bmfk',
+                            query:{
+                                id:this.xid
+                            }
+                        })
+                    }else{
+                        let { data } = await this.$Axios.post('/api/app/order/downOrder',{
+                            shop_id: this.xid,
+                            type: 3
+                        })
+                        if(data.code == 200){
+                            let { data } = await this.$Axios.get(`/api/app/courseInfo/basis_id=${this.xid}`)
+                            console.log(data)
+                            this.buy = data.data.info.is_buy
+                            this.$toast.success('成功')
+                        }else{
+                            this.$toast.success(data.msg)
+                        }
+                    }
+                }else{
                     this.$router.push({
-                        path:'/bmfk',
+                        path:'/study',
                         query:{
-                            id:this.xid
+                            id:this.xid,
+                            title:this.istitle
                         }
                     })
-                }else{
-                    let { data } = await this.$Axios.post('/api/app/order/downOrder',{
-                        shop_id: this.xid,
-                        type: 3
-                    })
-                    if(data.code == 200){
-                        let { data } = await this.$Axios.get(`/api/app/courseInfo/basis_id=${this.xid}`)
-                        console.log(data)
-                        this.buy = data.data.info.is_buy
-                        this.$toast.success('成功')
-                    }else{
-                        this.$toast.success(data.msg)
-                    }
                 }
             }else{
-                this.$router.push({
-                    path:'/study',
-                    query:{
-                        title:this.istitle
-                    }
-                })
+                this.$router.push('/')
             }
         },
         async sc(){
@@ -252,6 +285,8 @@ export default {
             let { data } = await this.$Axios.post(`/api/app/courseChapter/`,{id:this.xid})
             // console.log(data)
             this.Video = data.data
+            console.log(this.Video)
+            this.bf = this.Video[0].is_playback
         },
         async pl(){
             let { data } = await this.$Axios.post(`/api/app/courseComment`,{id:this.xid,page: 1,limit: 10})
@@ -428,7 +463,8 @@ dl {
             font-size: 0.2rem;
         }
         .hui{
-            line-height: 0.23rem;
+            padding: 0rem 0.05rem;
+            line-height: 0.22rem;
             color: white;
             font-size: 0.1rem;
             background: #EA7A2F;
@@ -446,6 +482,8 @@ dl {
     box-sizing: border-box;
     display: flex;
     font-size: 0.11rem;
+    margin-left: 0.2rem;
+    margin-top: -0.1rem;
     span{
         padding: 0 0.07rem;
         color: #8C8C8C;

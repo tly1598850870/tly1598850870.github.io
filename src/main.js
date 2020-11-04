@@ -12,6 +12,9 @@ Vue.config.productionTip = false
 
 Vue.prototype.$Axios=axios
 
+import VueQriously from 'vue-qriously'
+Vue.use(VueQriously)
+
 Vue.filter('time',function(el){
   el=new Date(el)
   // return el.toLocaleDateString(el)
