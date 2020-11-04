@@ -24,12 +24,12 @@
                     <dt>
                         <p>
                             <span class="lls">{{ item.title }}</span>
-                            <span v-show="!scShow" class="xing" @click="sc()">☆</span>
-                            <span v-show="scShow" class="xing" @click="sc()">★</span>
+                            <span v-show="collect == 0" class="xing" @click="sc()">☆</span>
+                            <span v-show="collect == 1" class="xing" @click="sc()">★</span>
                         </p>
                         <span class="jbr_mf" :style="{color:item.price>0?'red':'#EB6100'}" >
                             <img src="@/assets/money.png" alt="" v-show="item.price>0">
-                            {{ item.price>0?item.price.toFixed(2):'免费' }}
+                            {{ item.price>0?(item.price/100).toFixed(2):'免费' }}
                         </span>
                         <p>
                             <span>共{{item.total_periods}}课时 | {{ item.sales_num }}人已报名</span>
@@ -40,7 +40,7 @@
             </div>
             <div class="jbrJxtd">
                 <p>教学团队</p>
-                <p class="jbr_lq" @click="lqxq"  v-for="(item,key) in teacher" :key='key'>
+                <p class="jbr_lq" @click="lqxq(item.teacher_id)"  v-for="(item,key) in teacher" :key='key'>
                     <img :src="item.avatar" alt="" /><br>
                     <span>{{ item.teacher_name }}</span>
                 </p>
@@ -59,6 +59,10 @@
                     <!-- <span class="hui">回放</span> -->
                     <span class="one">{{ item.periods_title }}</span>
                 </div>
+                <!--<div class="lq" @click="bm()">
+                    <span>李青</span>
+                    <span>03月16日 18:30 - 19:30</span>
+                </div> -->
                 <!-- <div class="hf" @click="bm()">
                     <span class="dian">·</span>
                     <span class="hui">回放</span>
@@ -85,8 +89,11 @@
             </div>
         </div>
         <footer>
-            <van-button v-show="!bmxx" @click="ljbm">立即报名</van-button>
-            <van-button v-show="bmxx" @click="xx">立即学习</van-button>
+            <!-- <van-button v-show="!bmxx" @click="ljbm">立即报名</van-button> -->
+            <van-button @click="ljbm">
+                {{ buy == 1?'立即学习':'立即报名' }}
+            </van-button>
+            <!-- <van-button v-show="bmxx" @click="xx">立即学习</van-button> -->
         </footer>
     </div>
 </template>
@@ -104,7 +111,7 @@ export default {
             txt3:'课程评论 ',
             isShow:false,
             scShow:JSON.parse(localStorage.getItem('sc'))||false,
-            bmxx:JSON.parse(localStorage.getItem('bm'))||false,
+            // bmxx:JSON.parse(localStorage.getItem('bm'))||false,
             newList:[],
             listShow:false,
             list:[],
@@ -113,6 +120,13 @@ export default {
             Video:[],
             Pl:[],
             item:[],
+            free:0,
+            buy:0,
+            price:0,
+            istitle:'',
+            cid:0,
+            collect:0,
+            qxid:0,
         };
     },
     created() {
@@ -122,10 +136,12 @@ export default {
         window.addEventListener('scroll', this.handleScroll);
         this.xid = this.$route.query.id
         this.item = this.$route.query.item
-        console.log(this.item.has_buy)
+        this.buy = this.item.has_buy
+        console.log(this.buy)
         this.pl()
         this.newlist()
         this.video()
+        // this.bm()
     },
     methods: {
         onClickLeft(){
@@ -141,53 +157,96 @@ export default {
                 this.$toast('请先报名')
             }
         },
-        ljbm(){
-            if(!this.bmxx){
-                this.$toast.success('成功')
-                this.bmxx = true
-                localStorage.setItem('bm',JSON.stringify(this.bmxx))
+        async ljbm(){
+            if(this.buy == 0){
+                if(this.price > 0){
+                    this.$router.push({
+                        path:'/bmfk',
+                        query:{
+                            id:this.xid
+                        }
+                    })
+                }else{
+                    let { data } = await this.$Axios.post('/api/app/order/downOrder',{
+                        shop_id: this.xid,
+                        type: 3
+                    })
+                    if(data.code == 200){
+                        let { data } = await this.$Axios.get(`/api/app/courseInfo/basis_id=${this.xid}`)
+                        console.log(data)
+                        this.buy = data.data.info.is_buy
+                        this.$toast.success('成功')
+                    }else{
+                        this.$toast.success(data.msg)
+                    }
+                }
+            }else{
+                this.$router.push({
+                    path:'/study',
+                    query:{
+                        title:this.istitle
+                    }
+                })
             }
         },
-        xx(){
-            this.$router.push({
-                path:'/study',
-                query:{
-                    title:'李老师16号到22号地理大课堂开课啦'
-                }
-            })
-        },
-        sc(){
+        async sc(){
             if(sessionStorage.getItem('token') != null){
-                if(this.scShow){
+                if(this.collect == 1){
+                    let { data } = await this.$Axios.put(`/api/app/collect/cancel/${this.qxid}/1`)
+                    let { data:res } = await this.$Axios.get(`/api/app/courseInfo/basis_id=${this.xid}`)
+                    this.collect = res.data.info.is_collect
                     this.scShow = false
                     this.$toast('取消收藏')
                     
                 }else{
+                    let { data } = await this.$Axios.post('/api/app/collect',{
+                        course_basis_id: this.xid,
+                        type: 1
+                    })
+                    let { data:res } = await this.$Axios.get(`/api/app/courseInfo/basis_id=${this.xid}`)
+                    this.collect = res.data.info.is_collect
                     this.scShow = true
                     this.$toast('收藏成功')
                 }
-            }else{
-                this.$router.push('/')
             }
-            localStorage.setItem('sc',JSON.stringify(this.scShow))
+            
+            // if(sessionStorage.getItem('token') != null){
+            //     if(this.scShow){
+            //         this.scShow = false
+            //         this.$toast('取消收藏')
+                    
+            //     }else{
+            //         this.scShow = true
+            //         this.$toast('收藏成功')
+            //     }
+            // }else{
+            //     this.$router.push('/')
+            // }
+            // localStorage.setItem('sc',JSON.stringify(this.scShow))
         },
-        lqxq(){
+        lqxq(id){
             if(sessionStorage.getItem('token') != null){
-                this.$router.push('/teacher')
+                this.$router.push({
+                    path:'/teacher',
+                    query:{
+                        id:id
+                    }
+                })
             }else{
                 this.$router.push('/')
             }
         },
         async newlist(){
-            // this.newList.push(JSON.parse(localStorage.getItem('newlist')))
-            // console.log(this.newList)
-
             let { data } = await this.$Axios.get(`/api/app/courseInfo/basis_id=${this.xid}`)
             // console.log(data)
             this.newList.push(data.data.info)
-            // console.log(this.newList)
+            console.log(this.newList)
+            this.collect = this.newList[0].is_collect
+            this.qxid = this.newList[0].collect_id
+            this.buy = this.newList[0].is_buy
             this.teacher = data.data.teachers
-
+            this.price = this.newList[0].price
+            this.istitle = this.newList[0].title
         },
         async video(){
             let { data } = await this.$Axios.post(`/api/app/courseChapter/`,{id:this.xid})
@@ -198,7 +257,7 @@ export default {
             let { data } = await this.$Axios.post(`/api/app/courseComment`,{id:this.xid,page: 1,limit: 10})
             // console.log(data)
             this.Pl = data.data.list
-            console.log(this.Pl)
+            // console.log(this.Pl)
             if(this.Pl.length == 0){
                 this.listShow = true
             }else{
@@ -287,7 +346,6 @@ footer{
 }
 dl {
   width: 3.75rem;
-//   height: 1.6rem;
   background: white;
   margin: 14px auto;
   padding: 1px 10px;
@@ -307,7 +365,7 @@ dl {
     .xing{
         font-size: 0.23rem;
         float: right;
-        margin-top: -0.57rem;
+        margin-top: -0.4rem;
     }
     .xing:nth-child(3){
         color: #EB6100;

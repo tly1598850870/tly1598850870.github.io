@@ -4,6 +4,7 @@
         title="我的关注"
         left-arrow
         @click-left="onClickLeft"
+        :fixed='true'
         />
         <van-list
             v-model="loading"
@@ -13,14 +14,15 @@
             >
             <van-cell>
                 <dl v-for="(item,key) in list" :key="key">
-                    <dt>
+                    <button class="btn" @click="qxgz(item.collect_id)">取消关注</button>
+                    <dt @click="jsxq(item.teacher_id)">
                         <img :src="item.avatar" alt="">
                     </dt>
-                    <dd>
+                    <dd @click="jsxq(item.teacher_id)">
                         <p>
                             {{ item.teacher_name }}
                             <span>{{ item.level_name }}</span>
-                            <button @click="qxgz(item.collect_id)">取消关注</button>
+                            <!-- <button @click="qxgz(item.collect_id)">取消关注</button> -->
                         </p>
                         <p class="title">{{ item.introduction }}</p>
                         
@@ -63,6 +65,14 @@ export default {
                 
             })
         },
+        jsxq(id){
+            this.$router.push({
+                path:'/teacher',
+                query:{
+                    id:id,
+                }
+            })
+        },
         onClickLeft(){
             this.$router.go(-1)
         },
@@ -87,10 +97,11 @@ export default {
 .box{
     width: 3.75rem;
     background: #F0F2F5;
-    height: 1000px;
+    height: 800px;
 }
 .van-cell{
     background: #F0F2F5;
+    margin-top: 0.46rem;
 }
 dl{
     width: 3.5rem;
@@ -98,6 +109,18 @@ dl{
     background: white;
     padding: 0.1rem 0.1rem;
     box-sizing: border-box;
+    position: relative;
+    .btn{
+        position: absolute;
+        top: 0.2rem;
+        right: 0.2rem;
+        border-radius: 0.5rem;
+        border: #FDEFE5;
+        background: #FDEFE5;
+        font-size: 0.12rem;
+        color: #eb6100;
+        padding: 0.03rem 0.1rem;
+    }
     dt{
         float: left;
         img{
@@ -106,6 +129,7 @@ dl{
         }
     }
     dd{
+        width: 2.1rem;
         padding: 0 0.1rem;
         box-sizing: border-box;
         p{

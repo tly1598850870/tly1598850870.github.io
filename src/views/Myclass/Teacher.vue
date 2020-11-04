@@ -48,183 +48,52 @@
             </van-tab>
             <van-tab title="主讲课程">
                 <div class="cont">
-                    <dl @click="jbrXq()">
+                    <dl @click="jbrXq()" v-for="(item,key) in tlist" :key="key">
                         <dt>
-                        <p>李老师16号到22号地理大课堂开课啦</p>
-                        <van-icon name="clock-o" class="jbr_icon" />
-                        <span>03月16日 18:30 ~ 03月22日 15:00 | 共8课时</span>
+                        <p>{{ item.title }}</p>
+                        <!-- <van-icon name="clock-o" class="jbr_icon" /> -->
+                        <span>共{{ item.total_periods }}课时</span>
+                        <!-- <span>03月16日 18:30 ~ 03月22日 15:00 | 共8课时</span> -->
                         <p class="jbr_lq">
-                            <img src="@/assets/155.jpg" alt="" />
-                            李青
+                            <img :src="item.teachers_list[0].teacher_avatar" alt="" />
+                            {{ item.teachers_list[0].teacher_name }}
                         </p>
                         </dt>
                         <dd>
                         <p>
-                            <span>134人已报名</span>
-                            <span class="jbr_mf">免费</span>
+                            <span>{{ item.brows_num }}人报名</span>
+                            <span class="jbr_mf" :style="{color:item.price>0?'red':'#44A426'}" >
+                                <img src="@/assets/money.png" alt="" v-show="item.price>0">
+                                {{ item.price>0?(item.price/100).toFixed(2):'免费' }}
+                            </span>
                         </p>
-                        </dd>
-                    </dl>
-                    <dl @click="jbrXq()">
-                        <dt>
-                            <p>李老师16号到22号地理大课堂开课啦</p>
-                            <van-icon name="clock-o" class="jbr_icon" />
-                            <span>03月16日 18:30 ~ 03月22日 15:00 | 共8课时</span>
-                            <p class="jbr_lq">
-                                <img src="@/assets/155.jpg" alt="" />
-                                李青
-                            </p>
-                            </dt>
-                            <dd>
-                            <p>
-                                <span>134人已报名</span>
-                                <span class="jbr_mf">免费</span>
-                            </p>
-                            </dd>
-                    </dl>
-                    <dl @click="jbrXq()">
-                        <dt>
-                            <p>李老师16号到22号地理大课堂开课啦</p>
-                            <van-icon name="clock-o" class="jbr_icon" />
-                            <span>03月16日 18:30 ~ 03月22日 15:00 | 共8课时</span>
-                            <p class="jbr_lq">
-                                <img src="@/assets/155.jpg" alt="" />
-                                李青
-                            </p>
-                        </dt>
-                        <dd>
-                            <p>
-                                <span>134人已报名</span>
-                                <span class="jbr_mf">免费</span>
-                            </p>
-                        </dd>
-                    </dl>
-                    <dl @click="jbrXq()">
-                        <dt>
-                            <p>李老师16号到22号地理大课堂开课啦</p>
-                            <van-icon name="clock-o" class="jbr_icon" />
-                            <span>03月16日 18:30 ~ 03月22日 15:00 | 共8课时</span>
-                            <p class="jbr_lq">
-                                <img src="@/assets/155.jpg" alt="" />
-                                李青
-                            </p>
-                        </dt>
-                        <dd>
-                            <p>
-                                <span>134人已报名</span>
-                                <span class="jbr_mf">免费</span>
-                            </p>
-                        </dd>
-                    </dl>
-                    <dl @click="jbrXq()">
-                        <dt>
-                            <p>李老师16号到22号地理大课堂开课啦</p>
-                            <van-icon name="clock-o" class="jbr_icon" />
-                            <span>03月16日 18:30 ~ 03月22日 15:00 | 共8课时</span>
-                            <p class="jbr_lq">
-                                <img src="@/assets/155.jpg" alt="" />
-                                李青
-                            </p>
-                        </dt>
-                        <dd>
-                            <p>
-                                <span>134人已报名</span>
-                                <span class="jbr_mf">免费</span>
-                            </p>
                         </dd>
                     </dl>
                 </div>
             </van-tab>
             <van-tab title="学员评价">
                 <div class='xuexi'>
-                    <div class='pj'>
-                        <div class='xypj'>
-                            <img src="../../assets/32.jpg" alt="">
-                            <p class="Xing">★★★★★</p>
-                        </div>
-                        <p class='pl'>
-                            <span v-for="(item,key) in arr" :key="key">
-                                {{ item }}
+                    <div class="jbr_pj">
+                        <div class="u">
+                            <span v-for="(item,key) in show?tag:tag2" :key="key">
+                                {{ item.title }}({{ item.count }})
                             </span>
-                        </p>
-                        <p class='nr'>
-                            老师讲课声音特好听，节奏紧凑，提神醒脑。很棒
-                        </p>
+                        </div>
+                        <p class="sx" v-show="!show" @click="show = true">∨</p>
+                        <p class="sx" v-show="show" @click="show = false">∧</p>
                     </div>
-                    <div class='pj'>
+                    <div class='pj' v-for="(item,key) in Xypl" :key="key">
                         <div class='xypj'>
-                            <img src="../../assets/32.jpg" alt="">
-                            <p class="Xing">★★★★★</p>
+                            <img :src="item.avatar" alt="">
+                            <van-rate size='14px' :touchable='false' v-model="item.grade" color='#EA7A2F' void-color='#EA7A2F' />
                         </div>
                         <p class='pl'>
-                            <span v-for="(item,key) in arr" :key="key">
-                                {{ item }}
-                            </span>
-                            <span>有责任心</span>
-                            <span>分析到位</span>
-                        </p>
-                        <p class='nr'>
-                            老师讲的挺好的，讲解专业，非常感谢
-                        </p>
-                    </div>
-                    <div class='pj'>
-                        <div class='xypj'>
-                            <img src="../../assets/32.jpg" alt="">
-                            <p class="Xing">★★★★★</p>
-                        </div>
-                        <p class='pl'>
-                            <span v-for="(item,key) in arr" :key="key">
+                            <span v-for="(item,key) in content" :key="key">
                                 {{ item }}
                             </span>
                         </p>
                         <p class='nr'>
-                            老师讲课声音特好听，节奏紧凑，提神醒脑。很棒
-                        </p>
-                    </div>
-                    <div class='pj'>
-                        <div class='xypj'>
-                            <img src="../../assets/32.jpg" alt="">
-                            <p class="Xing">★★★★★</p>
-                        </div>
-                        <p class='pl'>
-                            <span v-for="(item,key) in arr" :key="key">
-                                {{ item }}
-                            </span>
-                            <span>有责任心</span>
-                            <span>分析到位</span>
-                        </p>
-                        <p class='nr'>
-                            老师讲的挺好的，讲解专业，非常感谢
-                        </p>
-                    </div>
-                    <div class='pj'>
-                        <div class='xypj'>
-                            <img src="../../assets/32.jpg" alt="">
-                            <p class="Xing">★★★★★</p>
-                        </div>
-                        <p class='pl'>
-                            <span v-for="(item,key) in arr" :key="key">
-                                {{ item }}
-                            </span>
-                        </p>
-                        <p class='nr'>
-                            老师讲课声音特好听，节奏紧凑，提神醒脑。很棒
-                        </p>
-                    </div>
-                    <div class='pj'>
-                        <div class='xypj'>
-                            <img src="../../assets/32.jpg" alt="">
-                            <p class="Xing">★★★★★</p>
-                        </div>
-                        <p class='pl'>
-                            <span v-for="(item,key) in arr" :key="key">
-                                {{ item }}
-                            </span>
-                            <span>有责任心</span>
-                            <span>分析到位</span>
-                        </p>
-                        <p class='nr'>
-                            老师讲的挺好的，讲解专业，非常感谢
+                            {{ item.content }}
                         </p>
                     </div>
                 </div>
@@ -253,9 +122,13 @@ export default {
             jslist:[],
             lslist:[],
             cid:0,
-            flag:JSON.parse(localStorage.getItem('gz'))||2,
-            // arrid:JSON.parse(localStorage.getItem('arrid'))||[],
-            // flag:2,
+            flag:2,
+            tlist:[],
+            Xypl:[],
+            tag:[],
+            tag2:[],
+            content:[],
+            show:false,
         };
     },
     created() {
@@ -263,42 +136,26 @@ export default {
     },
     mounted() {
         this.xid = this.$route.query.id
-        // console.log(this.xid)
-
+        
         this.jsList();
         this.lsList();
+        this.tList();
+        this.xypl();
+        this.xypl1()
     },
     methods: {
-        gz(id){
-            this.$Axios.get(`/api/app/teacher/collect/${id}`).then((res) => {
-                console.log(res)
-                // let obj ={
-                //     id:id
-                // }
-                this.flag = res.data.data.flag
-
-                if(this.flag == 1){
-                    this.flag = 1
-                    this.$toast.success('已关注')
-                    localStorage.setItem('gz',JSON.stringify(this.flag))
-                }else{
-                    this.flag = 2
-                    this.$toast.success('已取消')
-                }
-                
-                // let index = this.arrid.findIndex((i,k) => {
-                //     return i.id === obj.id
-                // })
-
-                // console.log(index)
-
-                // if(index == -1){
-                //     this.arrid.push(obj)
-                // }else{
-                //     return false
-                // }
-                // console.log(this.arrid)
-            })
+        async gz(id){
+            let { data } = await this.$Axios.get(`/api/app/teacher/collect/${id}`)
+            console.log(data)
+            if(this.flag == 1){
+                let { data:res } = await this.$Axios.get(`/api/app/teacher/${id}`)
+                this.flag = res.data.flag
+                this.$toast.success('已取消')
+            }else{
+                let { data:res } = await this.$Axios.get(`/api/app/teacher/${id}`)
+                this.flag = res.data.flag
+                this.$toast.success('已关注')
+            }
         },
         fan(){
             this.$router.go(-1)
@@ -318,10 +175,42 @@ export default {
         },
         async lsList(){
             let { data } = await this.$Axios.get(`/api/app/teacher/${this.xid}`)
+            // console.log(data)
+            this.flag = data.data.flag
             this.lslist.push(data.data.teacher)
-            console.log(this.lslist)
+            // console.log(this.lslist)
             this.cid = this.lslist[0].id
             // console.log(this.cid)
+        },
+        async tList(){
+            
+            let { data } = await this.$Axios.post(`/api/app/teacher/mainCourse`,{
+                page: 1, limit: 10, teacher_id:this.xid
+            })
+            // console.log(data)
+            this.tlist = data.data.list
+        },
+        async xypl(){
+            let { data } = await this.$Axios.post(`/api/app/teacher/comment`,{
+                page: 1, limit: 10, teacher_id:this.xid
+            })
+            // console.log(data)
+            this.Xypl = data.data.comment.list
+            // console.log(this.Xypl)
+            this.content = this.Xypl[0].tag_content
+            this.content = this.content.split(',')
+            // console.log(this.content)
+            this.tag = data.data.tag
+            console.log(this.tag)
+        },
+        async xypl1(){
+            let { data } = await this.$Axios.post(`/api/app/teacher/comment`,{
+                page: 1, limit: 10, teacher_id:this.xid
+            })
+            // console.log(data)
+            this.tag2 = data.data.tag
+            this.tag2.length = 3
+            console.log(this.tag2)
         },
     },
     watch: {
@@ -482,7 +371,6 @@ footer{
   margin-bottom: 0.45rem;
     dl{
     width: 3.45rem;
-    height: 1.9rem;
     border-radius: 0.05rem;
     background: white;
     margin: 0.15rem auto;
@@ -532,6 +420,41 @@ footer{
 .xuexi{
     width: 3.75rem;
     background: white;
+    padding: 0.1rem 0;
+    box-sizing: border-box;
+    .sx{
+        width: 0.18rem;
+        height: 0.18rem;
+        float: right;
+        border-radius: 0.5rem;
+        background: #DDDDDD;
+        color: #EDEDED;
+        text-align: center;
+        line-height: 0.18rem;
+        position: absolute;
+        top: -0.02rem;
+        right: -0.1rem;
+    }
+    .jbr_pj{
+        width: 3rem;
+        margin: 0 auto;
+        margin-bottom: 0.1rem;
+        position: relative;
+        .u{
+            display: flex;
+            flex-wrap: wrap;
+            span{
+                width: 0.7rem;
+                border: 1px solid #EA7A2F;
+                padding: 0.03rem 0.03rem;
+                font-size: 0.1rem;
+                text-align: center;
+                margin: 0.1rem 0.1rem;
+                color: #EA7A2F;
+                border-radius: 0.03rem;
+            }
+        }
+    }
     .pj{
         .xypj{
             width: 3.75rem;
