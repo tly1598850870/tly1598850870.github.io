@@ -22,3 +22,18 @@ export function getData() {
       }
     });
   }
+  export function sex(datas) {
+    return axios({
+      url: "/api/app/user",
+      method: "PUT",
+      data:{
+        sex:datas
+      }
+    });
+  }
+  export function city(data) {
+    return axios({
+      url: `/api/app/sonArea/${data}?`,
+      method: "GET",
+    });
+  }

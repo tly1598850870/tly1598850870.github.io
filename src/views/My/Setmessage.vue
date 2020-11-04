@@ -10,14 +10,28 @@
         <span>性别</span>
         <span>{{xb}}</span>
       </li>
-      <li>
+      <li @click="xsr">
         <span>出生日期</span>
-        <span>{{userinfo.birthday==0?"请选择":userinfo.birthday}}</span>
+        <span>{{sr}}</span>
+       
       </li>
+      <van-popup v-model="shows" position="bottom" :style="{ height: '40%' }" >
+        <van-datetime-picker
+  v-model="currentDate"
+  type="date"
+  :min-date="minDate"
+  :max-date="maxDate"
+  @confirm="sjwc"
+  @cancel="sjqx"
+/>
+      </van-popup>
       <li @click="city">
         <span>所在城市</span>
         <span>{{cs}}</span>
       </li>
+      <van-popup v-model="showss" position="bottom" :style="{ height: '45%' }" >
+        <van-picker show-toolbar title="标题" :columns="columns" @confirm="onConfirm" @change="onChange"/>
+</van-popup>
       <li>
         <span>学科</span>
         <span>{{xk}}</span>
@@ -35,18 +49,13 @@
         color="linear-gradient(to right, #ff6034, #ee0a24)"
         @click="tj"
       >确定</van-button>
-
-    <!-- 城市信息 -->
-    <van-popup position="bottom" v-model="cityShow">
-      <!-- <van-picker show-toolbar title="标题" :columns="cityEdit" /> -->
-      <p v-for="item in cityEdit" :key="item.id">{{item.area_name}}</p>
-    </van-popup>
   </div>
+  
 </template>
 
 
 <script>
-import {userInfo} from '@/utils/api'
+import {userInfo,city} from '@/utils/api'
 export default {
   // 组件名称
   name: "",
@@ -66,12 +75,49 @@ export default {
       nj:'',
       xb:'',
       name:'',
+      sr:'',
+      rq:'',
+      shows:false,
+      showss:false,
+      minDate: new Date(1995, 0, 1),
+      maxDate: new Date(2025, 0, 1),
+      currentDate: new Date(),
+      columns: [
+        {
+          text: '浙江',
+          children: [
+            {
+              text: '杭州',
+              children: [{ text: '西湖区' }, { text: '余杭区' }],
+            },
+            {
+              text: '温州',
+              children: [{ text: '鹿城区' }, { text: '瓯海区' }],
+            },
+          ],
+        },
+        {
+          text: '福建',
+          children: [
+            {
+              text: '福州',
+              children: [{ text: '鼓楼区' }, { text: '台江区' }],
+            },
+            {
+              text: '厦门',
+              children: [{ text: '思明区' }, { text: '海沧区' }],
+            },
+          ],
+        },
+      ],
     };
   },
   // 计算属性
   computed: {},
   // 侦听器
-  watch: {},
+  watch: {
+    
+  },
   // 组件方法
   methods: {
     showPopup() {
@@ -89,7 +135,7 @@ export default {
           this.xb="保密"
       }else if(this.userinfo.sex==1){
           this.xb="女"
-      }else if(this.userinfo.sex==2){
+      }else if(this.userinfo.sex==0){
           this.xb="男"
       }
       if(this.userinfo.province_name==0){
@@ -99,13 +145,20 @@ export default {
           this.xk="",
           this.nj="请选择"
       }
-      },
+
+      if(this.userinfo.birthday==0){
+        this.sr="请选择"
+      }else{
+        this.sr=this.userinfo.birthday
+      }
+    },
     
     // 城市信息
     async city() {
-      let { data } = await AjaxEditSonArea();
-      this.cityShow = true;
-      this.cityEdit = data;
+      this.showss = true;
+      let data = await city(0);
+      console.log(data)
+      let res = await city(110100);
     },
     // 修改信息
     async userEdit() {
@@ -127,6 +180,29 @@ export default {
         name:"Sex",
         params:{name:this.sb}
       })
+    },
+    xsr(){
+      this.shows=true
+    },
+    sjwc(val){
+        console.log(val)
+        let n=val.getFullYear()
+        let y=(val.getMonth() + 1)>9?val.getMonth() + 1:"0"+(val.getMonth() + 1)
+        let r=val.getDate()>9?val.getDate():"0"+val.getDate()
+        console.log(n,y,r)
+        this.sr=`${n}-${y}-${r}`
+        // this.$forceUpdate();
+        console.log(this.sr)
+        this.shows=false
+    },
+    sjqx(){
+      this.shows=false
+    },
+    onConfirm(val){
+      console.log(val)
+    },
+    onChange(val){
+console.log(val)
     }
   },
   /**
@@ -187,7 +263,7 @@ export default {
       display: flex;
       justify-content: space-between;
       position: relative;
-      span:first-child {
+      span {
         font-size: 3.73333vw;
         color: #595959;
       }
