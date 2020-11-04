@@ -15,8 +15,8 @@
       </van-radio-group>
     </div>
     <div class="tly_bottombotton">
-      <van-button plain size="small" type="info">上一题</van-button>
-      <van-button plain size="small" type="info">下一题</van-button>
+      <van-button plain size="small" type="info" class="tly_bottombottons">上一题</van-button>
+      <van-button plain size="small" type="info" class="tly_bottombottons">下一题</van-button>
     </div>
     <div class="tly_graybox"></div>
     <div class="tly_bottom_box">
@@ -105,6 +105,9 @@ export default {
   display: flex;
   justify-content: space-between;
   padding: 0.2rem;
+  .tly_bottombottons{
+    width: 1rem;
+  }
 }
 .van-radio {
   padding: 0.1rem;
