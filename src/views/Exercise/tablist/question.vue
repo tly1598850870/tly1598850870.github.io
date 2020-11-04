@@ -6,6 +6,7 @@
         shape="round"
         background="white"
         placeholder="请输入搜索关键词"
+        @focus="tozhis"
       >
       </van-search>
     </p>
@@ -16,16 +17,16 @@
             v-for="(item, index) in alllist"
             :key="index"
             :title="item.name"
-            @click="change(item.name)"
+            @click="change(item.id)"
           />
         </van-sidebar>
       </div>
       <div id="tly_rightbox">
         <div v-for="(item, index) in showlist" :key="index">
           <p class="tly_title">{{ item.name }}</p>
-          <div class="tly_titlebox">
-            <span v-show="item.title != ''" @click="tothis(item.title)">{{
-              item.title
+          <div class="tly_titlebox" v-show="item.bank != ''">
+            <span v-for="(items,index) in item.bank" :key="index" @click="tothis(item.id, items.id)">{{
+              items.name
             }}</span>
           </div>
         </div>
@@ -47,134 +48,41 @@ export default {
       activeKey: -1,
       showlist: [],
       value: "",
-      alllist: [
-        {
-          name: "求导题库",
-          content: [
-            ({
-              name: "小学英语",
-              title: "英语",
-            },
-            {
-              name: "初中英语",
-              title: "",
-            },
-            {
-              name: "高中英语",
-              title: "",
-            }),
-          ],
-        },
-        {
-          name: "极限题库",
-          content: [
-            {
-              name: "两个重要",
-              title: "数学",
-            },
-          ],
-        },
-        {
-          name: "生物",
-          content: [
-            {
-              name: "高中生物",
-              title: "遗传",
-            },
-            {
-              name: "初中生物",
-              title: "",
-            },
-          ],
-        },
-        {
-          name: "化学",
-          content: [
-            {
-              name: "化学实验室",
-              title: "",
-            },
-            {
-              name: "初中化学",
-              title: "化学模拟考试题",
-            },
-            {
-              name: "高中化学",
-              title: "",
-            },
-          ],
-        },
-        {
-          name: "数学",
-          content: [
-            {
-              name: "初中数学",
-              title: "数学一模测试",
-            },
-            {
-              name: "小学数学",
-              title: "小升初数学",
-            },
-          ],
-        },
-        {
-          name: "物理",
-          content: [
-            {
-              name: "初中五路",
-              title: "初三物理",
-            },
-            {
-              name: "高中物理",
-              title: "高中物理",
-            },
-          ],
-        },
-        {
-          name: "英语",
-          content: [
-            {
-              name: "小学英语",
-              title: "英语",
-            },
-            {
-              name: "初中物理",
-              title: "",
-            },
-            {
-              name: "高中物理",
-              title: "",
-            },
-          ],
-        },
-      ],
+      alllist: []
     };
   },
   mounted() {
     this.$store.commit("changeleftarrows", true)
-
+    this.quest()
+    // console.log(this.alllist);
+    localStorage.removeItem("showlist")
   },
   methods: {
-    change(name) {
-      this.showlist = [];
-      this.alllist.forEach((e) => {
-        if (e.name == name) {
-          e.content.forEach((el) => {
-            this.showlist.push(el);
-          });
-        }
-      });
+    async change(id){
+      // console.log(id);
+      let { data } = await this.$Axios.get('/api/app/wap/quesBank/'+id)
+      // console.log(data);
+      this.showlist=data.data
     },
     onSearch() {
       console.log(1111);
     },
-    tothis(title) {
+    tothis(item,title) {
+      // console.log(item,title);
       window.localStorage.setItem("thisname", title);
       this.$router.push({
         path: "/footer/Myexercise/showclass",
-        query: { name: title },
+        query: { name:"/"+item+"/"+title },
       });
     },
+    async quest(){
+      let { data } = await this.$Axios.get('/api/app/wap/classify')
+      // console.log(data);
+      this.alllist=data.data
+    },
+    tozhis(){
+      this.$router.push("/footer/Myexercise/seek")
+    }
   },
 };
 </script>

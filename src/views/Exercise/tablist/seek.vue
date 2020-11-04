@@ -1,6 +1,6 @@
 <template>
   <div>
-    <van-nav-bar left-text="" left-arrow>
+    <van-nav-bar left-text="" left-arrow  @click-left="back">
       <template #title>
         <van-search
           v-model="value"
@@ -51,6 +51,9 @@ export default {
           this.seekl.unshift(this.value)
           this.showseek=false 
           // console.log(this.showseeks);
+      },
+      back(){
+        this.$router.push("/footer/Myexercise/Myexercise");
       }
   },
   computed: {
