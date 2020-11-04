@@ -26,6 +26,8 @@ import {
     Rate,
     Loading,
     List,
+    DatetimePicker,
+    Picker,
 } from 'vant';
 import { Field } from 'vant';
 import { Button } from 'vant';
@@ -57,3 +59,5 @@ Vue.use(Popup);
 Vue.use(Rate);
 Vue.use(Loading);
 Vue.use(List);
+Vue.use(DatetimePicker);
+Vue.use(Picker);

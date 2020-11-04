@@ -19,8 +19,11 @@
         </div>
       </van-dropdown-item>
     </van-dropdown-menu>
-    <div class="tly_nullbox">
-      <img src="http://localhost:8080/%E8%80%83%E5%8D%B7.png" alt="">
+    <div v-for="(item, index) in showlist" :key="index">
+      {{ "已有数据" }}
+    </div>
+    <div  class="tly_nullbox">
+      <img src="http://localhost:8080/%E8%80%83%E5%8D%B7.png" alt="" />
     </div>
   </div>
 </template>
@@ -45,9 +48,9 @@ export default {
       switch1: false,
       switch2: false,
       option: [
-        { text: "全部商品", value: 0 },
-        { text: "新款商品", value: 1 },
-        { text: "活动商品", value: 2 },
+        { text: "全部", value: 0 },
+        { text: "已做", value: 1 },
+        { text: "未做", value: 2 },
       ],
       optionitem: [
         {
@@ -68,11 +71,13 @@ export default {
         },
       ],
       optionitemes: [],
+      showlist: [],
     };
   },
   methods: {
     onConfirm() {
       this.$refs.item.toggle();
+      this.change()
     },
     changeitem(index) {
       this.optionitemes = [];
@@ -81,6 +86,13 @@ export default {
         this.optionitemes.push(element);
       });
       // console.log(this.optionitemes);
+    },
+    async change() {
+      // console.log(id);
+      let { data } = await this.$Axios.get("/api/app/exam/packagePractice");
+      console.log(data);
+      this.showlist = [];
+      console.log(this.showlist);
     },
   },
 };
@@ -92,16 +104,16 @@ export default {
   background: white;
   display: flex;
 }
-.tly_showbox{
-    width: 70%;
+.tly_showbox {
+  width: 70%;
 }
-.tly_nullbox{
+.tly_nullbox {
+  width: 100%;
+  height: 30vh;
+  display: flex;
+  align-items: center;
+  img {
     width: 100%;
-    height: 30vh;
-    display: flex;
-    align-items: center;
-    img{
-        width: 100%;
-    }
+  }
 }
 </style>
