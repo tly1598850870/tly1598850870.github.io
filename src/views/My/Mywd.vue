@@ -17,18 +17,18 @@
           </section>
           <div class="info">
             <ul>
-              <li>
-                <h3>1</h3>
+              <li @click="tsk">
+                <h3>{{ kcNum }}</h3>
                 <p>我的特色课</p>
                 <span>已购特色课程的学习</span>
               </li>
               <li @click="ydy">
-                <h3>0</h3>
+                <h3>{{ oto }}</h3>
                 <p>一对一辅导</p>
                 <span>我的一对一老师辅导</span>
               </li>
               <li @click="xxb">
-                <h3>0.00</h3>
+                <h3>{{ integral.toFixed(2) }}</h3>
                 <p>剩余学习币</p>
                 <span>查看剩余学习币</span>
               </li>
@@ -139,6 +139,9 @@ export default {
       list: JSON.parse(sessionStorage.getItem("user")),
       jsq:"",
       active:JSON.parse(sessionStorage.getItem('act'))||0,
+      kcNum:0,
+      integral:0,
+      oto:0,
     }
   }, // 计算属性
   computed: {},
@@ -151,6 +154,9 @@ export default {
       this.active = 2
       sessionStorage.setItem('act',JSON.stringify(this.active))
       this.$router.push("/footer/myask")
+    },
+    tsk(){
+      this.$router.push("/mycoures")
     },
     qbdd(a){
       this.jsq=a
@@ -176,6 +182,13 @@ export default {
     },
     jbr_sc(){
       this.$router.push('/scls')
+    },
+    async num(){
+      let { data } = await this.$Axios.get('/api/app/getUCenterInfo')
+      console.log(data)
+      this.kcNum = data.data.courses
+      this.integral = data.data.integral
+      this.oto = data.data.oto
     }
   },
   watch: {
@@ -190,6 +203,7 @@ export default {
 
   created() {},
   mounted() {
+    this.num()
   }
 };
 </script> 

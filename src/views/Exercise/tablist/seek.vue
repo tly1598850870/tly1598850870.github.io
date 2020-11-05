@@ -1,6 +1,6 @@
 <template>
   <div>
-    <van-nav-bar left-text="" left-arrow>
+    <van-nav-bar left-text="" left-arrow  @click-left="back">
       <template #title>
         <van-search
           v-model="value"
@@ -17,8 +17,8 @@
     </van-nav-bar>
     <div class="tly_seek" v-show="showseek==false">
       <h4>搜索历史</h4>
-      <div>
-        <span v-for="(item, index) in showseeks" :key="index">{{item}}</span>
+      <div class="seekdiv">
+        <span class="seekspan" v-for="(item, index) in showseeks" :key="index">{{item}}</span>
       </div>
     </div>
     <div class="tly_seeklist" v-show="showseek==true">
@@ -51,6 +51,9 @@ export default {
           this.seekl.unshift(this.value)
           this.showseek=false 
           // console.log(this.showseeks);
+      },
+      back(){
+        this.$router.push("/footer/Myexercise/Myexercise");
       }
   },
   computed: {
@@ -74,4 +77,20 @@ export default {
   box-sizing: border-box;
   padding: 0.2rem;  
 }
+.seekdiv{
+  height: 20vh;
+  display: flex;
+  margin: 0.1rem 0rem;
+  .seekspan{
+  margin: 0.05rem;
+  height: 3vh;
+  background: rgb(170, 170, 170);
+  padding: 0.05rem;
+  color: white;
+  font-size: 0.08rem;
+  border-radius:0.08rem ;
+  line-height: 3vh;
+}
+}
+
 </style>

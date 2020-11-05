@@ -49,6 +49,26 @@ const routes = [
     }
   },
   {
+    path: '/myvideo',
+    name: 'Myvideo',
+    component: function () {
+      return import('../views/Myclass/Myvideo.vue')
+    },
+    meta:{
+      title:'视频'
+    }
+  },
+  {
+    path: '/mycoures',
+    name: 'Mycoures',
+    component: function () {
+      return import('../views/Myclass/Mycoures.vue')
+    },
+    meta:{
+      title:'我的学习'
+    }
+  },
+  {
     path: '/info',
     name: 'Info',
     component: function () {

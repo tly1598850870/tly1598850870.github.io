@@ -18,10 +18,9 @@
         </div>
         <div class="tly_ann">
             <van-button round plain  type="info" size="mini" @click="toanalysis">查看解析</van-button>
-            <van-button round  plain type="info" size="mini">重新练习</van-button>
+            <van-button round  plain type="info" size="mini" @click="toanalysis">重新练习</van-button>
         </div>
       </div>
-      <div class="tly_showbox"></div>
     </div>
     <p class="tly_bottombox">没有更多了</p>
   </div>

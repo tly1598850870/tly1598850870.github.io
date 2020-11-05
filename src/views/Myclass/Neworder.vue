@@ -17,7 +17,7 @@
                     <p class="sex">{{ item.sex == 0?"男":'女' }} 
                         <span>{{ item.teach_age }}年教龄</span></p>
                     <p class="gz">
-                        <button @click="xq()" class="but">查看详情</button>
+                        <button @click="xq(item.id)" class="but">查看详情</button>
                     </p>
                 </dd>
             </dl>
@@ -79,8 +79,14 @@ export default {
         this.yyDate()
     },
     methods: {
-        xq(){
-            this.$router.push('/teacher')
+        xq(id){
+            console.log(id)
+            this.$router.push({
+                path:'/teacher',
+                query:{
+                    id:id
+                }
+            })
         },
         fan(){
             this.$router.go(-1)

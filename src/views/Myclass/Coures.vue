@@ -9,29 +9,33 @@
         </van-nav-bar>
         <van-dropdown-menu>
           <van-dropdown-item title="分类" ref="item1" class="Fl">
-            <p>年级</p>
-            <ul>
-              <li v-for="(item,key) in jbrnewarr1" :key="key"
-              :style="{
-                background: Active1 == key ? '#EBEEFE' : '#f5f5f5',
-                color: Active1 == key ? '#EB6100' : '',}"
-                @click="act1(key)">
-                {{ item }}
-              </li>
-            </ul>
-            <p>学科</p>
-            <ol>
-              <li v-for="(item,key) in jbrnewarr2" :key="key"
-              :style="{
-                background: Active2 == key ? '#EBEEFE' : '#f5f5f5',
-                color: Active2 == key ? '#EB6100' : '',}"
-                @click="act2(key)">
-                {{ item }}
-              </li>
-            </ol>
+            <div class="fenlei" v-for="(item, key) in jbrFl" :key="key">
+                <p>{{ item.name }}</p>
+                <ul>
+                  <li v-for="(i,k) in item.child" :key="k"
+                  :style="{
+                    background: Active1 == k ? '#EBEEFE' : '#f5f5f5',
+                    color: Active1 == k ? '#EB6100' : '',}"
+                    @click="act1(k,i.id)">
+                    {{ item.child[k].name }}
+                  </li>
+                </ul>
+              </div>
+              <div class="fenlei" v-for="name in jbrF2" :key="name.id">
+                  <p>学科</p>
+                  <ol>
+                    <li v-for="(n,ind) in name.child" :key="ind"
+                      :style="{
+                        background: Active2 == ind ? '#EBEEFE' : '#f5f5f5',
+                        color: Active2 == ind ? '#EB6100' : '',}"
+                        @click="act2(ind,n.id)">
+                        {{ name.child[ind].name }}
+                      </li>
+                  </ol>
+              </div>
             <div class="but">
               <button class="cz" @click="cz">重置</button>
-              <button class="qd" @click="qd">确定</button>
+              <button class="qd" @click="qd()">确定</button>
             </div>
           </van-dropdown-item>
           <van-dropdown-item title="排序" ref="item2">
@@ -40,25 +44,25 @@
                 v-for="(item, key) in jbrarr"
                 :key="key"
                 :style="{ color: jbrPx == key ? '#EB6100' : '' }"
-                @click="jbrpx(item,key)"
+                @click="jbrpx(item.type,key)"
               >
-                {{ item }}
+                {{ item.name }}
               </li>
             </ul>
           </van-dropdown-item>
           <van-dropdown-item title="筛选" ref="item3">
             <div class="jbr_topsx">
-              <div v-for="(item, key) in jbrFl" :key="key">
-                <p
+              <ul class="uu" v-for="(item,key) in jbrF3" :key="key">
+                <li
                   :style="{
                     background: jbrActive == key ? '#EBEEFE' : '#f5f5f5',
                     color: jbrActive == key ? '#EB6100' : '',
                   }"
-                  @click="jbract(key)"
+                  @click="jbract(key,item.type)"
                 >
                   {{ item.name }}
-                </p>
-              </div>
+                </li>
+              </ul>
             </div>
           </van-dropdown-item>
         </van-dropdown-menu>
@@ -70,7 +74,6 @@
           :finished="finished"
           finished-text="没有更多了"
           @load="onLoad"
-          ref="Lod"
           :immediate-check='false'
           error-text='加载失败，请点击重试'
         >
@@ -119,13 +122,30 @@ export default {
         { text: "活动商品", value: 2 },
       ],
       jbrFl: [],
+      jbrF2: [],
       jbrActive: 0,
       Active1: -1,
       Active2: -1,
       jbrPx: 0,
-      jbrarr: ["综合排序", "最新", "最热", "价格从低到高", "价格从高到低"],
-      jbrnewarr1: ["初一", "初二", "初三", "高一", "高二"],
-      jbrnewarr2: ["语文", "数学", "英语", "物理", "化学"],
+      jbrarr: [
+        {name:"综合排序",type:0},
+        {name:"最新",type:1},
+        {name:"最热",type:2},
+        {name:"价格从低到高",type:3},
+        {name:"价格从高到低",type:4},
+      ],
+      jbrF3: [
+        {name:"全部",type:0},
+        {name:"大班课",type:2},
+        {name:"小班课",type:3},
+        {name:"公开课",type:4},
+        {name:"点播课",type:5},
+        {name:"面授课",type:7},
+        {name:"音频课",type:8},
+        {name:"系统课",type:9},
+        {name:"图文课",type:10},
+        {name:"会员课",type:6},
+      ],
       newList:[],
       page:1,
       limit:10,
@@ -133,6 +153,10 @@ export default {
       finished: false,
       refreshing: false,
       timer:null,
+      id1:-1,
+      id2:-1,
+      arr:[],
+      str:'',
     };
   },
   components: {
@@ -140,8 +164,7 @@ export default {
   },
   created() {},
   mounted() {
-    this.list();
-    this.fl();7
+    this.fl();
     this.px();
     this.newlist();
   },
@@ -151,55 +174,69 @@ export default {
       this.$refs.item2.toggle();
       this.$refs.item3.toggle();
     },
-    jbract(k) {
+    async jbract(k,tab) {
       this.jbrActive = k;
       this.$refs.item3.toggle();
-    },
-    jbrpx(item,k) {
-      this.jbrPx = k;
-      this.$refs.item2.toggle();
-      switch(item){
-        case '综合排序':
-          this.newlist()
-        break;
-        case '价格从低到高':
-          this.newList.sort((a, b) => {
-            return a.total_periods - b.total_periods
-          })
-        break;
-        case '价格从高到低':
-            this.newList.sort((a, b) => {
-              return b.total_periods - a.total_periods
-            })
-        break;
-      }
-    },
-    async newlist(){
-      let { data } = await this.$Axios.get(`/api/app/courseBasis?page=${this.page}&limit=${this.limit}`)
+      let { data } = await this.$Axios.get(
+        `/api/app/courseBasis?page=1&limit=10&course_type=${tab}&classify_id=&order_by=&attr_val_id=&is_vip=0`
+      )
       console.log(data)
       this.newList=data.data.list
       console.log(this.newList)
     },
-    async list() {
-      let { data } = await this.$Axios.get("/api/app/myStudy/2");
+    async jbrpx(tab,k) {
+      this.jbrPx = k;
+      this.$refs.item2.toggle();
+      let { data } = await this.$Axios.get(
+        `/api/app/courseBasis?page=1&limit=10&course_type=0&classify_id=&order_by=${tab}&attr_val_id=&is_vip=0`
+      )
+      console.log(data)
+      this.newList=data.data.list
+      console.log(this.newList)
+      // switch(item){
+      //   case '综合排序':
+      //     this.newlist()
+      //   break;
+      //   case '价格从低到高':
+      //     this.newList.sort((a, b) => {
+      //       return a.total_periods - b.total_periods
+      //     })
+      //   break;
+      //   case '价格从高到低':
+      //       this.newList.sort((a, b) => {
+      //         return b.total_periods - a.total_periods
+      //       })
+      //   break;
+      // }
+    },
+    async newlist(){
+      this.loading = true
+      let { data } = await this.$Axios.get(`/api/app/courseBasis?page=${this.page}&limit=${this.limit}`)
       // console.log(data)
+      this.loading = false
+      this.newList=data.data.list
+      // console.log(this.newList)
     },
     async fl() {
       let { data } = await this.$Axios.get("/api/app/courseClassify");
       // console.log(data);
-      this.jbrFl = data.data.appCourseType;
-      // console.log(this.jbrFl);
+      this.jbrFl.push(data.data.attrclassify[0]);
+      this.jbrF2.push(data.data.attrclassify[1]);
     },
     async px() {
       let { data } = await this.$Axios.get(
         `/api/app/courseBasis?order_by=${this.jbrPx}`
       );
     },
-    act1(k) {
+    act1(k,id) {
       this.Active1 = k;
+      this.id1 = id
+      console.log(this.id1)
     },
-    act2(k) {
-      this.Active2 = k;
+    act2(ind,id) {
+      this.Active2 = ind;
+      this.id2 = id
+      console.log(this.id2)
     },
     jbrXq(id,item) {
       console.log(id)
@@ -219,22 +256,51 @@ export default {
     cz(){
       this.Active1 = -1
       this.Active2 = -1
+      this.id1 = -1
+      this.id2 = -1
       this.$refs.item1.toggle();
+      this.arr = []
+      this.str = ''
+      this.newlist()
     },
-    qd(){
+    async qd(){
       this.$refs.item1.toggle();
+      // console.log(this.id1,this.id2)
+      this.arr = []
+      this.str = ''
+      if(this.id1 != -1){
+        this.arr.push(this.id1)
+      }
+      if(this.id2 != -1){
+        this.arr.push(this.id2)
+      }
+
+      if(this.id1 == -1 && this.id2 == -1){
+        this.arr = []
+        this.str = ''
+      }
+      console.log(this.arr)
+      this.str = this.arr.join(' ')
+      console.log(this.str)
+      let { data } = await this.$Axios.get(
+        `/api/app/courseBasis?page=1&limit=10&course_type=0&classify_id=&order_by=&attr_val_id=${this.str}&is_vip=0&`
+      )
+      console.log(data)
+      this.newList=data.data.list
+      // console.log(this.newList)
     },
     onLoad() {
-        this.$refs.Lod.check();
+        // this.$refs.Lod.check();
         setTimeout(() => {
-          this.limit+=5
+          this.limit+=7
+          // this.limit.page++
           this.newlist()
           
           // 加载状态结束
-          this.loading = false;
+          // this.loading = false;
 
           // 数据全部加载完成
-          if (this.newList.length >= 180) {
+          if (this.newList.length<=0) {
             this.finished = true;
           }
         }, 1000);
@@ -333,27 +399,26 @@ dl {
         margin-right: 0.1rem;
         color: red;
         font-size: 0.16rem;
+        img{
+          margin-top: -0.5rem;
+        }
       }
     }
   }
 }
 .jbr_topsx {
-  width: 3.75rem;
-  height: 1rem;
+  // width: 3.75rem;
   display: flex;
-  justify-content: space-around;
-  align-items: center;
-  div {
-    width: 3.75rem;
-    height: 0.5rem;
-    display: flex;
-    justify-content: space-around;
-    p {
-      width: 0.69rem;
+  flex-wrap: wrap;
+  padding: 0.1rem 0.06rem;
+  .uu{
+    li{
+      width: 0.7rem;
       height: 0.33rem;
       background: #f5f5f5;
       text-align: center;
       line-height: 0.33rem;
+      margin: 0.1rem 0.1rem;
       font-size: 0.14rem;
     }
   }
