@@ -156,6 +156,18 @@ export default {
             let { data } = await this.$Axios.get('/api/app/getPcRoomCode/course_id=287/chapter_id=933')
             console.log(data)
             if(sessionStorage.getItem('token') != null){
+                if(this.buy == 0){
+                    if(this.price > 0){
+                        this.$toast('请购买之后观看')
+                        return false
+                    }else{
+                        this.$toast('请先报名')
+                        return false
+                    }
+                }else{
+                    this.$toast(data.msg)
+                    return false
+                }
                 if(this.bf == 1){
                     if(item.datum.length == 0){
                         this.vid = 0
@@ -171,18 +183,8 @@ export default {
                     })
                     return false
                 }
-                if(this.buy == 0){
-                    if(this.price > 0){
-                        this.$toast('请购买之后观看')
-                    }else{
-                        this.$toast('请先报名')
-                    }
-                }else{
-                    this.$toast(data.msg)
-                }
-                
             }else{
-                
+                this.$router.push('/')
             }
         },
         async ljbm(){

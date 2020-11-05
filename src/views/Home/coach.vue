@@ -6,9 +6,13 @@
       </template>
     </van-nav-bar>
     <van-dropdown-menu>
-      <van-dropdown-item v-model="value1" :options="option1" />
-      <van-dropdown-item v-model="value2" :options="option2" />
-    </van-dropdown-menu>
+    <van-dropdown-item title="选择上课时间" ref="item">
+
+    </van-dropdown-item>
+    <van-dropdown-item title="选择老师条件" ref="item">
+      
+    </van-dropdown-item>
+  </van-dropdown-menu>  
     <div class="cont">
       <dl v-for="(item,key) in yylist" :key="key">
         <dt><img :src="item.avatar" alt=""></dt>
@@ -31,15 +35,13 @@
 export default {
   data() {
     return {
-      value1: 0,
-      value2: "a",
-      option1: [
-        { text: "选择上课时间", value: 0 }
-      ],
-      option2: [
-        { text: "选择下课时间", value: "a" },
-        { text: "好评排序", value: "b" },
-        { text: "销量排序", value: "c" },
+      value: 0,
+      switch1: false,
+      switch2: false,
+      option: [
+        { text: '全部商品', value: 0 },
+        { text: '新款商品', value: 1 },
+        { text: '活动商品', value: 2 },
       ],
       page:1,
       limit:20,
@@ -51,6 +53,9 @@ export default {
     this.yyList()
   },
   methods: {
+    onConfirm() {
+      this.$refs.item.toggle();
+    },
     onClickLeft(){
       this.$router.go(-1)
     },

@@ -5,10 +5,17 @@
             <span class="title">{{ title }}</span>
             <van-icon name="calendar-o" size="18" @click="rl()" />
         </header>
-        <div class="info">
-            <span>共8课时</span>
-            <span class="jdt"></span>
-            <span>已学习0%</span>
+        <div class="info" v-for="(item,key) in coures" :key="key">
+            <span>共{{ item.section_num }}课时</span>
+            <!-- <span class="jdt"></span> -->
+            <div class="ks">
+                <van-progress
+                stroke-width="3px"
+                color='#eb6100'
+                pivot-text=''
+                :percentage="item.progress_rate" />
+            </div>
+            <span>已学习{{ item.progress_rate }}%</span>
         </div>
         <div class="sp">
             <div class="kc" @click="bm()" v-for="(item,key) in newlist" :key="key">
@@ -22,8 +29,12 @@
                     <span>{{ item.start_play }}</span>
                 </div>
                 <div class="ks">
-                    <span class="jdt"></span>
-                    <span>已观看0%</span>
+                    <van-progress
+                    stroke-width="3px"
+                    color='#eb6100'
+                    pivot-text=''
+                    :percentage="item.progress_rate" />
+                    <span>已观看{{ item.progress_rate }}%</span>
                 </div>
             </div>
         </div>
@@ -67,6 +78,7 @@ export default {
             fbpl:'',
             xid:'',
             newlist:[],
+            coures:[],
         };
     },
     created() {
@@ -164,6 +176,8 @@ export default {
             console.log(data)
             this.newlist = data.data.periods
             console.log(this.newlist)
+            this.coures.push(data.data.course)
+            console.log(this.coures)
         }
     }
 };
@@ -209,6 +223,17 @@ header {
         height: 0.03rem;
         border: 1px solid #F5F5F5;
         background: #F5F5F5;
+    }
+    .ks{
+        width: 2.5rem;
+        position: relative;
+        span{
+            position: absolute;
+            right: -0.7rem;
+            top: -0.07rem;
+            font-size: 0.1rem;
+            color: #8C8C8C;
+        }
     }
 }
 .sp{
@@ -256,19 +281,14 @@ header {
         }
     }
     .ks{
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        font-size: 0.12rem;
-        box-sizing: border-box;
-        padding: 0 5px;
-        color: #595959;
-        margin-top: -10px;
-        .jdt{
-            width: 2.3rem;
-            height: 0.02rem;
-            border: 1px solid #F5F5F5;
-            background: #F5F5F5;
+        width: 2.5rem;
+        position: relative;
+        span{
+            position: absolute;
+            right: -0.7rem;
+            top: -0.07rem;
+            font-size: 0.1rem;
+            color: #8C8C8C;
         }
     }
 }
