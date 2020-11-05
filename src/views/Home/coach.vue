@@ -5,26 +5,95 @@
         <van-icon name="search" size="18" @click="search" />
       </template>
     </van-nav-bar>
-    <van-dropdown-menu>
-    <van-dropdown-item title="选择上课时间" ref="item">
+    <van-dropdown-menu :overlay='false' :duration=0 >
+    <van-dropdown-item @open="sk" @close='sk' title="选择上课时间" ref="item">
 
     </van-dropdown-item>
-    <van-dropdown-item title="选择老师条件" ref="item">
-      
+    <van-dropdown-item @open="ls" @close='ls' title="选择老师条件" ref="item">
+      <!-- <div class="con" > -->
+      <p>老师类型</p>
+      <ul class="ul">
+        <li v-for="(item,key) in jbrF1" :key="key"
+          :style="{
+            background: jbrActive1 == key ? '#EBEEFE' : '#f5f5f5',
+            color: jbrActive1 == key ? '#EB6100' : '',
+          }"
+          @click="jbrA1(key,item.tab)"
+        >
+          {{ item.name }}
+        </li>
+      </ul>
+      <p>只看</p>
+      <div class="zk">
+        <!-- <p v-for="(item,key) in jbrF5" :key="key"> -->
+          <!-- <input type="checkbox">
+          {{ item.name }} -->
+          <input type="checkbox" v-model="check" @click="jbrA5(1)" >已关注
+          <input type="checkbox" v-model="che" @click="jbrA6(1)" >上过课的
+        <!-- </p> -->
+      </div>
+      <p>性别</p>
+      <div class="sex">
+        <ul>
+          <li v-for="(item,key) in jbrF4" :key="key"
+          :style="{
+            background: jbrActive2 == key ? '#EBEEFE' : '#f5f5f5',
+            color: jbrActive2 == key ? '#EB6100' : '',
+          }"
+          @click="jbrA2(key,item.tab)"
+          >
+            {{ item.name }}
+          </li>
+        </ul>
+      </div>
+      <div class="nj">
+        <p>年级</p>
+        <ul class="ull">
+          <li v-for="(item,key) in jbrF2" :key="key"
+          :style="{
+            background: jbrActive3 == key ? '#EBEEFE' : '#f5f5f5',
+            color: jbrActive3 == key ? '#EB6100' : '',
+          }"
+          @click="jbrA3(key,item.tab)"
+          >
+            {{ item.name }}
+          </li>
+        </ul>
+      </div>
+      <div class="km">
+        <p>学科</p>
+        <ul class="ul">
+          <li v-for="(item,key) in jbrF3" :key="key"
+            :style="{
+            background: jbrActive4 == key ? '#EBEEFE' : '#f5f5f5',
+            color: jbrActive4 == key ? '#EB6100' : '',
+          }"
+          @click="jbrA4(key,item.tab)"
+          >
+            {{ item.name }}
+          </li>
+        </ul>
+      </div>
+      <div class="but">
+        <button class="cz" @click="cz">重置</button>
+        <button class="qd" @click="qd()">确定</button>
+      </div>
     </van-dropdown-item>
-  </van-dropdown-menu>  
-    <div class="cont">
+  </van-dropdown-menu>
+    <div class="cont" v-show="!flag">
       <dl v-for="(item,key) in yylist" :key="key">
         <dt><img :src="item.avatar" alt=""></dt>
         <dd>
-          <p>{{ item.real_name }}</p>
+          <p>{{ item.real_name }}
+          <span class="gz">{{ item.is_collect==1?'已关注':'' }}</span>
+          </p>
           <p class="sex">
             <span>
               {{ item.sex == 0?"男":'女' }}
             </span>
             <span>{{ item.teach_age }}年教龄</span>
           </p>
-          <button @click="yy(item.teacher_id)" class="but">预约</button>
+          <button @click="yy(item.teacher_id)" class="btn">预约</button>
         </dd>
       </dl>
     </div>
@@ -35,18 +104,80 @@
 export default {
   data() {
     return {
-      value: 0,
       switch1: false,
       switch2: false,
-      option: [
-        { text: '全部商品', value: 0 },
-        { text: '新款商品', value: 1 },
-        { text: '活动商品', value: 2 },
-      ],
+      check:false,
+      che:false,
+      jbrActive1:-1,
+      jbrActive2:-1,
+      jbrActive3:-1,
+      jbrActive4:-1,
+      jbrid1:-1,
+      jbrid2:-1,
+      jbrid3:-1,
+      jbrid4:-1,
+      jbrid5:0,
+      jbrid6:0,
       page:1,
       limit:20,
       yylist:[],
-      cid:JSON.parse(localStorage.getItem('cid'))||0
+      cid:JSON.parse(localStorage.getItem('cid'))||0,
+      jbrF1:[
+        {name:'M1',tab:4},
+        {name:'M2',tab:5},
+        {name:'M3',tab:6},
+        {name:'M4',tab:7},
+        {name:'M5',tab:8},
+        {name:'M6',tab:9},
+        {name:'M7',tab:10},
+        {name:'M8',tab:11},
+        {name:'M9',tab:12},
+        {name:'M10',tab:13},
+        {name:'M11',tab:14},
+        {name:'M12',tab:15},
+        {name:'M13',tab:16},
+        {name:'M14',tab:17},
+        {name:'M15',tab:18},
+        {name:'M16',tab:19},
+        {name:'M17',tab:20},
+        {name:'M18',tab:21},
+        {name:'M19',tab:22},
+        {name:'M20',tab:23},
+      ],
+      jbrF2:[
+        {name:'小学一年级',tab:18},
+        {name:'小学二年级',tab:19},
+        {name:'小学三年级',tab:20},
+        {name:'小学四年级',tab:21},
+        {name:'小学五年级',tab:22},
+        {name:'小学六年级',tab:23},
+        {name:'初一',tab:1},
+        {name:'初二',tab:2},
+        {name:'初三',tab:3},
+        {name:'高一',tab:4},
+        {name:'高二',tab:5},
+        {name:'高三',tab:6},
+      ],
+      jbrF3:[
+        {name:'语文',tab:7},
+        {name:'数学',tab:8},
+        {name:'英语',tab:6},
+        {name:'物理',tab:12},
+        {name:'化学',tab:13},
+        {name:'生物',tab:24},
+        {name:'信息技术',tab:26},
+      ],
+      jbrF4:[
+        {name:'男',tab:0},
+        {name:'女',tab:1},
+      ],
+      jbrF5:[
+        {name:'已关注',tab:1},
+        {name:'上过课的',tab:1},
+      ],
+      flag:false,
+      arr:[],
+      str:'',
     };
   },
   mounted () {
@@ -71,8 +202,87 @@ export default {
         }
       })
     },
+    jbrA1(k,tab){
+      this.jbrActive1 = k
+      this.jbrid1 = tab
+    },
+    jbrA2(k,tab){
+      this.jbrActive2 = k
+      this.jbrid2 = tab
+    },
+    jbrA3(k,tab){
+      this.jbrActive3 = k
+      this.jbrid3 = tab
+    },
+    jbrA4(k,tab){
+      this.jbrActive4 = k
+      this.jbrid4 = tab
+    },
+    jbrA5(tab){
+      this.jbrid5 = tab
+      console.log(this.jbrid5)
+    },
+    jbrA6(tab){
+      this.jbrid6 = tab
+      console.log(this.jbrid6)
+    },
     async yyList(){
       let { data } = await this.$Axios.get('/api/app/otoCourse')
+      this.yylist=data.data
+    },
+    ls(){
+      this.flag = !this.flag
+    },
+    sk(){
+    },
+    cz(){
+      this.jbrActive1 = this.jbrActive2 = this.jbrActive3 = this.jbrActive4 = -1
+      this.jbrid1 = this.jbrid2 = this.jbrid3 = this.jbrid4 = this.jbrid5 = this.jbrid6 = -1
+      this.arr = []
+      this.str = ''
+      this.$refs.item.toggle();
+      this.check = false
+      this.che = false
+    },
+    async qd(){
+      this.$refs.item.toggle();
+      this.arr = []
+      this.str = ''
+      
+      if(this.jbrid3 != -1){
+        this.arr.push(this.jbrid3)
+      }
+      if(this.jbrid4 != -1){
+        this.arr.push(this.jbrid4)
+      }
+      if(this.jbrid1 == -1){
+        this.jbrid1 = 0
+      }
+      if(this.jbrid2 == -1){
+        this.jbrid2 = 0
+      }
+      if(this.jbrid5 == -1){
+        this.jbrid5 = 0
+      }
+      if(this.jbrid6 == -1){
+        this.jbrid6 = 0
+      }
+
+      if(this.jbrid3 == -1 && this.jbrid4 == -1){
+        this.arr = []
+        this.str = ''
+      }
+      console.log(this.jbrid1+'yi',this.jbrid2+'er')
+      console.log(this.jbrid3+'san',this.jbrid4+'si')
+      console.log(this.jbrid5+'wu',this.jbrid6+'liu')
+
+      console.log(this.arr)
+      this.str = this.arr.join(' ')
+      console.log(this.str)
+
+      let { data } = await this.$Axios.get(
+        `/api/app/otoCourse?page=1&limit=10&start_time=&end_time=&level_id=${this.jbrid1}&is_collect=${this.jbrid5}&is_attended=${this.jbrid6}&sex=${this.jbrid2}&attr_val_id=${this.str}`
+      )
       console.log(data)
       this.yylist=data.data
     }
@@ -86,7 +296,16 @@ export default {
   height: 100%;
   background: #F0F2F5;
 }
+.van-nav-bar{
+  width: 3.75rem;
+  position: fixed;
+  top: 0;
+}
+.van-dropdown-menu{
+  margin-top: 0.45rem;
+}
 .cont{
+  margin-top: -0.16rem;
   dl{
     width: 3.75rem;
     background: white;
@@ -106,12 +325,16 @@ export default {
       p{
         font-size: 0.15rem;
       }
+      .gz{
+        font-size: 0.13rem;
+        color: #EA7A2F;
+      }
       .sex{
         font-size: 0.13rem;
         color: #b7b7b7;
         margin-top: -0.1rem;
       }
-      .but{
+      .btn{
         width: 0.7rem;
         height: 0.3rem;
         border-radius: 0.5rem;
@@ -125,4 +348,116 @@ export default {
     }
   }
 }
+.but{
+  width: 3.75rem;
+  font-size: 0.17rem;
+  position: fixed;
+  bottom: 0;
+  .cz{
+    width: 50%;
+    height: 0.43rem;
+    color: #EB6100;
+    background: white;
+    border: 1px solid white;
+  }
+  .qd{
+    width: 50%;
+    height: 0.43rem;
+    border: #EB6100;
+    background: #EB6100;
+    color: white;
+  }
+}
+.van-dropdown-item{
+  p{
+    font-size: 0.13rem;
+    margin-left: 0.15rem;
+    color: #595959;
+  }
+  .ul{
+    width: 3.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+    padding-left: 0.01rem;
+    border-bottom: 1px solid #EBEEFE;
+    margin: 0 auto;
+    li{
+      width: 0.61rem;
+      height: 0.33rem;
+      background: #F5F5F5;
+      text-align: center;
+      line-height: 0.33rem;
+      font-size: 0.13rem;
+      margin: 0.1rem 0.13rem;
+      color: #646464;
+    }
+  }
+  .zk{
+    width: 3.5rem;
+    margin: 0 auto;
+    font-size: 0.13rem;
+    display: flex;
+    color: #8C8C8C;
+    padding-bottom: 0.1rem;
+    border-bottom: 1px solid #EBEEFE;
+    input{
+      width: 0.17rem;
+      height: 0.17rem;
+    }
+    input:nth-child(2){
+      margin-left: 0.2rem;
+    }
+  }
+  .sex{
+    width: 3.5rem;
+    margin: 0 auto;
+    font-size: 0.13rem;
+    display: flex;
+    align-items: center;
+    color: #8C8C8C;
+    padding-bottom: 0.1rem;
+    border-bottom: 1px solid #EBEEFE;
+    ul{
+      display: flex;
+      li{
+        width: 0.61rem;
+        height: 0.33rem;
+        background: #F5F5F5;
+        text-align: center;
+        line-height: 0.33rem;
+        font-size: 0.13rem;
+        margin: 0.05rem 0.07rem;
+        color: #646464;
+      }
+    }
+  }
+  .nj{
+    width: 3.5rem;
+    margin: 0 auto;
+    font-size: 0.13rem;
+    color: #8C8C8C;
+    padding-bottom: 0.1rem;
+    border-bottom: 1px solid #EBEEFE;
+  }
+  .ull{
+    width: 3.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+    padding-left: 0.01rem;
+    margin: 0 auto;
+    li{
+      width: 0.7rem;
+      height: 0.33rem;
+      background: #F5F5F5;
+      text-align: center;
+      line-height: 0.33rem;
+      font-size: 0.13rem;
+      margin: 0.1rem 0.07rem;
+      color: #646464;
+    }
+  }
+}
+
 </style>

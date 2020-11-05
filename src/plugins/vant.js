@@ -28,6 +28,7 @@ import {
     List,
     DatetimePicker,
     Picker,
+    Form,
 } from 'vant';
 import { Field } from 'vant';
 import { Button } from 'vant';
@@ -61,3 +62,4 @@ Vue.use(Loading);
 Vue.use(List);
 Vue.use(DatetimePicker);
 Vue.use(Picker);
+Vue.use(Form);
