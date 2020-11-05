@@ -7,7 +7,7 @@
       :fixed="true"
     />
     <div class="video" v-show="flag">
-        <video src="" 
+        <video src="http://dal4jd-video.baijiayun.com/ffea28e04d9cd82c9af715b54f0e1b34/5fa39b6e/00-x-upload/video/29969864_84db3d0dd4dd4801d38dafdd8c5014b4_aBcTcPkP.mp4?fid=30634399&uuid=uuid-83669575-5683-4db7-814f-98aab109e3e9" 
         width='100%' height='230px' controls
         muted>
         </video>

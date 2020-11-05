@@ -74,7 +74,6 @@
           :finished="finished"
           finished-text="没有更多了"
           @load="onLoad"
-          ref="Lod"
           :immediate-check='false'
           error-text='加载失败，请点击重试'
         >
@@ -154,8 +153,10 @@ export default {
       finished: false,
       refreshing: false,
       timer:null,
-      id1:'',
-      id2:'',
+      id1:-1,
+      id2:-1,
+      arr:[],
+      str:'',
     };
   },
   components: {
@@ -209,14 +210,16 @@ export default {
       // }
     },
     async newlist(){
+      this.loading = true
       let { data } = await this.$Axios.get(`/api/app/courseBasis?page=${this.page}&limit=${this.limit}`)
-      console.log(data)
+      // console.log(data)
+      this.loading = false
       this.newList=data.data.list
-      console.log(this.newList)
+      // console.log(this.newList)
     },
     async fl() {
       let { data } = await this.$Axios.get("/api/app/courseClassify");
-      console.log(data);
+      // console.log(data);
       this.jbrFl.push(data.data.attrclassify[0]);
       this.jbrF2.push(data.data.attrclassify[1]);
     },
@@ -253,46 +256,51 @@ export default {
     cz(){
       this.Active1 = -1
       this.Active2 = -1
+      this.id1 = -1
+      this.id2 = -1
       this.$refs.item1.toggle();
+      this.arr = []
+      this.str = ''
       this.newlist()
     },
     async qd(){
       this.$refs.item1.toggle();
-      console.log(this.id1,this.id2)
-      if(this.id1 != ''){
-        let { data } = await this.$Axios.get(
-          `/api/app/courseBasis?page=1&limit=10&course_type=0&classify_id=&order_by=&attr_val_id=${this.id1}&is_vip=0&`
-        )
-        console.log(data)
-        this.newList=data.data.list
-        console.log(this.newList)
-      }else if(this.id2 != ''){
-        let { data } = await this.$Axios.get(
-          `/api/app/courseBasis?page=1&limit=10&course_type=0&classify_id=&order_by=&attr_val_id=${this.id2}&is_vip=0&`
-        )
-        console.log(data)
-        this.newList=data.data.list
-        console.log(this.newList)
-      }else{
-        let { data } = await this.$Axios.get(
-          `/api/app/courseBasis?page=1&limit=10&course_type=0&classify_id=&order_by=&attr_val_id=${this.id1},${this.id2}&is_vip=0&`
-        )
-        console.log(data)
-        this.newList=data.data.list
-        console.log(this.newList)
+      // console.log(this.id1,this.id2)
+      this.arr = []
+      this.str = ''
+      if(this.id1 != -1){
+        this.arr.push(this.id1)
       }
+      if(this.id2 != -1){
+        this.arr.push(this.id2)
+      }
+
+      if(this.id1 == -1 && this.id2 == -1){
+        this.arr = []
+        this.str = ''
+      }
+      console.log(this.arr)
+      this.str = this.arr.join(' ')
+      console.log(this.str)
+      let { data } = await this.$Axios.get(
+        `/api/app/courseBasis?page=1&limit=10&course_type=0&classify_id=&order_by=&attr_val_id=${this.str}&is_vip=0&`
+      )
+      console.log(data)
+      this.newList=data.data.list
+      // console.log(this.newList)
     },
     onLoad() {
-        this.$refs.Lod.check();
+        // this.$refs.Lod.check();
         setTimeout(() => {
-          this.limit+=5
+          this.limit+=7
+          // this.limit.page++
           this.newlist()
           
           // 加载状态结束
-          this.loading = false;
+          // this.loading = false;
 
           // 数据全部加载完成
-          if (this.newList.length >= 180) {
+          if (this.newList.length<=0) {
             this.finished = true;
           }
         }, 1000);

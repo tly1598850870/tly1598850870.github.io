@@ -7,7 +7,11 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
+    path:'/',
+    redirect:"/footer/myhome"
+  },
+  {
+    path: '/login',
     name: 'Login',
     component: Login,
     meta:{
@@ -474,18 +478,45 @@ router.beforeEach((to, from, next) => {
 
   document.title = to.meta.title
   
+  if(to.path=="/footer/myhome"){
+    next()
+  }else
+  if(to.path=="/footer/coures"){
+    next()
+  }else
+  if(to.path=="/footer/myask"){
+    next()
+  }else
+  if(to.path=="/footer/Myexercise/Myexercise"){
+    next()
+  }else
+  if(to.path=="/couch"){
+    next()
+  }else
+  if(to.path=="/cod"){
+    next()
+  }else
+  if(to.path=="/footer/Myexercise/question"){
+    next()
+  }else
+  if(to.path=="/footer/Myexercise/practice"){
+    next()
+  }else
+  if(to.path=="/footer/Myexercise/examination"){
+    next()
+  }
+  else if(to.path=="/login"){
+    next()
+  }else if(to.path=="/toPass"){
+    next()
+  }else if(to.path=="/goPass"){
+    next()
+  }else
+
   if (sessionStorage.getItem("token") == null) {
-    if (from.path == to.path) {
-      next()
-    } else if (to.path == "/toPass") {
-      next()
-    } else if (to.path == "/goPass") {
-      next()
-    } else if (to.path == "/") {
-      next()
-    } else {
-      next('/')
-    }
+    
+      next('/login')
+    
   } else {
     next()
   }

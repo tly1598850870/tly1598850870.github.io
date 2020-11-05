@@ -6,6 +6,7 @@
       </template>
     </van-nav-bar>
     <van-dropdown-menu>
+<<<<<<< HEAD
       <van-dropdown-item
         v-model="value1"
         title="选择上课时间"
@@ -59,6 +60,15 @@
       </div>
       <van-dropdown-item v-model="value2" :options="option2" />
     </van-dropdown-menu>
+=======
+    <van-dropdown-item title="选择上课时间" ref="item">
+
+    </van-dropdown-item>
+    <van-dropdown-item title="选择老师条件" ref="item">
+      
+    </van-dropdown-item>
+  </van-dropdown-menu>  
+>>>>>>> 3d3fd7012b0e5cf660e6e6a4bec5a604671bd8d2
     <div class="cont">
       <dl v-for="(item, key) in yylist" :key="key">
         <dt><img :src="item.avatar" alt="" /></dt>
@@ -85,6 +95,7 @@ Vue.use(Calendar);
 export default {
   data() {
     return {
+<<<<<<< HEAD
       sdata: "",
       sdata1: "",
       value1: 0,
@@ -94,6 +105,15 @@ export default {
         { text: "选择下课时间", value: "a" },
         { text: "好评排序", value: "b" },
         { text: "销量排序", value: "c" },
+=======
+      value: 0,
+      switch1: false,
+      switch2: false,
+      option: [
+        { text: '全部商品', value: 0 },
+        { text: '新款商品', value: 1 },
+        { text: '活动商品', value: 2 },
+>>>>>>> 3d3fd7012b0e5cf660e6e6a4bec5a604671bd8d2
       ],
       page: 1,
       limit: 20,
@@ -107,8 +127,16 @@ export default {
     this.yyList();
   },
   methods: {
+<<<<<<< HEAD
     onClickLeft() {
       this.$router.go(-1);
+=======
+    onConfirm() {
+      this.$refs.item.toggle();
+    },
+    onClickLeft(){
+      this.$router.go(-1)
+>>>>>>> 3d3fd7012b0e5cf660e6e6a4bec5a604671bd8d2
     },
     search() {
       this.$router.push("/search");
