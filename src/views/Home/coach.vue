@@ -6,14 +6,11 @@
       </template>
     </van-nav-bar>
     <van-dropdown-menu :overlay='false' :duration=0 >
-    <van-dropdown-item @open="sk" @close='sk' title="选择上课时间" ref="item">
-    <van-dropdown-menu>
       <van-dropdown-item
         v-model="value1"
         title="选择上课时间"
-        @open="tlyshow = true"
-        @close="tlyshow = false"
-        ref="item"
+        @open="sk" @close='sk'
+        ref="item1"
       >
         <div class="tly_topbox">
           <div>
@@ -56,17 +53,10 @@
         </div>
       </van-dropdown-item>
       <div class="bottombotton" v-show="tlyshow">
-        <van-button type="default" @click="cz">重置</van-button>
+        <van-button type="default" @click="czs">重置</van-button>
         <van-button type="warning"  @click="wc">完成</van-button>
       </div>
-      <van-dropdown-item v-model="value2" :options="option2" />
-    </van-dropdown-menu>
-=======
-    <van-dropdown-item title="选择上课时间" ref="item">
-
-    </van-dropdown-item>
     <van-dropdown-item @open="ls" @close='ls' title="选择老师条件" ref="item">
-      <!-- <div class="con" > -->
       <p>老师类型</p>
       <ul class="ul">
         <li v-for="(item,key) in jbrF1" :key="key"
@@ -81,12 +71,8 @@
       </ul>
       <p>只看</p>
       <div class="zk">
-        <!-- <p v-for="(item,key) in jbrF5" :key="key"> -->
-          <!-- <input type="checkbox">
-          {{ item.name }} -->
           <input type="checkbox" v-model="check" @click="jbrA5(1)" >已关注
           <input type="checkbox" v-model="che" @click="jbrA6(1)" >上过课的
-        <!-- </p> -->
       </div>
       <p>性别</p>
       <div class="sex">
@@ -136,11 +122,11 @@
       </div>
     </van-dropdown-item>
   </van-dropdown-menu>
-    <div class="cont" v-show="!flag">
+    <!-- <div class="cont" v-show="!flag">
       <dl v-for="(item,key) in yylist" :key="key">
-        <dt><img :src="item.avatar" alt=""></dt>
+        <dt><img :src="item.avatar" alt=""></dt> -->
   <!-- </van-dropdown-menu> -->
-    <div class="cont">
+    <div class="cont" v-show="!flag">
       <dl v-for="(item, key) in yylist" :key="key">
         <dt><img :src="item.avatar" alt="" /></dt>
         <dd>
@@ -305,14 +291,13 @@ export default {
       console.log(data);
       this.yylist = data.data;
     },
-    cz() {
+    czs() {
       this.date = "";
       this.sdata = "";
       this.sdata1 = "";
+      this.$refs.item1.toggle();
     },
     wc() {
-      // console.log(this.sdata.split(":")[0]);
-      // console.log(this.sdata1.split(":")[1]);
       console.log(
         this.date +
           "," +
@@ -320,7 +305,7 @@ export default {
           "," +
           this.sdata1.split(":")[1]
       );
-      this.$refs.item.toggle(false);
+      this.$refs.item1.toggle();
     },
     jbrA1(k,tab){
       this.jbrActive1 = k
@@ -354,6 +339,8 @@ export default {
       this.flag = !this.flag
     },
     sk(){
+      this.flag = !this.flag
+      this.tlyshow = !this.tlyshow
     },
     cz(){
       this.jbrActive1 = this.jbrActive2 = this.jbrActive3 = this.jbrActive4 = -1
