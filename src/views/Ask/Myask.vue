@@ -1,22 +1,26 @@
-<template>   
+<template>
+     
   <div id="zhx_shopping">
     <div class="zhx_content">
       <div class="zhx_top">约课记录</div>
       <van-tabs swipeable>
         <van-tab class="zhx_sxlvan1" title="待上课">
-                <!-- 图片 -->
+          <!-- 图片 -->
           <img
             class="zhx_picture"
             src="../../assets/pic/yue-nothing.png"
             alt=""
           />
-          <div class="zhx_sxlh6">请登录后查看相关内容</div>
-          <router-view></router-view>
-          <!-- 路由跳转 -->
-          <router-link to=""
-            ><div class="zhx_registration">登录/注册</div></router-link
-          >
-          <router-view></router-view>
+          <div v-show="showdl==false">
+            <div class="zhx_sxlh6">请登录后查看相关内容</div>
+            <!-- 路由跳转 -->
+            <div class="zhx_registration" @click="todl">登录/注册</div>
+          </div>
+          <div v-show="showdl">
+            <div class="zhx_sxlh6">还没有上课记录</div>
+            <!-- 路由跳转 -->
+            <div class="zhx_registration" @click="toyk">立即约课</div>
+          </div>
         </van-tab>
         <van-tab title="已上课">
           <img
@@ -24,10 +28,16 @@
             src="../../assets/pic/yue-nothing.png"
             alt=""
           />
-          <div class="zhx_sxlh6">请登录后查看相关内容</div>
-          <router-link to=""
-            ><div class="zhx_registration">登录/注册</div></router-link
-          >
+          <div v-show="showdl==false">
+            <div class="zhx_sxlh6">请登录后查看相关内容</div>
+            <div class="zhx_registration" @click="todl">登录/注册</div>
+          </div>
+
+          <div v-show="showdl">
+            <div class="zhx_sxlh6">还没有上课记录</div>
+            <!-- 路由跳转 -->
+            <div class="zhx_registration"   @click="toyk">立即约课</div>
+          </div>
         </van-tab>
 
         <van-tab title="已取消">
@@ -37,9 +47,6 @@
             alt=""
           />
           <div class="zhx_sxlh6">请登录后查看相关内容</div>
-          <router-link to=""
-            ><div class="zhx_registration">登录/注册</div></router-link
-          >
         </van-tab>
       </van-tabs>
     </div>
@@ -50,11 +57,28 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      showdl: false,
+    };
   },
   created() {},
-  mounted() {},
-  methods: {},
+  mounted() {
+    if (sessionStorage.getItem("token") == null) {
+      this.showdl = false;
+    } else {
+      this.showdl = true;
+    }
+    console.log(this.showdl);
+  },
+  methods: {
+    todl(){
+      this.$router.push("/login")
+    },
+    toyk(){
+      this.$router.push("/coach")
+      
+    }
+  },
 };
 </script>
 
@@ -94,7 +118,7 @@ export default {
   text-align: center;
   font-size: 0.14rem;
   margin-top: 0.1rem;
-  color: #B7B7B7;
+  color: #b7b7b7;
   /* font-weight: 800; */
 }
 </style>

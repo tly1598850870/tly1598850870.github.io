@@ -8,6 +8,10 @@ import rem from '@/assets/rem.js'
 import Treetable from 'vue-table-with-tree-grid'
 import common from './assets/common.css'
 
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+
+Vue.use(ElementUI);
 Vue.config.productionTip = false
 
 Vue.prototype.$Axios=axios

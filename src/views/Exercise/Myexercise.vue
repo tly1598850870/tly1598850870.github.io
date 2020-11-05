@@ -105,7 +105,7 @@ export default {
       if (thislocal != null) {
         this.$router.push("/footer/Myexercise/Myexercise");
       } else {
-        this.$router.go("/footer/Myexercise");
+        this.$router.push("/footer/Myexercise");
       }
     },
     seek() {
