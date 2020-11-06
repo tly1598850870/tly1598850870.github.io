@@ -76,7 +76,7 @@ export default {
           sessionStorage.setItem("token",res.data.data.remember_token)
           sessionStorage.setItem("user",JSON.stringify(res.data.data))
           
-          this.$router.push("/footer/mywd")
+          this.$router.push("/")
         
         })
         
