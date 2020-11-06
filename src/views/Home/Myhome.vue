@@ -38,7 +38,7 @@
           <div class="teacher_item">
             <div class="Boutique" >
               <div class="title">{{ ms }}</div>
-                <dl v-for="(item,key) in sylistms.list" :key="key" @click="js(item.teacher_id)">
+                <dl v-for="(item,key) in sylistms.list" :key="key" @click="js(item.teacher_id,item)">
                   <dt><img :src="item.teacher_avatar" alt=""></dt>
                   <dd>
                     <p>{{ item.teacher_name }}</p>
@@ -122,12 +122,24 @@
         </div>
       </div>
       <!-- <div class="mat"></div> -->
+      <van-overlay :show="show" @click="show = false">
+        <div class="wrapper" @click.stop>
+          <div class="block1" >
+            <span class="cuo" @click="cuo()">X</span>
+            <img src="../../assets/登录飞机.png" alt="">
+            <p>赶紧登录一下吧</p>
+            <p class="yy">立即预约一对一辅导，浏览更多视频课程~</p>
+            <button @click="dl()">立即登录</button>
+          </div>
+        </div>
+      </van-overlay>
     </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import { Button, Calendar } from 'vant';
 export default {
   // 组件名称
   name: "",
@@ -152,6 +164,8 @@ export default {
       act:JSON.parse(localStorage.getItem('act'))||1,
       free:0,
       xid:0,
+      flag:false,
+      show:false,
     };
   },
   filters: {
@@ -171,14 +185,25 @@ export default {
   // 组件方法
   methods: {
     date() {
-      this.$router.push('/date')
+      if(sessionStorage.getItem('token') == null){
+        this.show = true
+      }else{
+        this.$router.push('/calendar')
+      }
+    },
+    cuo(){
+      this.show = false
+    },
+    dl(){
+      this.$router.push('/login')
     },
     ydy(){
       this.$router.push('/coach')
     },
     coures(){
-      this.act = 1
-      localStorage.setItem('act',JSON.stringify(this.act))
+      // this.act = 1
+      this.$store.state.act = 1
+      // localStorage.setItem('act',JSON.stringify(this.act))
       this.$router.push('/footer/coures')
     },
     async bann(){
@@ -208,13 +233,18 @@ export default {
       this.item=data.data
       this.free = this.item[0].is_free
     },
-    js(id){
-      this.$router.push({
-        path:'/teacher',
-        query:{
-          id:id
-        }
-      })
+    js(id,item){
+      if(sessionStorage.getItem('token') == null){
+        this.show = true
+      }else{
+        this.$router.push({
+          path:'/teacher',
+          query:{
+            id:id,
+            item:item
+          }
+        })
+      }
     },
     jpkc(id,item){
       console.log(id)
@@ -249,6 +279,9 @@ export default {
   line-height: 150px;
   text-align: center;
 }
+.my-swipe .zhx_img_lunbo{
+  height: 2rem;
+}
 .block {
   width: 100%;
   height: 0.5rem;
@@ -266,8 +299,8 @@ export default {
   width: 100%;
   position: relative;
   left: 0;
-  top: 0.8rem;
-  z-index: 1000;
+  top: 1.25rem;
+  // z-index: 100;
   ul {
     width: 100%;
     display: flex;
@@ -324,7 +357,7 @@ export default {
   margin-top: 0.3rem;
 }
 .teacher_list {
-  margin-top: 1rem;
+  margin-top: 1.5rem;
 }
 .teacher_item {
   width: 90%;
@@ -527,6 +560,51 @@ dl{
       white-space: nowrap;
       text-overflow: ellipsis;
     }
+  }
+}
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+.block1 {
+  width: 2.83rem;
+  height: 3.45rem;
+  background-color: #fff;
+  z-index: 10000;
+  border-radius: 0.05rem;
+  .cuo{
+    float: right;
+    margin: 0.1rem 0.1rem;
+    font-size: 0.15rem;
+    color: #8C8C8C;
+  }
+  img{
+    width: 2.83rem;
+    height: 1.8rem;
+    margin-top: -0.1rem;
+  }
+  p{
+    margin-left: 0.85rem;
+    font-size: 0.15rem;
+  }
+  .yy{
+    margin-left: 0.27rem;
+    margin-top: -0.13rem;
+    font-size: 0.1rem;
+    color: #999999;
+  }
+  button{
+    width: 2.35rem;
+    height: 0.4rem;
+    border-radius: 0.5rem;
+    border: #EB6100;
+    background: #EB6100;
+    color: white;
+    margin-left: 0.27rem;
+    margin-top: 0.12rem;
+    font-size: 0.15rem;
   }
 }
 </style>

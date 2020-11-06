@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '@/views/Login'
+import Threeld from '../views/Ask/Threeld.vue'
 import Footer from '@/views/Footer'
 
 Vue.use(VueRouter)
@@ -9,6 +10,14 @@ const routes = [
   {
     path:'/',
     redirect:"/footer/myhome"
+  },
+  {
+    path: '/threeld',
+    name: 'Threeld',
+    component: Threeld,
+    meta:{
+      title:'登录'
+    }
   },
   {
     path: '/login',

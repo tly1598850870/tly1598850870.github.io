@@ -7,7 +7,6 @@
     </van-nav-bar>
     <van-dropdown-menu :overlay='false' :duration=0 >
       <van-dropdown-item
-        v-model="value1"
         title="选择上课时间"
         @open="sk" @close='sk'
         ref="item1"
@@ -122,10 +121,6 @@
       </div>
     </van-dropdown-item>
   </van-dropdown-menu>
-    <!-- <div class="cont" v-show="!flag">
-      <dl v-for="(item,key) in yylist" :key="key">
-        <dt><img :src="item.avatar" alt=""></dt> -->
-  <!-- </van-dropdown-menu> -->
     <div class="cont" v-show="!flag">
       <dl v-for="(item, key) in yylist" :key="key">
         <dt><img :src="item.avatar" alt="" /></dt>
@@ -230,22 +225,9 @@ export default {
       str:'',
       sdata: "",
       sdata1: "",
-      value1: 0,
-      value2: "a",
-      option1: [{ text: "选择上课时间", value: 0 }],
-      option2: [
-        { text: "选择下课时间", value: "a" },
-        { text: "好评排序", value: "b" },
-        { text: "销量排序", value: "c" },
-      ],
       value: 0,
       switch1: false,
       switch2: false,
-      option: [
-        { text: '全部商品', value: 0 },
-        { text: '新款商品', value: 1 },
-        { text: '活动商品', value: 2 },
-      ],
       page: 1,
       limit: 20,
       yylist: [],
@@ -379,9 +361,18 @@ export default {
         this.arr = []
         this.str = ''
       }
-      console.log(this.jbrid1+'yi',this.jbrid2+'er')
-      console.log(this.jbrid3+'san',this.jbrid4+'si')
-      console.log(this.jbrid5+'wu',this.jbrid6+'liu')
+
+      if(this.check == false && this.che == false){
+        this.arr = []
+        this.str = ''
+        console.log(this.che)
+        console.log(this.check)
+        setTimeout(() => {
+          this.check = false
+          this.che = false
+          this.yyList();
+        }, 100);
+      }
 
       console.log(this.arr)
       this.str = this.arr.join(' ')

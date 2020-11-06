@@ -138,7 +138,7 @@ export default {
       flag: false,
       list: JSON.parse(sessionStorage.getItem("user")),
       jsq:"",
-      active:JSON.parse(sessionStorage.getItem('act'))||0,
+      active:JSON.parse(localStorage.getItem('act'))||0,
       kcNum:0,
       integral:0,
       oto:0,
@@ -151,8 +151,9 @@ export default {
       this.$router.push("/mycurrency")
     },
     ydy(){
-      this.active = 2
-      sessionStorage.setItem('act',JSON.stringify(this.active))
+      this.$store.state.act = 2
+      // this.active = 2
+      // localStorage.setItem('act',JSON.stringify(this.active))
       this.$router.push("/footer/myask")
     },
     tsk(){

@@ -82,6 +82,17 @@
                 </div>
             </div>
         </div>
+         <van-overlay :show="flag" @click="flag = false">
+            <div class="wrapper1" @click.stop>
+            <div class="block1" >
+                <span class="cuo" @click="cuo()">X</span>
+                <img src="../../assets/登录飞机.png" alt="">
+                <p>赶紧登录一下吧</p>
+                <p class="yy">立即预约一对一辅导，浏览更多视频课程~</p>
+                <button @click="dl()">立即登录</button>
+            </div>
+            </div>
+        </van-overlay>
         <footer>
             <!-- <van-button v-show="!bmxx" @click="ljbm">立即报名</van-button> -->
             <van-button @click="ljbm">
@@ -97,6 +108,7 @@ import $ from 'jquery'
 export default {
     data() {
         return {
+            flag:false,
             show:false,
             title:'课程详情',
             // txt:'课程介绍 课程大纲 课程评论',
@@ -133,6 +145,7 @@ export default {
         window.addEventListener('scroll', this.handleScroll);
         this.xid = this.$route.query.id
         this.item = this.$route.query.item
+        console.log(this.item)
         if(this.item.hasOwnProperty('has_buy') == false){
             this.buy = 1
             console.log(this.buy)
@@ -155,6 +168,7 @@ export default {
         async bm(item){
             let { data } = await this.$Axios.get('/api/app/getPcRoomCode/course_id=287/chapter_id=933')
             console.log(data)
+            console.log(item)
             if(sessionStorage.getItem('token') != null){
                 if(this.buy == 0){
                     if(this.price > 0){
@@ -165,26 +179,27 @@ export default {
                         return false
                     }
                 }else{
-                    this.$toast(data.msg)
-                    return false
-                }
-                if(this.bf == 1){
-                    if(item.datum.length == 0){
-                        this.vid = 0
-                    }else{
-                        this.vid = item.datum[0].course_basis_id
-                    }
-                    this.$router.push({
-                        path:'myvideo',
-                        query:{
-                            videoid:item.video_id,
-                            id:this.vid
+                    if(this.bf == 1){
+                        if(item.datum.length == 0){
+                            this.vid = 0
+                        }else{
+                            this.vid = item.datum[0].course_basis_id
                         }
-                    })
-                    return false
+                        this.$router.push({
+                            path:'myvideo',
+                            query:{
+                                videoid:item.video_id,
+                                id:this.vid
+                            }
+                        })
+                        return false
+                    }else{
+                        this.$toast(data.msg)
+                        return false
+                    }
                 }
             }else{
-                this.$router.push('/')
+                this.$router.push('/login')
             }
         },
         async ljbm(){
@@ -202,6 +217,7 @@ export default {
                             shop_id: this.xid,
                             type: 3
                         })
+                        console.log(data)
                         if(data.code == 200){
                             let { data } = await this.$Axios.get(`/api/app/courseInfo/basis_id=${this.xid}`)
                             console.log(data)
@@ -221,7 +237,7 @@ export default {
                     })
                 }
             }else{
-                this.$router.push('/')
+                this.$router.push('/login')
             }
         },
         async sc(){
@@ -243,6 +259,8 @@ export default {
                     this.scShow = true
                     this.$toast('收藏成功')
                 }
+            }else{
+                this.flag = true
             }
             
             // if(sessionStorage.getItem('token') != null){
@@ -259,6 +277,12 @@ export default {
             // }
             // localStorage.setItem('sc',JSON.stringify(this.scShow))
         },
+        cuo(){
+            this.flag = false
+        },
+        dl(){
+            this.$router.push('/login')
+        },
         lqxq(id){
             if(sessionStorage.getItem('token') != null){
                 this.$router.push({
@@ -268,7 +292,7 @@ export default {
                     }
                 })
             }else{
-                this.$router.push('/')
+                this.$router.push('/login')
             }
         },
         async newlist(){
@@ -545,5 +569,50 @@ dl {
             color: #8C8C8C;
         }
     }
+}
+.wrapper1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+.block1 {
+  width: 2.83rem;
+  height: 3.45rem;
+  background-color: #fff;
+  z-index: 10000;
+  border-radius: 0.05rem;
+  .cuo{
+    float: right;
+    margin: 0.1rem 0.1rem;
+    font-size: 0.15rem;
+    color: #8C8C8C;
+  }
+  img{
+    width: 2.83rem;
+    height: 1.8rem;
+    margin-top: -0.1rem;
+  }
+  p{
+    margin-left: 0.85rem;
+    font-size: 0.15rem;
+  }
+  .yy{
+    margin-left: 0.27rem;
+    margin-top: -0.13rem;
+    font-size: 0.1rem;
+    color: #999999;
+  }
+  button{
+    width: 2.35rem;
+    height: 0.4rem;
+    border-radius: 0.5rem;
+    border: #EB6100;
+    background: #EB6100;
+    color: white;
+    margin-left: 0.27rem;
+    margin-top: 0.12rem;
+    font-size: 0.15rem;
+  }
 }
 </style>

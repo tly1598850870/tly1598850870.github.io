@@ -19,6 +19,7 @@ export default new vuex.Store({
     rightarrows: false,
     rightseek:false,
     pl:[],
+    act:0,
   },
   // 同步方法
   mutations: {
