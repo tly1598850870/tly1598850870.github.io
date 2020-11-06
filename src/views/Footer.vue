@@ -1,7 +1,7 @@
 <template>
   <div>
     <router-view></router-view>
-    <van-tabbar v-model="$store.state.act">
+    <van-tabbar v-model="$store.state.act" active-color="#FD620B">
       <van-tabbar-item @click="ly()">
         <span class="iconfont">&#xe7f1;</span>
         <p>首页</p>

@@ -13,7 +13,7 @@
             </div>
             <div class="ssls">
                 <ul>
-                    <li v-for="(item,key) in searchLs" :key="key">
+                    <li @click="val(item.val)" v-for="(item,key) in searchLs" :key="key">
                         {{ item.val }}
                     </li>
                 </ul>
@@ -122,14 +122,14 @@ export default {
             this.searchLs = []
             localStorage.removeItem('ls')
         },
-        // val(v){
-        //     this.value = v
-        //     if(this.value != ''){
-        //         this.isShow = true
-        //     }else{
-        //         this.isShow = false
-        //     }
-        // }
+        val(v){
+            this.value = v
+            if(this.value != ''){
+                this.isShow = true
+            }else{
+                this.isShow = false
+            }
+        }
     },
     watch: {
         searchLs:{
