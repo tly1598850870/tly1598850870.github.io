@@ -24,9 +24,9 @@
           </div>
       </div>
   </van-tab>
-  <van-tab title="待支付">内容 2</van-tab>
-  <van-tab title="已完成">内容 3</van-tab>
-  <van-tab title="已取消">内容 4</van-tab>
+  <van-tab title="待支付"></van-tab>
+  <van-tab title="已完成"></van-tab>
+  <van-tab title="已取消"></van-tab>
 </van-tabs>
   </div>
 </template>
