@@ -197,8 +197,16 @@ export default {
     dl(){
       this.$router.push('/login')
     },
-    ydy(){
-      this.$router.push('/coach')
+    async ydy(){
+      let { data } = await this.$Axios.get("/api/app/otoCourse");
+      console.log(data);
+      this.$router.push({
+        path:'/coach',
+        query:{
+          val:data,
+          name:undefined
+        }
+      })
     },
     coures(){
       // this.act = 1

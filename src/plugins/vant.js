@@ -64,6 +64,6 @@ Vue.use(Loading);
 Vue.use(List);
 Vue.use(DatetimePicker);
 Vue.use(Picker);
-Vue.use(Form);
 Vue.use(Area);
 Vue.use(Dialog);
+Vue.use(Form);

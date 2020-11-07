@@ -82,15 +82,9 @@ export default {
             }
         },
         async ls(){
-            let { data } = await this.$Axios.get(`/api/app/courseBasis?limit=10&page=1&course_type=0&keywords=${this.value}`)
-            console.log(data)
-            this.newList = data.data.list
-            console.log(this.newList)
-
             if(this.newList == []){
                 this.isflag = true
             }
-
             let obj = {
                 val:this.value
             }
@@ -99,8 +93,6 @@ export default {
                 return this.value == i.val
             })
 
-            console.log(index)
-
             if(index == -1){
                 this.searchLs.unshift(obj)
                 console.log(this.searchLs)
@@ -108,14 +100,28 @@ export default {
                     this.searchLs.pop()
                     console.log(this.searchLs)
                 }
-            }else{
-                return false
             }
 
-            this.value = ''
+            let { data } = await this.$Axios.get(`/api/app/otoCourse?page=1&limit=10&teacher_name=${this.value}`)
+            console.log(data)
+            this.$router.push({
+                path:'/coach',
+                query:{
+                    val:data,
+                    name:this.value
+                }
+            })
         },
-        fan(){
-            this.$router.go(-1)
+        async fan(){
+          let { data } = await this.$Axios.get(`/api/app/otoCourse?page=1&limit=10&teacher_name=${this.value}`)
+          console.log(data)
+          this.$router.push({
+              path:'/coach',
+              query:{
+                  val:data,
+                  name:undefined
+              }
+          })
         },
         del(){
             this.searchLs = []
