@@ -31,7 +31,7 @@ export default {
     async onClickRight(){
          let res = await user(this.value);
          console.log(res)
-         this.$router.push("/setmessage")
+         this.$router.push("/info")
      },
      onClickLeft(){
          this.$router.go(-1)

@@ -77,6 +77,16 @@ const routes = [
     }
   },
   {
+    path: '/xjnc',
+    name: 'Xjnc',
+    component: function () {
+      return import('../views/My/Xjnc.vue')
+    },
+    meta:{
+      title:'修改昵称'
+    }
+  },
+  {
     path: '/mycoures',
     name: 'Mycoures',
     component: function () {
@@ -244,6 +254,16 @@ const routes = [
     }
   },
   {
+    path: '/vip',
+    name: 'Vip',
+    component: function () {
+      return import('../views/My/Vip.vue')
+    },
+    meta:{
+      title:'会员'
+    }
+  },
+  {
     path: '/topass',
     name: 'Topass',
     component: function () {
@@ -281,6 +301,56 @@ const routes = [
     },
     meta:{
       title:'优惠券'
+    }
+  },
+  {
+    path: '/setinfo',
+    name: 'Setinfo',
+    component: function () {
+      return import('../views/My/Setinfo.vue')
+    },
+    meta:{
+      title:'修改个人信息'
+    }
+  },
+  {
+    path: '/message',
+    name: 'Message',
+    component: function () {
+      return import('../views/My/Message.vue')
+    },
+    meta:{
+      title:'修改个人信息'
+    }
+  },
+  {
+    path: '/feedback',
+    name: 'Feedback',
+    component: function () {
+      return import('../views/My/Feedback.vue')
+    },
+    meta:{
+      title:'修改个人信息'
+    }
+  },
+  {
+    path: '/options',
+    name: 'Options',
+    component: function () {
+      return import('../views/My/Options.vue')
+    },
+    meta:{
+      title:'修改个人信息'
+    }
+  },
+  {
+    path: '/messageDetail',
+    name: 'MessageDetail',
+    component: function () {
+      return import('../views/My/MessageDetail.vue')
+    },
+    meta:{
+      title:'修改个人信息'
     }
   },
     {
@@ -508,7 +578,7 @@ router.beforeEach((to, from, next) => {
   if(to.path=="/footer/Myexercise/Myexercise"){
     next()
   }else
-  if(to.path=="/couch"){
+  if(to.path=="/coach"){
     next()
   }else
   if(to.path=="/cod"){

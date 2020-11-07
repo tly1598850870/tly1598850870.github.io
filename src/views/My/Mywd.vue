@@ -93,8 +93,8 @@
               <span class="iconfont van-icon iin" @click="xxk">&#xe60a;</span>
               <p>学习卡</p>
             </div>
-            <div>
-              <span class="iconfont van-icon iin">&#xe607;</span>
+            <div >
+              <span class="iconfont van-icon iin" @click="svip">&#xe607;</span>
               <p>会员</p>
             </div>
           </div>
@@ -103,11 +103,11 @@
           <p class="menu-title">自助服务</p>
           <div class="menu-box">
             <div>
-              <span class="iconfont van-icon inn">&#xe641;</span>
+              <span class="iconfont van-icon inn" @click="myxx">&#xe641;</span>
               <p>我的消息</p>
             </div>
             <div>
-              <span class="iconfont van-icon inn">&#xe606;</span>
+              <span class="iconfont van-icon inn" @click="yjfk">&#xe606;</span>
               <p>意见反馈</p>
             </div>
             <div>
@@ -115,7 +115,7 @@
               <p>在线客服</p>
             </div>
             <div>
-              <van-icon name="setting-o inn" />
+              <van-icon name="setting-o inn" @click="tcsz"/>
               <p>设置</p>
             </div>
           </div>
@@ -149,6 +149,10 @@ export default {
   methods: {
     xxb(){
       this.$router.push("/mycurrency")
+    },
+    svip(){
+      console.log(1)
+      this.$router.push("/vip")
     },
     ydy(){
       this.$store.state.act = 2
@@ -184,13 +188,23 @@ export default {
     jbr_sc(){
       this.$router.push('/scls')
     },
+    myxx(){
+      this.$router.push("/message")
+    },
+    yjfk(){
+      this.$router.push("/feedback")
+    },
+    tcsz(){
+      this.$router.push("/options")
+    },
     async num(){
       let { data } = await this.$Axios.get('/api/app/getUCenterInfo')
       console.log(data)
       this.kcNum = data.data.courses
       this.integral = data.data.integral
       this.oto = data.data.oto
-    }
+    },
+    
   },
   watch: {
     active(val){
