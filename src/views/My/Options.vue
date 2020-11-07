@@ -36,6 +36,7 @@ export default {
   methods: {
     clear(){
       sessionStorage.clear()
+      this.$store.state.act = 0
       this.$router.push('/footer/myhome')
     },
     onClickLeft() {
