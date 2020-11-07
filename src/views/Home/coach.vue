@@ -5,7 +5,11 @@
         <van-icon name="search" size="18" @click="search" />
       </template>
     </van-nav-bar>
+<<<<<<< HEAD
+    <van-dropdown-menu>
+=======
     <van-dropdown-menu :overlay='false' :duration=0 >
+>>>>>>> 6563167d7a30812338036b37d5ce8ecc2a68a91f
       <van-dropdown-item
         title="选择上课时间"
         @open="sk" @close='sk'
@@ -52,6 +56,14 @@
         </div>
       </van-dropdown-item>
       <div class="bottombotton" v-show="tlyshow">
+<<<<<<< HEAD
+        <van-button type="default" @click="cz">重置</van-button>
+        <van-button type="warning" @click="wc">完成</van-button>
+      </div>
+      <van-dropdown-item v-model="value2" :options="option2" />
+    </van-dropdown-menu>
+    <div class="cont">
+=======
         <van-button type="default" @click="czs">重置</van-button>
         <van-button type="warning"  @click="wc" style="background:#EB6100">确定</van-button>
       </div>
@@ -123,6 +135,7 @@
   </van-dropdown-menu>
     <div class="cont" v-show="!flag">
       <p class="ssjg" v-show="sFlag">"{{ name }}"搜索结果</p>
+>>>>>>> 6563167d7a30812338036b37d5ce8ecc2a68a91f
       <dl v-for="(item, key) in yylist" :key="key">
         <dt><img :src="item.avatar" alt="" /></dt>
         <dd>
@@ -150,6 +163,26 @@ Vue.use(Calendar);
 export default {
   data() {
     return {
+<<<<<<< HEAD
+      sdata: "",
+      sdata1: "",
+      value1: 0,
+      value2: "a",
+      option1: [{ text: "选择上课时间", value: 0 }],
+      option2: [
+        { text: "选择下课时间", value: "a" },
+        { text: "好评排序", value: "b" },
+        { text: "销量排序", value: "c" },
+      ],
+      value: 0,
+      switch1: false,
+      switch2: false,
+      option: [
+        { text: '全部商品', value: 0 },
+        { text: '新款商品', value: 1 },
+        { text: '活动商品', value: 2 },
+      ],
+=======
       switch1: false,
       switch2: false,
       check:false,
@@ -229,6 +262,7 @@ export default {
       value: 0,
       switch1: false,
       switch2: false,
+>>>>>>> 6563167d7a30812338036b37d5ce8ecc2a68a91f
       page: 1,
       limit: 20,
       yylist: [],
@@ -259,10 +293,13 @@ export default {
     }
   },
   methods: {
+<<<<<<< HEAD
+=======
     onClickLeft() {
       this.$router.push('/footer/myhome');
       this.$store.state.act = 0
     },
+>>>>>>> 6563167d7a30812338036b37d5ce8ecc2a68a91f
     onConfirm() {
       this.$refs.item.toggle();
     },
