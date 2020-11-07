@@ -131,11 +131,11 @@ export default {
       box-sizing: border-box;
       padding: 0.05rem;
       span {
-        width: 30%;
-        height: 0.2rem;
-        background: gainsboro;
-        text-align: center;
-        font-size: 0.1rem;
+        background: rgb(173, 173, 173);
+        padding: 0.05rem 0.1rem ;
+        color: white;
+        font-size: 0.06rem;
+        border-radius: 0.05rem;
       }
     }
   }
