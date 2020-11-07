@@ -19,14 +19,7 @@
 export default {
   data() {
     return {
-      value1: 0,
-      value2: "a",
-      option1: [{ text: "选择上课时间", value: 0 }],
-      option2: [
-        { text: "选择下课时间", value: "a" },
-        { text: "好评排序", value: "b" },
-        { text: "销量排序", value: "c" },
-      ],
+      
     };
   },
   methods: {

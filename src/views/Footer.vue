@@ -1,7 +1,7 @@
 <template>
   <div>
     <router-view></router-view>
-    <van-tabbar v-model="active">
+    <van-tabbar v-model="$store.state.act" active-color="#FD620B">
       <van-tabbar-item @click="ly()">
         <span class="iconfont">&#xe7f1;</span>
         <p>首页</p>
@@ -37,21 +37,24 @@ export default {
   // 组件状态值
   data() {
     return {
-      active: JSON.parse(localStorage.getItem('act'))||0,
+      // active: JSON.parse(localStorage.getItem('act'))||0,
     };
   },
   // 计算属性
   computed: {},
   // 侦听器
   watch: {
-    active(val){
-      localStorage.setItem('act',JSON.stringify(val))
-    }
+    // active:{
+    //   handler(val){
+    //     localStorage.setItem('act',JSON.stringify(val))
+    //   },deep:true
+    // }
   },
   // 组件方法
   methods: {
     ly(){
-      switch(this.active){
+      // localStorage.setItem('act',JSON.stringify(this.active))
+      switch(this.$store.state.act){
         case 0 : this.$router.push('/footer/myhome');break;
         case 1 : this.$router.push('/footer/coures');break;
         case 2 : this.$router.push('/footer/myask');break;
@@ -61,7 +64,7 @@ export default {
     }
   },
   mounted () {
-    this.active = JSON.parse(localStorage.getItem('act'))
+    // localStorage.setItem('act',JSON.stringify(this.active))
   }
 };
 </script>

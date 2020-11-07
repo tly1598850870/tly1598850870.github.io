@@ -46,7 +46,11 @@
             src="../../assets/pic/yue-nothing.png"
             alt=""
           />
-          <div class="zhx_sxlh6">请登录后查看相关内容</div>
+          <div class="zhx_sxlh6" v-show="showdl">还没有取消上课记录哦</div>
+          <div v-show="showdl==false">
+            <div class="zhx_sxlh6">请登录后查看相关内容</div>
+            <div class="zhx_registration" @click="todl">登录/注册</div>
+          </div>
         </van-tab>
       </van-tabs>
     </div>

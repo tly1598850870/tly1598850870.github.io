@@ -73,7 +73,7 @@
             </van-tab>
             <van-tab title="学员评价">
                 <div class='xuexi'>
-                    <div class="jbr_pj">
+                    <div class="jbr_pj" v-show="!flag">
                         <div class="u">
                             <span v-for="(item,key) in show?tag:tag2" :key="key">
                                 {{ item.title }}({{ item.count }})
@@ -95,6 +95,10 @@
                         <p class='nr'>
                             {{ item.content }}
                         </p>
+                    </div>
+                    <div class='zwpl' v-show="flag">
+                        <img src="../../assets/课程空.png" alt="">
+                        <p>暂无评论</p>
                     </div>
                 </div>
             </van-tab>
@@ -140,7 +144,7 @@ export default {
         this.lsList();
         this.tList();
         this.xypl();
-        this.xypl1()
+        // this.xypl1()
     },
     methods: {
         async gz(id){
@@ -170,16 +174,15 @@ export default {
         async jsList(){
             let { data } = await this.$Axios.get(`/api/app/teacher/info/${this.xid}`)
             this.jslist=data.data
-            // console.log(this.jslist)
+            console.log(this.jslist)
         },
         async lsList(){
             let { data } = await this.$Axios.get(`/api/app/teacher/${this.xid}`)
-            // console.log(data)
+            console.log(data.data)
             this.flag = data.data.flag
             this.lslist.push(data.data.teacher)
             // console.log(this.lslist)
             this.cid = this.lslist[0].id
-            // console.log(this.cid)
         },
         async tList(){
             
@@ -196,7 +199,11 @@ export default {
             // console.log(data)
             this.Xypl = data.data.comment.list
             // console.log(this.Xypl)
-            this.content = this.Xypl[0].tag_content
+            if(this.Xypl.tag_content == null){
+                this.content = '' 
+            }else{
+                this.content = this.Xypl[0].tag_content
+            }
             this.content = this.content.split(',')
             // console.log(this.content)
             this.tag = data.data.tag
@@ -495,6 +502,18 @@ footer{
             margin-top: -0.06rem;
             font-size: 0.13rem;
             color: #999999;
+        }
+    }
+    .zwpl{
+        img{
+            width: 1.5rem;
+            height: 1.5rem;
+            margin-left: 1.15rem;
+        }
+        p{
+            margin-left: 1.55rem;
+            color: #8C8C8C;
+            font-size: 0.15rem;
         }
     }
 }
