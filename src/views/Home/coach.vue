@@ -53,7 +53,7 @@
       </van-dropdown-item>
       <div class="bottombotton" v-show="tlyshow">
         <van-button type="default" @click="czs">重置</van-button>
-        <van-button type="warning"  @click="wc">完成</van-button>
+        <van-button type="warning"  @click="wc" style="background:#EB6100">确定</van-button>
       </div>
     <van-dropdown-item @open="ls" @close='ls' title="选择老师条件" ref="item">
       <p>老师类型</p>
@@ -122,6 +122,7 @@
     </van-dropdown-item>
   </van-dropdown-menu>
     <div class="cont" v-show="!flag">
+      <p class="ssjg" v-show="sFlag">"{{ name }}"搜索结果</p>
       <dl v-for="(item, key) in yylist" :key="key">
         <dt><img :src="item.avatar" alt="" /></dt>
         <dd>
@@ -234,10 +235,27 @@ export default {
       cid: JSON.parse(localStorage.getItem("cid")) || 0,
       date: "",
       tlyshow: false,
+      sFlag:false,
+      val:'',
+      name:'',
     };
   },
   mounted() {
-    this.yyList();
+    this.val = this.$route.query.val
+    this.name = this.$route.query.name
+    this.yylist = this.val.data;
+    console.log(this.val)
+    console.log(this.name)
+    if(this.$route.query.name == undefined || this.$route.query.name == ''){
+      this.sFlag = false
+      return false
+    }
+    if(this.yylist != undefined){
+      this.sFlag = true
+    }else{
+      this.yyList();
+      this.sFlag = false
+    }
   },
   methods: {
     onClickLeft() {
@@ -250,7 +268,7 @@ export default {
       this.$router.go(-1)
     },
     search() {
-      this.$router.push("/search");
+      this.$router.push("/sou");
     },
     yy(id) {
       localStorage.setItem("cid", JSON.stringify(id));
@@ -266,11 +284,9 @@ export default {
     },
     onConfirm(date) {
       this.date = this.formatDate(date);
-      console.log(this.date);
     },
     async yyList() {
       let { data } = await this.$Axios.get("/api/app/otoCourse");
-      console.log(data);
       this.yylist = data.data;
     },
     czs() {
@@ -311,7 +327,7 @@ export default {
     },
     jbrA6(tab){
       this.jbrid6 = tab
-      console.log(this.jbrid6)
+      // console.log(this.jbrid6)
     },
     async yyList(){
       let { data } = await this.$Axios.get('/api/app/otoCourse')
@@ -365,8 +381,8 @@ export default {
       if(this.check == false && this.che == false){
         this.arr = []
         this.str = ''
-        console.log(this.che)
-        console.log(this.check)
+        // console.log(this.che)
+        // console.log(this.check)
         setTimeout(() => {
           this.check = false
           this.che = false
@@ -374,14 +390,14 @@ export default {
         }, 100);
       }
 
-      console.log(this.arr)
+      // console.log(this.arr)
       this.str = this.arr.join(' ')
-      console.log(this.str)
+      // console.log(this.str)
 
       let { data } = await this.$Axios.get(
         `/api/app/otoCourse?page=1&limit=10&start_time=&end_time=&level_id=${this.jbrid1}&is_collect=${this.jbrid5}&is_attended=${this.jbrid6}&sex=${this.jbrid2}&attr_val_id=${this.str}`
       )
-      console.log(data)
+      // console.log(data)
       this.yylist=data.data
     }
   },
@@ -459,6 +475,7 @@ export default {
   height: 7vh;
   background: white;
   z-index: 9999;
+  font-size: 0.16rem;
   .van-button:nth-child(1) {
     width: 50%;
     height: 100%;
@@ -466,6 +483,7 @@ export default {
       height: 100%;
       background: rgba(100, 148, 237, 0);
       color: orangered;
+      font-size: 0.17rem;
     }
   }
   .van-button:nth-child(2) {
@@ -475,6 +493,7 @@ export default {
       height: 100%;
       background: rgba(100, 148, 237, 0);
       color: white;
+      font-size: 0.17rem;
     }
   }
 }
@@ -488,11 +507,18 @@ export default {
 }
 .cont{
   margin-top: -0.16rem;
+  .ssjg{
+    margin-top: 0.2rem;
+    margin-left: 0.13rem;
+    font-size: 0.13rem;
+    color: #8C8C8C;
+  }
 }
 .cont {
   dl {
-    width: 3.75rem;
+    width: 3.6rem;
     background: white;
+    margin-left: 0.07rem;
     dt {
       box-sizing: border-box;
       padding: 0.15rem 0.1rem;
@@ -539,14 +565,15 @@ export default {
   bottom: 0;
   .cz{
     width: 50%;
-    height: 0.43rem;
+    height: 0.47rem;
     color: #EB6100;
     background: white;
     border: 1px solid white;
+    // border: 1px solid #eee;
   }
   .qd{
     width: 50%;
-    height: 0.43rem;
+    height: 0.47rem;
     border: #EB6100;
     background: #EB6100;
     color: white;
