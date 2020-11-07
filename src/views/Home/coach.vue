@@ -259,7 +259,7 @@ export default {
   },
   methods: {
     onClickLeft() {
-      this.$router.go(-1);
+      this.$router.push('/myhome');
     },
     onConfirm() {
       this.$refs.item.toggle();
