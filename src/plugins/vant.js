@@ -28,13 +28,9 @@ import {
     List,
     DatetimePicker,
     Picker,
-<<<<<<< HEAD
     Area,
     Dialog,
-=======
     Form,
-    Area,
->>>>>>> a240b7471502516578ab28c01ceb827ffa6fea0e
 } from 'vant';
 import { Field } from 'vant';
 import { Button } from 'vant';
@@ -68,10 +64,6 @@ Vue.use(Loading);
 Vue.use(List);
 Vue.use(DatetimePicker);
 Vue.use(Picker);
-<<<<<<< HEAD
-Vue.use(Area);
-Vue.use(Dialog);
-=======
 Vue.use(Form);
 Vue.use(Area);
->>>>>>> a240b7471502516578ab28c01ceb827ffa6fea0e
+Vue.use(Dialog);

@@ -3,9 +3,9 @@
         <header>
             <span @click="onClickLeft">〈</span>
             <span v-show="!isShow">{{ title }}</span>
-            <span v-show="isShow">{{ txt1 }}</span>
-            <span v-show="isShow">{{ txt2 }}</span>
-            <span v-show="isShow">{{ txt3 }}</span>
+            <a v-show="isShow" href="#kcjs">{{ txt1 }}</a>
+            <a v-show="isShow" href="#kcdg">{{ txt2 }}</a>
+            <a v-show="isShow" href="#kcpl">{{ txt3 }}</a>
             <van-icon name="share-o" size="18" @click="fx()" />
         </header>
         <div class="jbrcont">
@@ -41,34 +41,34 @@
             </div>
             <div class="jbrJxtd">
                 <p>教学团队</p>
-                <p class="jbr_lq" @click="lqxq(item.teacher_id)"  v-for="(item,key) in teacher" :key='key'>
+                <p class="jbr_lq" @click="lqxq(item.teacher_id)"  v-for="(item,key) in teacher" :key='key' id="kcjs">
                     <img :src="item.avatar" alt="" /><br>
                     <span>{{ item.teacher_name }}</span>
                 </p>
             </div>
-            <div class="kcjs">
-                <p>课程介绍</p>
+            <div class="kcjs" >
+                <p id="kcdg">课程介绍</p>
                 <p v-for="(item,key) in newList" :key='key'>
                     <span v-html="item.course_details"></span>
                 </p>
             </div>
 
-            <div class="kcdg">
-                <p id="dg">课程大纲</p>
+            <div class="kcdg" >
+                <p  >课程大纲</p>
                 <div v-for="(item,key) in Video" :key='key'>
                     <div class="hf" @click="bm(item)">
                         <span class="dian">·</span>
                         <span class="hui" v-show="item.is_playback == 0">回放</span>
                         <span class="one">{{ item.periods_title }}</span>
                     </div>
-                    <div class="lq" @click="bm(item)" v-show="item.is_playback == 0">
+                    <div class="lq" @click="bm(item)" v-show="item.is_playback == 0" >
                         <span>{{ item.teachers.length > 0?item.teachers[0].teacher_name:'' }}</span>
                         <span>{{ item.start_play }}</span>
                     </div>
                 </div>
             </div>
-            <div class="kcpl">
-                <p class="pj">课程评论</p>
+            <div class="kcpl"  id="kcpl">
+                <p class="pj" >课程评论</p>
                 <div v-show="listShow==false" class="pl" v-for="(item,key) in Pl" :key="key">
                     <img :src="item.avatar" alt="">
                     <span class="name">{{ item.nickname }}</span>
@@ -160,7 +160,7 @@ export default {
     },
     methods: {
         onClickLeft(){
-            this.$router.go(-1)
+            this.$router.push("/footer/coures")
         },
         fx(){
             this.show = !this.show
@@ -614,5 +614,8 @@ dl {
     margin-top: 0.12rem;
     font-size: 0.15rem;
   }
+}
+a{
+    color:#000;
 }
 </style>

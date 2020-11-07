@@ -8,8 +8,8 @@
             <p>暂无优惠卷</p>
         </div>
     </van-tab>
-    <van-tab title="已使用">内容 3</van-tab>
-    <van-tab title="已过期">内容 4</van-tab>
+    <van-tab title="已使用"></van-tab>
+    <van-tab title="已过期"></van-tab>
     </van-tabs>
   </div>
 </template>
