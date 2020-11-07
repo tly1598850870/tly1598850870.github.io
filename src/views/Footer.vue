@@ -54,17 +54,34 @@ export default {
   methods: {
     ly(){
       // localStorage.setItem('act',JSON.stringify(this.active))
+
       switch(this.$store.state.act){
-        case 0 : this.$router.push('/footer/myhome');break;
-        case 1 : this.$router.push('/footer/coures');break;
-        case 2 : this.$router.push('/footer/myask');break;
-        case 3 : this.$router.push('/footer/Myexercise/Myexercise');break;
-        case 4 : this.$router.push('/footer/mywd');break;
+        case 0 : this.$router.push('/footer/myhome');break
+        case 1 : this.$router.push('/footer/coures');break
+        case 2 : this.$router.push('/footer/myask');break
+        case 3 : this.$router.push('/footer/Myexercise/Myexercise');break
+        case 4 : this.$router.push('/footer/mywd');break
       }
     }
   },
   mounted () {
     // localStorage.setItem('act',JSON.stringify(this.active))
+    let src = String(window.location.href.split('#')[1])
+    if(src == '/footer/myhome'){
+      this.$store.state.act = 0
+    }
+    if(src == '/footer/coures'){
+      this.$store.state.act = 1
+    }
+    if(src == '/footer/myask'){
+      this.$store.state.act = 2
+    }
+    if(src == '/footer/Myexercise/Myexercise'){
+      this.$store.state.act = 3
+    }
+    if(src == '/footer/mywd'){
+      this.$store.state.act = 4
+    }
   }
 };
 </script>
