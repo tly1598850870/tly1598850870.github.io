@@ -246,6 +246,7 @@ export default {
     this.yylist = this.val.data;
     console.log(this.val)
     console.log(this.name)
+    console.log(this.yylist)
     if(this.$route.query.name == undefined || this.$route.query.name == ''){
       this.sFlag = false
       return false
@@ -259,13 +260,11 @@ export default {
   },
   methods: {
     onClickLeft() {
-      this.$router.push('/myhome');
+      this.$router.push('/footer/myhome');
+      this.$store.state.act = 0
     },
     onConfirm() {
       this.$refs.item.toggle();
-    },
-    onClickLeft(){
-      this.$router.go(-1)
     },
     search() {
       this.$router.push("/sou");

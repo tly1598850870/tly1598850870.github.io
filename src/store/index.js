@@ -40,7 +40,7 @@ export default new vuex.Store({
     },
     pinglun(state,obj){
       state.pl.push(obj)
-    }
+    },
   },
   // 异步方法
   actions: {
