@@ -37,7 +37,7 @@ export default {
     return {
       tel: "",
       password: "",
-      act: JSON.parse(localStorage.getItem('act'))||4,
+      act: JSON.parse(localStorage.getItem('act'))||0,
     };
   },
   // 计算属性
@@ -72,7 +72,8 @@ export default {
           type:1
         }).then((res)=>{
           console.log(res)
-          this.act=4
+          // this.act=4
+          this.$store.state.act = 0
           sessionStorage.setItem("token",res.data.data.remember_token)
           sessionStorage.setItem("user",JSON.stringify(res.data.data))
           
