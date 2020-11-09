@@ -161,7 +161,7 @@ export default {
       jp:'',
       tj:'',
       mx:'',
-      act:JSON.parse(localStorage.getItem('act'))||1,
+      // act:JSON.parse(localStorage.getItem('act'))||1,
       free:0,
       xid:0,
       flag:false,

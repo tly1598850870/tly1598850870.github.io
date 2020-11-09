@@ -138,7 +138,7 @@ export default {
       flag: false,
       list: JSON.parse(sessionStorage.getItem("user")),
       jsq:"",
-      active:JSON.parse(localStorage.getItem('act'))||0,
+      // active:JSON.parse(localStorage.getItem('act'))||0,
       kcNum:0,
       integral:0,
       oto:0,
@@ -206,11 +206,11 @@ export default {
     },
     
   },
-  watch: {
-    active(val){
-      sessionStorage.setItem('act',JSON.stringify(val))
-    }
-  },
+  // watch: {
+  //   active(val){
+  //     sessionStorage.setItem('act',JSON.stringify(val))
+  //   }
+  // },
   /**
    * 组件实例创建完成，属性已绑定，但DOM还未生成，$ el属性还不存在
    */

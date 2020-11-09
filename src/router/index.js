@@ -581,6 +581,12 @@ router.beforeEach((to, from, next) => {
   if(to.path=="/coach"){
     next()
   }else
+  if(to.path=="/search"){
+    next()
+  }else
+  if(to.path=="/sou"){
+    next()
+  }else
   if(to.path=="/cod"){
     next()
   }else

@@ -78,9 +78,16 @@ export default {
     todl(){
       this.$router.push("/login")
     },
-    toyk(){
-      this.$router.push("/coach")
-      
+    async toyk(){
+      let { data } = await this.$Axios.get("/api/app/otoCourse");
+      console.log(data);
+      this.$router.push({
+        path:'/coach',
+        query:{
+          val:data,
+          name:undefined
+        }
+      })
     }
   },
 };
